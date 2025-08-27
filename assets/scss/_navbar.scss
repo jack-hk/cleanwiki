@@ -1,73 +1,71 @@
 .navbar {
   position: relative;
-}
 
-.navbar__list {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
+  &__list {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
 
-  @include for-screen(mobile) {
-    margin: 5px 5px 5px 0;
+    @include for-screen(mobile) {
+      margin: 5px 5px 5px 0;
+    }
+
+    @include for-screen(tablet) {
+      flex-direction: column;
+      margin: 0;
+    }
   }
 
-  @include for-screen(tablet) {
-    flex-direction: column;
+  &__item {
+    list-style: none;
+
+    @include for-screen(mobile) {
+      margin: 5px 0 0 5px;
+    }
+
+    @include for-screen(tablet) {
+      margin-bottom: $navbar-icon-gap;
+    }
+
+    &-icon {
+      margin: 0;
+      padding: 2px;
+      width: $navbar-icon-size;
+    }
+
+    &-label {
+      font-size: 14px;
+    }
+
+    &-button {
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      color: black;
+      display: block;
+      padding: 0.5rem;
+      text-decoration: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &__separator {
     margin: 0;
+
+    @include for-screen(mobile) {
+      border-right: 1px solid black;
+      margin-left: $navbar-icon-gap;
+      margin-right: $navbar-icon-gap;
+      padding-right: 5px;
+    }
+
+    @include for-screen(tablet) {
+      border-bottom: 1px solid black;
+      margin-bottom: $navbar-icon-gap;
+      width: 100%;
+    }
   }
-}
-
-.navbar__item {
-  list-style: none;
-
-  @include for-screen(mobile) {
-    margin: 5px 0 0 5px;
-  }
-
-  @include for-screen(tablet) {
-    margin-bottom: $navbar-icon-gap;
-  }
-}
-
-.navbar__item-icon {
-  margin: 0;
-  padding: 2px;
-  width: $navbar-icon-size;
-}
-
-.navbar__item-icon--separator {
-}
-
-.navbar__separator {
-  border-right: 1px solid black;
-  margin: 0;
-
-  @include for-screen(mobile) {
-    margin-left: $navbar-icon-gap;
-    margin-right: $navbar-icon-gap;
-    padding-right: 5px;
-  }
-  @include for-screen(tablet) {
-    border-bottom: 1px solid black;
-    margin-bottom: $navbar-icon-gap;
-    width: 100%;
-  }
-}
-
-.navbar__item-label {
-  font-size: 14px;
-}
-
-.navbar__item-button {
-  background-color: rgba(0, 0, 0, 0);
-  border: none;
-  color: black;
-  display: block;
-  padding: 0.5rem;
-  text-decoration: none;
-}
-
-.navbar__item-button:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
 }

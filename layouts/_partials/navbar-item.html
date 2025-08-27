@@ -1,0 +1,36 @@
+{{- $page := .page }}
+{{- $e := .entry }}
+
+
+<li class="navbar__item">
+  {{- if $e.Params.popover }}
+    {{- partial "navbar-item-popover.html" (dict "page" $page "entry" $e) }}
+  {{- else }}
+    {{- $attrs := dict "href" $e.URL }}
+    {{- if $page.IsMenuCurrent $e.Menu $e }}
+      {{- $attrs = merge $attrs (dict "class" "navbar__item-button active" "aria-current" "page") }}
+    {{- else if $page.HasMenuCurrent $e.Menu $e }}
+      {{- $attrs = merge $attrs (dict "class" "navbar__item-button ancestor" "aria-current" "true") }}
+    {{- else }}
+      {{- $attrs = merge $attrs (dict "class" "navbar__item-button") }}
+    {{- end }}
+
+
+    <a
+      {{- range $k, $v := $attrs }}
+        {{ printf " %s=%q" $k $v | safeHTMLAttr }}
+      {{- end }}>
+      {{ partial "navbar-item-icon.html" (dict "entry" $e) }}
+    </a>
+  {{- end }}
+
+  {{- with $e.Children }}
+    <ul>
+      {{- partial "walk.html" (dict "page" $page "menuEntries" .) }}
+    </ul>
+  {{- end }}
+</li>
+
+{{- if $e.Params.separator }}
+  {{- partial "navbar-separator.html" . }}
+{{- end }}

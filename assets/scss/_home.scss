@@ -4,20 +4,20 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-}
 
-.home-header__title {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
+  &__title {
+    display: flex;
+    justify-content: center;
+    position: relative;
 
-.home-header__title::before {
-  background-color: #e8e8e8;
-  border-radius: 50%;
-  content: '';
-  height: 15rem;
-  position: absolute;
-  width: 15rem;
-  z-index: -1;
+    &::before {
+      background-color: #e8e8e8;
+      border-radius: 50%;
+      content: '';
+      height: 15rem;
+      position: absolute;
+      width: 15rem;
+      z-index: -1;
+    }
+  }
 }

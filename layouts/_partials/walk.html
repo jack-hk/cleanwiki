@@ -1,0 +1,8 @@
+{{- /*
+  Iterates through menu entries and delegates rendering to navbar-item partial.
+*/}}
+{{- $page := .page }}
+
+{{- range $i, $e := .menuEntries }}
+  {{- partial "navbar-item.html" (dict "page" $page "entry" $e) }}
+{{- end }}

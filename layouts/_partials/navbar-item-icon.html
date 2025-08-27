@@ -1,0 +1,13 @@
+{{- $e := .entry }}
+{{- $iconsHaveLabels := site.Params.navbarBar.iconsHaveLabels | default false }}
+
+{{- if $e.Pre }}
+  <div class="navbar__item-icon" title="Visit {{ $e.Name }}">
+    {{ partial (printf "icons/%s.html" $e.Pre) $e }}
+    {{- if $iconsHaveLabels }}
+      <span class="navbar__item-label">{{ $e.Name }}</span>
+    {{- end }}
+  </div>
+{{- else }}
+  <span class="navbar__item-label">{{ $e.Name }}</span>
+{{- end }}

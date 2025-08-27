@@ -1,20 +1,18 @@
-<section class="home-big-tile">
+<section class="big-tile">
   {{- $count := .Site.Params.bigTiles.count | default 3 -}}
   {{- $truncate := .Site.Params.bigTiles.truncate | default 150 -}}
   {{- $pages := site.RegularPages -}}
 
   {{- range first $count $pages }}
     <article
-      class="home-big-tile__item"
+      class="big-tile__item"
       style="background-image: url('{{ .Params.image }}')">
       <a href="{{ .RelPermalink }}">
         {{- if .Params.categories }}
-          <span class="home-big-tile__category"
+          <span class="big-tile__category"
             >{{ index .Params.categories 0 }}</span
           >
         {{- end }}
-
-
         <h2>{{ .Title }}</h2>
         {{- $summary := .Summary | default .Content -}}
         <p>

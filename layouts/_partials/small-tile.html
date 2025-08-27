@@ -1,8 +1,8 @@
-<section class="home-small-tile">
+<section class="small-tile">
   {{- $type := .Site.Params.smallTiles.type | default "categories" -}}
   {{- if eq $type "tags" -}}
     {{- range $name, $pages := site.Taxonomies.tags }}
-      <article class="home-small-tile__item">
+      <article class="small-tile__item">
         <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
           >{{ $name }}</a
         >
@@ -10,7 +10,7 @@
     {{- end -}}
   {{- else -}}
     {{- range $name, $pages := site.Taxonomies.categories }}
-      <article class="home-small-tile__item">
+      <article class="small-tile__item">
         <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"
           >{{ $name }}</a
         >

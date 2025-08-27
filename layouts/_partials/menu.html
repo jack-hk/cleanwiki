@@ -3,88 +3,15 @@
 
   @context {page} page The current page.
   @context {string} menuID The menu ID.
-
-  @example: {{ partial "menu.html" (dict "menuID" "main" "page" .)
-}}
-*/}}
-{{- /*
-  - Concern: seperate responsabilites.
-  - Custom items in the main navbar which acts as popovers.
 */}}
 {{- $page := .page }}
 {{- $menuID := .menuID }}
 
 {{- with index site.Menus $menuID }}
   <nav class="navbar">
-    {{- partial "popover.html" -}}
+    {{- partial "popover.html" . -}}
     <ul class="navbar__list">
-      {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+      {{- partial "walk.html" (dict "page" $page "menuEntries" .) }}
     </ul>
   </nav>
-{{- end }}
-
-{{- define "_partials/inline/menu/walk.html" }}
-  {{- $page := .page }}
-  {{- $iconsHaveLabels := site.Params.navbarBar.iconsHaveLabels | default false }}
-
-  {{- range $i, $e := .menuEntries }}
-    {{- $attrs := dict "href" $e.URL }}
-    {{- if $.page.IsMenuCurrent $e.Menu $e }}
-      {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
-    {{- else if $.page.HasMenuCurrent $e.Menu $e }}
-      {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
-    {{- end }}
-
-    {{- $separatorClass := "" }}
-    {{- if $e.Params.separator }}
-      {{- $separatorClass = " navbar__item-icon--separator" }}
-    {{- end }}
-
-
-    <li class="navbar__item">
-      {{- if $e.Params.popover -}}
-        <button class="navbar__item-button" popovertarget="{{ $e.Name }}">
-          {{- if $e.Pre }}
-            <div
-              class="navbar__item-icon{{ $separatorClass }}"
-              title="Visit {{ $e.Name }}">
-              {{ partial (printf "icons/%s.html" $e.Pre) $e }}
-              {{- if $iconsHaveLabels }}
-                <span class="navbar__item-label">{{ $e.Name }}</span>
-              {{- end -}}
-            </div>
-          {{- else }}
-            <span class="navbar__item-label">{{ $e.Name }}</span>
-          {{- end -}}
-        </button>
-      {{- else -}}
-        <a
-          class="navbar__item-button"
-          {{- range $k, $v := $attrs }}
-            {{- with $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{- end }}
-          {{- end -}}>
-          {{- if $e.Pre }}
-            <div
-              class="navbar__item-icon{{ $separatorClass }}"
-              title="Visit {{ $e.Name }}">
-              {{ partial (printf "icons/%s.html" $e.Pre) $e }}
-              {{- if $iconsHaveLabels }}
-                <span class="navbar__item-label">{{ $e.Name }}</span>
-              {{- end -}}
-            </div>
-          {{- else }}
-            <span class="navbar__item-label">{{ $e.Name }}</span>
-          {{- end -}}
-        </a>
-      {{- end -}}
-      {{- with $e.Children }}
-        <ul>
-          {{- partial "inline/menu/walk.html" (dict "page" $.page "menuEntries" .) }}
-        </ul>
-      {{- end }}
-    </li>
-    {{- if $e.Params.separator -}}
-      <div class="navbar__separator"></div>
-    {{- end -}}
-  {{- end }}
 {{- end }}

@@ -1,4 +1,4 @@
-.home-big-tile {
+.big-tile {
   background-color: rgb(241, 241, 241);
   display: flex;
   flex-direction: column;
@@ -9,19 +9,19 @@
   @include for-screen(tablet) {
     flex-direction: row;
   }
-}
 
-.home-big-tile__item {
-  background-color: rgb(232, 227, 227);
-  border-radius: 6px;
-  flex: 1;
-  min-height: 20rem;
-  min-width: 18rem;
-}
+  &__item {
+    background-color: rgb(232, 227, 227);
+    border-radius: 6px;
+    flex: 1;
+    min-height: 20rem;
+    min-width: 18rem;
+  }
 
-.home-big-tile__category {
-  background: #737373;
-  border-radius: 3px;
-  color: white;
-  padding: 0.2rem 0.5rem;
+  &__category {
+    background: #737373;
+    border-radius: 3px;
+    color: white;
+    padding: 0.2rem 0.5rem;
+  }
 }
