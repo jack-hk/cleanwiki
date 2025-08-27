@@ -14,8 +14,10 @@
       <aside class="layout__navbar">
         {{ partial "navbar.html" . }}
       </aside>
-      <section class="layout__main-content">
-        <main>
+      <section class="layout__main">
+        <span class="layout__main-header-background"></span>
+        <span class="layout__main-whole-background"></span>
+        <main class="layout__main-content">
           {{ block "main" . }}{{ end }}
         </main>
         <footer>

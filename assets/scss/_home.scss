@@ -25,7 +25,7 @@
     content: '';
     height: $home-header-circle-size;
     inset: 0;
-    opacity: 0.1;
+    opacity: $home-header-circle-opacity;
     place-self: center;
     position: absolute;
     width: $home-header-circle-size;

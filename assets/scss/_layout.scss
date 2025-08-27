@@ -9,6 +9,7 @@
   &__navbar {
     background-color: rgb(255, 212, 212);
     position: fixed;
+    z-index: 5;
 
     @include for-screen(mobile) {
       bottom: 0;
@@ -36,9 +37,41 @@
     }
   }
 
+  &__main {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
   &__main-content {
     display: flex;
     flex-direction: column;
     padding: 0 10%;
+  }
+
+  &__main-header-background {
+    background-image: $main-header-background-image;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(100%);
+    height: $main-header-background-height;
+    opacity: $main-header-background-opacity;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: -3;
+  }
+
+  &__main-whole-background {
+    background-image: $main-body-background-image;
+    background-repeat: repeat;
+    background-size: $main-body-background-size;
+    height: 100%;
+    opacity: $main-body-background-opacity;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    z-index: -5;
   }
 }
