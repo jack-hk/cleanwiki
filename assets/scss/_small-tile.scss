@@ -5,8 +5,36 @@
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 
   &__item {
-    background-color: rgb(211, 211, 211);
+    align-items: center;
+    background-image: url('https://imgs.search.brave.com/S9luD9l2ZNLz7C1F9ZViGkFPVLBL0qSV3xaCBuG5Rzc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bWluZWNyYWZ0Lm5l/dC9jb250ZW50L2Rh/bS9taW5lY3JhZnRu/ZXQvZ2FtZXMvbWlu/ZWNyYWZ0L2tleS1h/cnQvTmV3X0tleS1B/cnRfMDYuanBn');
+    background-position: center;
+    background-size: 100%;
     border-radius: 6px;
-    text-align: center;
+    display: flex;
+    padding: 0 1rem;
+    position: relative;
+    transition: background-size 0.5s ease;
+  }
+  &__item::before {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7) 20%,
+      rgba(0, 0, 0, 0.2) 80%
+    );
+    border-radius: inherit;
+    content: '';
+    inset: 0;
+    position: absolute;
+    transition: opacity 0.3s ease;
+  }
+  &__item:hover {
+    background-size: 120%;
+    &::before {
+      opacity: 0;
+    }
+  }
+  &__item a {
+    color: white;
+    z-index: 3;
   }
 }
