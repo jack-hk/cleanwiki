@@ -10,7 +10,7 @@
   @include for-screen(tablet) {
     inset: auto;
     top: 0;
-    transform: translateX(45px + $sidebar-icon-size + $sidebar-popover-gap);
+    transform: translateX(45px + $navbar-icon-size + $navbar-popover-gap);
   }
 }
 
@@ -25,7 +25,7 @@
   @include for-screen(tablet) {
     inset: auto;
     top: 0;
-    transform: translateX(45px + $sidebar-icon-size + $sidebar-popover-gap);
+    transform: translateX(45px + $navbar-icon-size + $navbar-popover-gap);
   }
 }
 
