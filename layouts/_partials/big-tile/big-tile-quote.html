@@ -1,0 +1,17 @@
+<article class="big-tile__item big-tile__item--quote">
+  <a href="{{ .page.RelPermalink }}" class="big-tile__link">
+    <span class="big-tile__category"
+      >{{ index .page.Params.categories 0 }}</span
+    >
+
+    <div class="big-tile__overlay">
+      <div class="big-tile__content">
+        <blockquote class="big-tile__quote">
+          “{{- $words := first 20 (split (.page.Summary | plainify) " ") -}}
+          {{- delimit $words " " -}}…”
+        </blockquote>
+        <cite class="big-tile__cite">— {{ .page.Title }}</cite>
+      </div>
+    </div>
+  </a>
+</article>

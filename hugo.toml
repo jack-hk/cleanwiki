@@ -54,3 +54,8 @@ count = 3
 # Max characters for excerpt.
 truncate = 150
 
+# Map categories to partials
+[params.bigTiles.partials]
+"article" = "big-tile-article.html"
+"quote" = "big-tile-quote.html"
+"event" = "big-tile-event.html"

@@ -2,27 +2,33 @@
   {{- $count := .Site.Params.bigTiles.count | default 3 -}}
   {{- $truncate := .Site.Params.bigTiles.truncate | default 150 -}}
   {{- $pages := site.RegularPages -}}
+  {{- $partials := .Site.Params.bigTiles.partials -}}
 
   {{- range first $count $pages }}
-    <article
-      class="big-tile__item"
-      style="background-image: url('{{ .Params.image }}')">
-      <a href="{{ .RelPermalink }}">
-        {{- if .Params.categories }}
-          <span class="big-tile__category"
-            >{{ index .Params.categories 0 }}</span
-          >
-        {{- end }}
-        <h2>{{ .Title }}</h2>
-        {{- $summary := .Summary | default .Content -}}
-        <p>
-          {{ if gt (len $summary) $truncate }}
-            {{ $summary | plainify | truncate $truncate }}
-          {{ else }}
-            {{ $summary | plainify }}
-          {{ end }}
-        </p>
-      </a>
-    </article>
+    {{- $category := index .Params.categories 0 | default "default" -}}
+    {{- $partialName := index $partials $category -}}
+
+    {{- if $partialName }}
+      {{- partial (printf "big-tile/%s.html" $partialName) (dict
+        "page" .
+        "truncate" $truncate
+        "category" $category
+        )
+      }}
+    {{- else }}
+      <article class="big-tile__item big-tile__item--default">
+        <a href="{{ .RelPermalink }}">
+          <h2>{{ .Title }}</h2>
+          <p>
+            {{- $summary := .Summary | default .Content -}}
+            {{- if gt (len $summary) $truncate }}
+              {{ $summary | plainify | truncate $truncate }}
+            {{- else }}
+              {{ $summary | plainify }}
+            {{- end }}
+          </p>
+        </a>
+      </article>
+    {{- end }}
   {{- end }}
 </section>

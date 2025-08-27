@@ -2,7 +2,9 @@
 title = 'Post 2'
 date = 2023-02-15T10:00:00-07:00
 draft = false
-tags = ['red','green']
+tags = ['quote', 'red', 'green']
+categories = ['article', 'sup', 'da', 'asd', 'asd2', 'asd3']
+image = "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJ0ZSUyMGRpZ2l0YWx8ZW58MHx8MHx8fDA%3D"
 +++
 
 Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.
