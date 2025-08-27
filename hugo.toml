@@ -38,7 +38,7 @@ title = 'My New Hugo Site'
 # Override custom CSS with default PageFind search styles
 enablePagefindCSS = true 
 
-[params.navigationBar]  
+[params.navbarBar]  
 # Show both icons and text
 iconsHaveLabels = false
 # Seperate the first icon with a line break

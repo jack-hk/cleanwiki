@@ -5,40 +5,40 @@
   @include for-screen(tablet) {
     flex-direction: row;
   }
-}
 
-.layout__side-bar {
-  background-color: rgb(255, 212, 212);
-  position: fixed;
+  &__navbar {
+    background-color: rgb(255, 212, 212);
+    position: fixed;
 
-  @include for-screen(mobile) {
-    bottom: 0;
-    width: 100%;
+    @include for-screen(mobile) {
+      bottom: 0;
+      width: 100%;
+    }
+
+    @include for-screen(tablet) {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      padding: 36px 8px 8px 8px;
+    }
   }
 
-  @include for-screen(tablet) {
+  &__dummy-navbar {
+    background-color: rgb(255, 212, 212);
+    display: none;
+    position: static;
+
+    @include for-screen(tablet) {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      padding: 36px 8px 8px 8px;
+    }
+  }
+
+  &__main-content {
     display: flex;
-    height: 100%;
-    justify-content: center;
-    padding: 36px 8px 8px 8px;
+    flex-direction: column;
+    padding: 0 10%;
   }
-}
-
-.layout__side-bar--dummy {
-  background-color: rgb(255, 212, 212);
-  display: none;
-  position: static;
-
-  @include for-screen(tablet) {
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    padding: 36px 8px 8px 8px;
-  }
-}
-
-.layout__main-content {
-  display: flex;
-  flex-direction: column;
-  padding: 0 10%;
 }
