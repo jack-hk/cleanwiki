@@ -1,7 +1,10 @@
 {{ define "main" }}
   <span class="home-header">
+    <div class="home-header__circle "></div>
     <h1 class="home-header__title">{{ site.Title }}</h1>
-    <h3>This site is my site, there are many like it, but this one is mine.</h3>
+    <h3 class="home-header__subtitle">
+      This site is my site, there are many like it, but this one is mine.
+    </h3>
   </span>
   {{ partial "small-tile.html" . }}
   <h3>Featured</h3>

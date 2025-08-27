@@ -1,4 +1,13 @@
-// Partials
+//Demos
+$demo1-circle-image: url(https://i.pinimg.com/736x/fd/4f/73/fd4f73f3595cccbe87c6ee9920dd9a5a.jpg);
+$demo2-circle-image: url(https://www.pngitem.com/pimgs/m/21-219047_black-cool-circles-png-transparent-png.png);
+$demo3-circle-image: url(https://lh3.googleusercontent.com/proxy/05UXFS9zRxfg1I0QaY3HPHApopeJuzT12UaIasyIRpQMjV5BgSxxL1DFJ2OfxDbuvN8rADFTYjO-Vd51aOwoP43wbjB0qFDIAd7uZOj-sK09saQBh73SjFv-h9MR0-jq44YT6f9-T7dMriqr4ERy);
+$demo4-circle-image: url(https://www.clipartmax.com/png/small/359-3593679_drawing-dance-visual-arts-cool-circle-designs-drawing.png);
+
 $navbar-icon-size: 30px;
 $navbar-icon-gap: 0.5rem;
-$navbar-popover-gap: 20px; // Not the same across all browsers!
+$navbar-popover-gap: 20px; // Not the same acrsoss all browsers!
+
+$home-header-circle-image: $demo2-circle-image;
+$home-header-circle-size: 23rem;
+$home-header-circle-margin: ($home-header-circle-size * 0.33);
