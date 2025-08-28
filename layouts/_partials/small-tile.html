@@ -1,8 +1,13 @@
 <section class="small-tile">
   {{- $type := .Site.Params.smallTiles.type | default "categories" -}}
+  {{- $images := .Site.Params.smallTiles.images -}}
+
   {{- if eq $type "tags" -}}
     {{- range $name, $pages := site.Taxonomies.tags }}
-      <article class="small-tile__item">
+      {{- $img := index $images $name | default "" -}}
+      <article
+        class="small-tile__item"
+        {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
         <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
           >{{ $name }}</a
         >
@@ -10,7 +15,10 @@
     {{- end -}}
   {{- else -}}
     {{- range $name, $pages := site.Taxonomies.categories }}
-      <article class="small-tile__item">
+      {{- $img := index $images $name | default "" -}}
+      <article
+        class="small-tile__item"
+        {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
         <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"
           >{{ $name }}</a
         >
