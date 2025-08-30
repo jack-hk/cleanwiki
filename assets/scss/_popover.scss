@@ -1,36 +1,38 @@
 .popover-posts {
-  background-color: green;
+  border: none;
+  border-radius: 2%;
+  box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
 
   @include for-screen(mobile) {
+    animation: slideCenter 0.5s ease forwards;
     bottom: 60%;
     left: 0;
     width: 90%;
   }
 
   @include for-screen(tablet) {
+    animation: slideRight 0.5s ease forwards;
     inset: auto;
-    top: 0;
-    transform: translateX(45px + $navbar-icon-size + $navbar-popover-gap);
+    top: 20px;
   }
 }
 
 .popover-tags {
-  animation: slideRight 0.5s ease;
   border: none;
   border-radius: 2%;
   box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
 
   @include for-screen(mobile) {
-    animation: slideCenter 0.5s ease;
+    animation: slideCenter 0.5s ease forwards;
     left: 0;
     top: 0;
     width: 90%;
   }
 
   @include for-screen(tablet) {
+    animation: slideRight 0.5s ease forwards;
     inset: auto;
-    top: 20;
-    transform: translateX(45px + $navbar-icon-size + $navbar-popover-gap);
+    top: 20px;
   }
 
   &__header {
@@ -104,15 +106,17 @@
     transform: translateX(-100%);
   }
   to {
-    transform: translateX(35%);
+    transform: translateX(
+      calc(45px + #{$navbar-icon-size} + #{$navbar-popover-gap})
+    );
   }
 }
 
 @keyframes slideCenter {
   from {
-    transform: translateY(200%);
+    transform: translateY(100vh);
   }
   to {
-    transform: translateY(0%);
+    transform: translateY(0);
   }
 }
