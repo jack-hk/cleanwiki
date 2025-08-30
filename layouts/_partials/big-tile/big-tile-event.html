@@ -11,8 +11,12 @@
           {{- .page.Summary | plainify | truncate .truncate -}}
         </p>
         <div class="event-meta">
-          <span class="event-date">📅 01 Jan 2025</span>
-          <span class="event-time">⏰ 18:00</span>
+          <span class="event-date"
+            >📅 {{ .page.Params.eventDate | default "TBD" }}</span
+          >
+          <span class="event-time"
+            >⏰ {{ .page.Params.eventTime | default "TBD" }}</span
+          >
         </div>
       </div>
     </div>

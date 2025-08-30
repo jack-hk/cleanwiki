@@ -48,6 +48,16 @@ iconSeparator = true
 # Type of content to appear in small tiles
 type = "categories"  # "categories" or "tags"
 
+[params.smallTiles.images]
+    article = "https://picsum.photos/id/1011/400/300"
+    asd = "https://picsum.photos/id/1012/400/300"
+    asd2 = "https://picsum.photos/id/1013/400/300"
+    asd3 = "https://picsum.photos/id/1015/400/300"
+    da = "https://picsum.photos/id/1016/400/300"
+    event = "https://i.pinimg.com/736x/44/c5/d9/44c5d9c1f3b3d7725ffc7e3efbe45d5e.jpg"
+    quote = "https://imgs.search.brave.com/S9luD9l2ZNLz7C1F9ZViGkFPVLBL0qSV3xaCBuG5Rzc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bWluZWNyYWZ0Lm5l/dC9jb250ZW50L2Rh/bS9taW5lY3JhZnRu/ZXQvZ2FtZXMvbWlu/ZWNyYWZ0L2tleS1h/cnQvTmV3X0tleS1B/cnRfMDYuanBn"
+    sup = "https://picsum.photos/id/1020/400/300"
+    
 [params.bigTiles] 
 # Number of tiles to show
 count = 3
