@@ -5,24 +5,22 @@
   {{- if eq $type "tags" -}}
     {{- range $name, $pages := site.Taxonomies.tags }}
       {{- $img := index $images $name | default "" -}}
-      <article
+      <a
+        href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
         class="small-tile__item"
         {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
-        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
-          >{{ $name }}</a
-        >
-      </article>
+        <span>{{ $name }}</span>
+      </a>
     {{- end -}}
   {{- else -}}
     {{- range $name, $pages := site.Taxonomies.categories }}
       {{- $img := index $images $name | default "" -}}
-      <article
+      <a
+        href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"
         class="small-tile__item"
         {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
-        <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"
-          >{{ $name }}</a
-        >
-      </article>
+        <span>{{ $name }}</span>
+      </a>
     {{- end -}}
   {{- end }}
 </section>

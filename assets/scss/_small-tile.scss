@@ -13,6 +13,7 @@
     display: flex;
     padding: 0 1rem;
     position: relative;
+    text-decoration: none; /* prevent underline */
     transition: background-size 0.5s ease;
   }
   &__item::before {
@@ -33,7 +34,7 @@
       opacity: 0;
     }
   }
-  &__item a {
+  &__item span {
     color: white;
     z-index: 3;
   }

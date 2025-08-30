@@ -4,9 +4,9 @@ $demo2-circle-image: url(https://www.pngitem.com/pimgs/m/21-219047_black-cool-ci
 $demo3-circle-image: url(https://lh3.googleusercontent.com/proxy/05UXFS9zRxfg1I0QaY3HPHApopeJuzT12UaIasyIRpQMjV5BgSxxL1DFJ2OfxDbuvN8rADFTYjO-Vd51aOwoP43wbjB0qFDIAd7uZOj-sK09saQBh73SjFv-h9MR0-jq44YT6f9-T7dMriqr4ERy);
 $demo4-circle-image: url(https://www.clipartmax.com/png/small/359-3593679_drawing-dance-visual-arts-cool-circle-designs-drawing.png);
 
-$main-header-background-image: url('https://www.pngkey.com/png/full/666-6663236_blue-header-png-6-png-image-blue.png');
+$main-header-background-image: url('https://www.nicepng.com/png/full/894-8944435_color-gradient-black-black-header-for-website.png');
 $main-header-background-height: 500px;
-$main-header-background-opacity: 0.1;
+$main-header-background-opacity: 0.25;
 
 $main-body-background-image: url('https://64.media.tumblr.com/4c8355d59c65b581d10ad91ca789c414/tumblr_p2pap0zxSq1w0sodmo3_1280.jpg');
 $main-body-background-size: 400px;
@@ -16,7 +16,7 @@ $navbar-icon-size: 30px;
 $navbar-icon-gap: 0.5rem;
 $navbar-popover-gap: 20px; // Not the same acrsoss all browsers!
 
-$home-header-circle-image: $demo2-circle-image;
+$home-header-circle-image: $demo1-circle-image;
 $home-header-circle-opacity: 0.15;
 $home-header-circle-size: 23rem;
 $home-header-circle-margin: ($home-header-circle-size * 0.33);
