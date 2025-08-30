@@ -7,7 +7,10 @@
   }
 
   &__navbar {
-    background-color: rgb(255, 212, 212);
+    background-color: #ededed;
+    border-right: 1px solid rgb(131, 131, 131);
+    border-top: 1px solid rgb(131, 131, 131);
+    box-shadow: rgba(163, 163, 163, 0.1);
     position: fixed;
     z-index: 5;
 
@@ -25,7 +28,7 @@
   }
 
   &__dummy-navbar {
-    background-color: rgb(255, 212, 212);
+    background-color: rgb(255, 255, 255);
     display: none;
     position: static;
 

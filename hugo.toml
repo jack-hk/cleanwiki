@@ -12,8 +12,8 @@ title = 'My New Hugo Site'
       separator = true
 
   [[menus.main]]
-    name = 'Posts'
-    pre = 'newspaper'
+    name = 'Search'
+    pre = 'search'
     pageRef = '/posts'
     weight = 20
     [[menus.main.params]]
@@ -21,13 +21,13 @@ title = 'My New Hugo Site'
       popoverContentPartial = "popovers/search.html"
 
   [[menus.main]]
-    name = 'Tags'
-    pre = 'tag'
-    pageRef = '/tags'
+    name = 'Navigation'
+    pre = 'bars'
+    pageRef = '/posts'
     weight = 30
       [[menus.main.params]]
       popover = true
-      popoverContentPartial = "popovers/posts.html"
+      popoverContentPartial = "popovers/navigation.html"
 
 [module]
   [module.hugoVersion]
