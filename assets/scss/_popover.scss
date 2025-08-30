@@ -15,9 +15,13 @@
 }
 
 .popover-tags {
-  background-color: red;
+  animation: slideRight 0.5s ease;
+  border: none;
+  border-radius: 2%;
+  box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
 
   @include for-screen(mobile) {
+    animation: slideCenter 0.5s ease;
     left: 0;
     top: 0;
     width: 90%;
@@ -25,15 +29,16 @@
 
   @include for-screen(tablet) {
     inset: auto;
-    top: 0;
+    top: 20;
     transform: translateX(45px + $navbar-icon-size + $navbar-popover-gap);
   }
 
   &__header {
     align-items: center;
-    background: #f0f0f0;
-    border-bottom: 1px solid #ccc;
+    /*background: #f0f0f0;*/
+    border-bottom: none;
     display: flex;
+    margin: 0; //overrides content header style
     padding: 1rem;
 
     &-icon {
@@ -44,9 +49,27 @@
     }
   }
 
+  &__separator {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.1) 10%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 0.1) 90%
+    );
+    content: '';
+    float: left;
+    height: 1.5px;
+    width: 100%;
+  }
+
+  &__subtitle {
+    margin: 0;
+    padding-left: 1rem;
+    padding-top: 1rem;
+  }
+
   &__main {
     display: grid;
-    flex: 1;
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
     padding: 1rem;
@@ -59,17 +82,40 @@
   }
 
   &__item {
-    background: #e0e0e0;
+    /*background: #e0e0e0;*/
     border-radius: 4px;
     color: #000;
     padding: 0.5rem;
     text-decoration: none;
+
+    &:hover {
+      background-color: rgb(230, 230, 230);
+    }
   }
 
   &__footer {
-    background: #f0f0f0;
-    border-top: 1px solid #ccc;
+    border-top: none;
+    /*background: #f0f0f0;*/
+    margin: 0;
     padding: 1rem;
     text-align: center;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(35%);
+  }
+}
+
+@keyframes slideCenter {
+  from {
+    transform: translateY(200%);
+  }
+  to {
+    transform: translateY(0%);
   }
 }
