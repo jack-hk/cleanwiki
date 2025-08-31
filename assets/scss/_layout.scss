@@ -1,3 +1,5 @@
+@import 'variables';
+
 .layout {
   display: flex;
   flex-direction: column;
@@ -7,12 +9,12 @@
   }
 
   &__navbar {
-    background-color: #ededed;
-    border-right: 1px solid rgb(131, 131, 131);
-    border-top: 1px solid rgb(131, 131, 131);
-    box-shadow: rgba(163, 163, 163, 0.1);
+    background-color: $layout-navbar-bg;
+    border-right: 1px solid $layout-navbar-border;
+    border-top: 1px solid $layout-navbar-border;
+    box-shadow: $layout-navbar-shadow;
     position: fixed;
-    z-index: 5;
+    z-index: $layout-navbar-z;
 
     @include for-screen(mobile) {
       bottom: 0;
@@ -23,12 +25,12 @@
       display: flex;
       height: 100%;
       justify-content: center;
-      padding: 36px 8px 8px 8px;
+      padding: $layout-navbar-padding;
     }
   }
 
   &__dummy-navbar {
-    background-color: rgb(255, 255, 255);
+    background-color: $layout-dummy-navbar-bg;
     display: none;
     position: static;
 
@@ -36,7 +38,7 @@
       display: flex;
       height: 100%;
       justify-content: center;
-      padding: 36px 8px 8px 8px;
+      padding: $layout-navbar-padding;
     }
   }
 
@@ -49,32 +51,32 @@
   &__main-content {
     display: flex;
     flex-direction: column;
-    padding: 0 10%;
+    padding: $layout-main-content-padding;
   }
 
   &__main-header-background {
-    background-image: $main-header-background-image;
+    background-image: $layout-header-bg-image;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     filter: grayscale(100%);
-    height: $main-header-background-height;
-    opacity: $main-header-background-opacity;
+    height: $layout-header-bg-height;
+    opacity: $layout-header-bg-opacity;
     overflow: hidden;
     position: absolute;
     width: 100%;
-    z-index: -3;
+    z-index: $layout-header-bg-z;
   }
 
   &__main-whole-background {
-    background-image: $main-body-background-image;
+    background-image: $layout-body-bg-image;
     background-repeat: repeat;
-    background-size: $main-body-background-size;
+    background-size: $layout-body-bg-size;
     height: 100%;
-    opacity: $main-body-background-opacity;
+    opacity: $layout-body-bg-opacity;
     overflow: hidden;
     position: fixed;
     width: 100%;
-    z-index: -5;
+    z-index: $layout-body-bg-z;
   }
 }

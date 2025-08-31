@@ -1,3 +1,5 @@
+@import 'variables';
+
 .navbar {
   position: relative;
 
@@ -29,26 +31,26 @@
 
     &-icon {
       margin: 0;
-      padding: 2px;
+      padding: $navbar-icon-padding;
       width: $navbar-icon-size;
     }
 
     &-label {
-      font-size: 14px;
+      font-size: $navbar-font-label;
     }
 
     &-button {
       background-color: rgba(0, 0, 0, 0);
       border: none;
-      color: black;
+      color: $navbar-text;
       cursor: pointer;
       display: block;
-      padding: 0.5rem;
+      padding: $navbar-padding-item;
       text-decoration: none;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
+        background-color: $navbar-bg-hover;
+        border-radius: $navbar-border-radius;
       }
     }
   }
@@ -57,14 +59,14 @@
     margin: 0;
 
     @include for-screen(mobile) {
-      border-right: 1px solid black;
+      border-right: 1px solid $navbar-separator;
       margin-left: $navbar-icon-gap;
       margin-right: $navbar-icon-gap;
       padding-right: 5px;
     }
 
     @include for-screen(tablet) {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $navbar-separator;
       margin-bottom: $navbar-icon-gap;
       width: 100%;
     }

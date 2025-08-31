@@ -1,21 +1,22 @@
-// if enablePagefindCSS = true
-/* Only applies if enablePagefindCSS=TRUE (inside hugo.toml) */
+@import 'variables';
+
+/* Only if enablePagefindCSS = TRUE      (inside hugo.toml)*/
 :root {
-  --pagefind-ui-scale: 0.8;
-  --pagefind-ui-primary: #034ad8;
-  --pagefind-ui-text: #393939;
-  --pagefind-ui-background: #ffffff;
-  --pagefind-ui-border: #eeeeee;
-  --pagefind-ui-tag: #eeeeee;
-  --pagefind-ui-border-width: 2px;
-  --pagefind-ui-border-radius: 8px;
-  --pagefind-ui-image-border-radius: 8px;
-  --pagefind-ui-image-box-ratio: 3 / 2;
-  --pagefind-ui-font: sans-serif;
+  --pagefind-ui-scale: #{$pagefind-ui-scale};
+  --pagefind-ui-primary: #{$pagefind-ui-primary};
+  --pagefind-ui-text: #{$pagefind-ui-text};
+  --pagefind-ui-background: #{$pagefind-ui-background};
+  --pagefind-ui-border: #{$pagefind-ui-border};
+  --pagefind-ui-tag: #{$pagefind-ui-tag};
+  --pagefind-ui-border-width: #{$pagefind-ui-border-width};
+  --pagefind-ui-border-radius: #{$pagefind-ui-border-radius};
+  --pagefind-ui-image-border-radius: #{$pagefind-ui-image-border-radius};
+  --pagefind-ui-image-box-ratio: #{$pagefind-ui-image-box-ratio};
+  --pagefind-ui-font: #{$pagefind-ui-font};
 }
 
-// if enablePagefindCSS = false
-/* Only applies if enablePagefindCSS=FALSE (inside hugo.toml) */
+/* Only if enablePagefindCSS = FALSE */
+/* Total control over custom CSS for PageFind search */
 .pagefind-ui {
   font-family: system-ui, sans-serif;
   margin: 2rem auto;
