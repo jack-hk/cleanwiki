@@ -1,4 +1,4 @@
-// enablePagefindCSS = true
+// if enablePagefindCSS = true
 /* Only applies if enablePagefindCSS=TRUE (inside hugo.toml) */
 :root {
   --pagefind-ui-scale: 0.8;
@@ -14,7 +14,7 @@
   --pagefind-ui-font: sans-serif;
 }
 
-// enablePagefindCSS = false
+// if enablePagefindCSS = false
 /* Only applies if enablePagefindCSS=FALSE (inside hugo.toml) */
 .pagefind-ui {
   font-family: system-ui, sans-serif;
