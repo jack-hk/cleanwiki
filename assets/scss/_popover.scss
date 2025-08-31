@@ -2,17 +2,19 @@
   border: none;
   border-radius: 2%;
   box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  overflow-y: scroll;
 
   @include for-screen(mobile) {
     animation: slideCenter 0.5s ease forwards;
-    bottom: 60%;
     left: 0;
+    max-height: 70vh;
     width: 90%;
   }
 
   @include for-screen(tablet) {
     animation: slideRight 0.5s ease forwards;
     inset: auto;
+    max-height: 90vh;
     top: 20px;
   }
 }

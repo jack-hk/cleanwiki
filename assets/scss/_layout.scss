@@ -13,6 +13,7 @@
     border-right: 1px solid $layout-navbar-border;
     border-top: 1px solid $layout-navbar-border;
     box-shadow: $layout-navbar-shadow;
+    overflow-y: scroll;
     position: fixed;
     z-index: $layout-navbar-z;
 

@@ -1,16 +1,25 @@
 <div id="search"></div>
+
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const ui = new PagefindUI({
-      element: '#search',
-      showSubResults: true,
+    new PagefindUI({ element: '#search', showSubResults: true });
+
+    const container = document.querySelector('#search');
+
+    container.addEventListener('click', (e) => {
+      const result = e.target.closest('.pagefind-ui__result');
+      if (!result) return; // clicked outside a result
+      const link = result.querySelector('.pagefind-ui__result-link');
+      if (!link) return;
+      if (!e.target.closest('a, button, input')) {
+        window.location.href = link.href;
+      }
     });
 
-    const input = document.querySelector('#search input');
-    if (input) {
-      input.addEventListener('input', () => {
-        ui.triggerSearch(input.value);
-      });
-    }
+    // Optional: make cursor a pointer on hover
+    container.addEventListener('mouseover', (e) => {
+      const result = e.target.closest('.pagefind-ui__result');
+      if (result) result.style.cursor = 'pointer';
+    });
   });
 </script>

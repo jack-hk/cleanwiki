@@ -47,15 +47,13 @@ weight = 30
 # Custom site parameters
 # ---------------------------
 [params]
-
 # PageFind search options
-enablePagefindCSS = true   # Use PageFind's default CSS. Set false to use custom styles.
+enablePagefindCSS = 0   # Use PageFind's default CSS. Set false to use custom styles.
 
 # ---------------------------
 # Navbar configuration
 # ---------------------------
 [params.navbarBar]
-
 iconsHaveLabels = false     # Show both icons and text? false = icons only
 iconSeparator = true        # Separate the first icon with a line or gap
 
@@ -63,7 +61,6 @@ iconSeparator = true        # Separate the first icon with a line or gap
 # Small tiles settings
 # ---------------------------
 [params.smallTiles]
-
 type = "categories"         # Choose type of content: "categories" or "tags"
 
 # Images to use for each small tile
@@ -81,7 +78,6 @@ sup     = "https://picsum.photos/id/1020/400/300"
 # Big tiles settings
 # ---------------------------
 [params.bigTiles]
-
 count = 3                   # Number of big tiles to show
 truncate = 150               # Max characters for excerpt
 
