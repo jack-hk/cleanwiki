@@ -26,9 +26,17 @@
     height: $home-header-circle-size;
     inset: 0;
     opacity: $home-header-circle-opacity;
-    place-self: center;
+
     position: absolute;
     width: $home-header-circle-size;
     z-index: -1;
+
+    @include for-screen(mobile) {
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    @include for-screen(tablet) {
+      place-self: center;
+    }
   }
 }
