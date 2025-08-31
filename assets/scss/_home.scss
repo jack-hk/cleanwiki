@@ -1,7 +1,4 @@
 .home-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   position: relative;
   text-align: center;
   width: 100%;
@@ -25,18 +22,11 @@
     content: '';
     height: $home-header-circle-size;
     inset: 0;
+    left: 50%;
     opacity: $home-header-circle-opacity;
-
     position: absolute;
+    transform: translate(-50%, 0);
     width: $home-header-circle-size;
     z-index: -1;
-
-    @include for-screen(mobile) {
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
-    @include for-screen(tablet) {
-      place-self: center;
-    }
   }
 }
