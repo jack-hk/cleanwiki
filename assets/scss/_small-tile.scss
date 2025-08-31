@@ -1,41 +1,46 @@
+@import 'variables';
+
 .small-tile {
   display: grid;
-  gap: 1rem;
-  grid-auto-rows: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: $small-tile-gap;
+  grid-auto-rows: $small-tile-row-height;
+  grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min, 1fr));
 
   &__item {
     align-items: center;
-    background-color: rgb(159, 168, 168);
+    background-color: $small-tile-bg;
     background-position: center;
     background-size: 100%;
-    border-radius: 6px;
+    border-radius: $small-tile-radius;
     display: flex;
-    padding: 0 1rem;
+    padding: $small-tile-padding;
     position: relative;
-    text-decoration: none; /* prevent underline */
-    transition: background-size 0.5s ease;
+    text-decoration: none;
+    transition: background-size $small-tile-transition-bg;
   }
+
   &__item::before {
     background: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.7) 20%,
-      rgba(0, 0, 0, 0.2) 80%
+      $small-tile-gradient-start 20%,
+      $small-tile-gradient-end 80%
     );
     border-radius: inherit;
     content: '';
     inset: 0;
     position: absolute;
-    transition: opacity 0.3s ease;
+    transition: opacity $small-tile-transition-overlay;
   }
+
   &__item:hover {
     background-size: 120%;
     &::before {
       opacity: 0;
     }
   }
+
   &__item span {
-    color: white;
+    color: $small-tile-text;
     z-index: 3;
   }
 }

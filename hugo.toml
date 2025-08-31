@@ -1,71 +1,88 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-US'
-title = 'My New Hugo Site'
+# ---------------------------
+# Site settings
+# ---------------------------
+baseURL = "https://example.org/"
+languageCode = "en-US"
+title = "My New Hugo Site"
 
+# ---------------------------
+# Menus
+# ---------------------------
 [menus]
-  [[menus.main]]
-    name = 'Home'
-    pre = 'house'
-    pageRef = '/'
-    weight = 10 
-    [[menus.main.params]]
-      separator = true
 
-  [[menus.main]]
-    name = 'Search'
-    pre = 'search'
-    pageRef = '/posts'
-    weight = 20
-    [[menus.main.params]]
-      popover = true
-      popoverContentPartial = "popovers/search.html"
+# Main menu
+[[menus.main]]
+name = "Home"            # Display name in the menu
+pre = "house"            # Icon prefix (from your icon library)
+pageRef = "/"            # The page this menu item links to
+weight = 10              # Order in menu (smaller = first)
+  [menus.main.params]
+  separator = true       # Draw a separator line after this item
 
-  [[menus.main]]
-    name = 'Navigation'
-    pre = 'bars'
-    pageRef = '/posts'
-    weight = 30
-      [[menus.main.params]]
-      popover = true
-      popoverContentPartial = "popovers/navigation.html"
+[[menus.main]]
+name = "Search"
+pre = "search"
+weight = 20
+  [menus.main.params]
+  popover = true                     # Show popover on hover/click
+  popoverContentPartial = "popovers/search.html" # Partial to load in popover
 
+[[menus.main]]
+name = "Navigation"
+pre = "bars"
+weight = 30
+  [menus.main.params]
+  popover = true
+  popoverContentPartial = "popovers/navigation.html"
+
+# ---------------------------
+# Hugo module settings
+# ---------------------------
 [module]
   [module.hugoVersion]
     extended = false
-    min = '0.146.0'
+    min = "0.146.0"      # Minimum Hugo version required
 
+# ---------------------------
+# Custom site parameters
+# ---------------------------
 [params]
-# Override custom CSS with default PageFind search styles
-enablePagefindCSS = true 
+# PageFind search options
+enablePagefindCSS = 0   # Use PageFind's default CSS. Set false to use custom styles.
 
-[params.navbarBar]  
-# Show both icons and text
-iconsHaveLabels = false
-# Seperate the first icon with a line break
-iconSeparator = true
+# ---------------------------
+# Navbar configuration
+# ---------------------------
+[params.navbarBar]
+iconsHaveLabels = false     # Show both icons and text? false = icons only
+iconSeparator = true        # Separate the first icon with a line or gap
 
+# ---------------------------
+# Small tiles settings
+# ---------------------------
 [params.smallTiles]
-# Type of content to appear in small tiles
-type = "categories"  # "categories" or "tags"
+type = "categories"         # Choose type of content: "categories" or "tags"
 
+# Images to use for each small tile
 [params.smallTiles.images]
-    article = "https://picsum.photos/id/1011/400/300"
-    asd = "https://picsum.photos/id/1012/400/300"
-    asd2 = "https://picsum.photos/id/1013/400/300"
-    asd3 = "https://picsum.photos/id/1015/400/300"
-    da = "https://picsum.photos/id/1016/400/300"
-    event = "https://i.pinimg.com/736x/44/c5/d9/44c5d9c1f3b3d7725ffc7e3efbe45d5e.jpg"
-    quote = "https://imgs.search.brave.com/S9luD9l2ZNLz7C1F9ZViGkFPVLBL0qSV3xaCBuG5Rzc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bWluZWNyYWZ0Lm5l/dC9jb250ZW50L2Rh/bS9taW5lY3JhZnRu/ZXQvZ2FtZXMvbWlu/ZWNyYWZ0L2tleS1h/cnQvTmV3X0tleS1B/cnRfMDYuanBn"
-    sup = "https://picsum.photos/id/1020/400/300"
-    
-[params.bigTiles] 
-# Number of tiles to show
-count = 3
-# Max characters for excerpt.
-truncate = 150
+article = "https://picsum.photos/id/1011/400/300"
+asd     = "https://picsum.photos/id/1012/400/300"
+asd2    = "https://picsum.photos/id/1013/400/300"
+asd3    = "https://picsum.photos/id/1015/400/300"
+da      = "https://picsum.photos/id/1016/400/300"
+event   = "https://i.pinimg.com/736x/44/c5/d9/44c5d9c1f3b3d7725ffc7e3efbe45d5e.jpg"
+quote   = "https://imgs.search.brave.com/S9luD9l2ZNLz7C1F9ZViGkFPVLBL0qSV3xaCBuG5Rzc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bWluZWNyYWZ0Lm5l/dC9jb250ZW50L2Rh/bS9taW5lY3JhZnRu/ZXQvZ2FtZXMvbWlu/ZWNyYWZ0L2tleS1h/cnQvTmV3X0tleS1B/cnRfMDYuanBn"
+sup     = "https://picsum.photos/id/1020/400/300"
 
-# Map categories to partials
+# ---------------------------
+# Big tiles settings
+# ---------------------------
+[params.bigTiles]
+count = 3                   # Number of big tiles to show
+truncate = 150               # Max characters for excerpt
+
+# Map categories to partial HTML files for rendering each big tile
 [params.bigTiles.partials]
 "article" = "big-tile-article.html"
-"quote" = "big-tile-quote.html"
-"event" = "big-tile-event.html"
+"quote"   = "big-tile-quote.html"
+"event"   = "big-tile-event.html"

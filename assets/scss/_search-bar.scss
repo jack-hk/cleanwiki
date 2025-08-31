@@ -1,93 +1,268 @@
-// if enablePagefindCSS = true
-/* Only applies if enablePagefindCSS=TRUE (inside hugo.toml) */
+@import 'variables';
+
+/* Only if enablePagefindCSS = TRUE      (inside hugo.toml)*/
 :root {
-  --pagefind-ui-scale: 0.8;
-  --pagefind-ui-primary: #034ad8;
-  --pagefind-ui-text: #393939;
-  --pagefind-ui-background: #ffffff;
-  --pagefind-ui-border: #eeeeee;
-  --pagefind-ui-tag: #eeeeee;
-  --pagefind-ui-border-width: 2px;
-  --pagefind-ui-border-radius: 8px;
-  --pagefind-ui-image-border-radius: 8px;
-  --pagefind-ui-image-box-ratio: 3 / 2;
-  --pagefind-ui-font: sans-serif;
+  --pagefind-ui-scale: #{$pagefind-ui-scale};
+  --pagefind-ui-primary: #{$pagefind-ui-primary};
+  --pagefind-ui-text: #{$pagefind-ui-text};
+  --pagefind-ui-background: #{$pagefind-ui-background};
+  --pagefind-ui-border: #{$pagefind-ui-border};
+  --pagefind-ui-tag: #{$pagefind-ui-tag};
+  --pagefind-ui-border-width: #{$pagefind-ui-border-width};
+  --pagefind-ui-border-radius: #{$pagefind-ui-border-radius};
+  --pagefind-ui-image-border-radius: #{$pagefind-ui-image-border-radius};
+  --pagefind-ui-image-box-ratio: #{$pagefind-ui-image-box-ratio};
+  --pagefind-ui-font: #{$pagefind-ui-font};
 }
 
-// if enablePagefindCSS = false
-/* Only applies if enablePagefindCSS=FALSE (inside hugo.toml) */
+/* Only if enablePagefindCSS = FALSE */
+/* Total control over custom CSS for PageFind search */
+/* ===============================
+   Pagefind UI - Modern, Compact, Light
+   =============================== */
+
+/* -------------------------------
+   VARIABLES
+   ------------------------------- */
+$pf-scale: 0.8 !default;
+$pf-primary: #393939 !default;
+$pf-text: #393939 !default;
+$pf-bg: #ffffff !default;
+$pf-border: #eeeeee !default;
+$pf-tag: #eeeeee !default;
+$pf-border-width: 2px !default;
+$pf-border-radius: 8px !default;
+$pf-image-radius: 8px !default;
+$pf-image-ratio: 3 / 2 !default;
+$pf-font:
+  system,
+  -apple-system,
+  'BlinkMacSystemFont',
+  Roboto,
+  'Segoe UI',
+  sans-serif !default;
+
+/* -------------------------------
+   RESET
+   ------------------------------- */
+.pagefind-ui--reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  a,
+  button {
+    cursor: pointer;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  ol,
+  ul,
+  menu {
+    list-style: none;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  input,
+  textarea {
+    -webkit-user-select: auto;
+  }
+  textarea {
+    white-space: revert;
+  }
+}
+
+/* -------------------------------
+   CONTAINER
+   ------------------------------- */
 .pagefind-ui {
-  font-family: system-ui, sans-serif;
-  margin: 2rem auto;
-  max-width: 700px;
+  color: $pf-text;
+  font-family: $pf-font;
+  width: 100%;
+
+  &__form {
+    position: relative;
+  }
 
   &__search-input {
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    outline: none;
-    padding: 0.75rem 1rem;
-    transition: border 0.2s;
+    background-color: $pf-bg;
+    border: $pf-border-width solid $pf-border;
+    border-radius: $pf-border-radius;
+    font-size: calc(18px * #{$pf-scale});
+    font-weight: 700;
+    height: calc(48px * #{$pf-scale});
+    padding: 0 calc(50px * #{$pf-scale}) 0 calc(40px * #{$pf-scale});
+    position: relative;
     width: 100%;
 
-    &:focus {
-      border-color: #666;
+    &::placeholder {
+      opacity: 0.2;
     }
+  }
+
+  &__search-clear {
+    background: $pf-bg;
+    border-radius: $pf-border-radius;
+    color: $pf-text;
+    cursor: pointer;
+    font-size: calc(14px * #{$pf-scale});
+    height: calc(40px * #{$pf-scale});
+    padding: 0 calc(8px * #{$pf-scale});
+    position: absolute;
+    right: calc(3px * #{$pf-scale});
+    top: calc(3px * #{$pf-scale});
+    z-index: 10;
+  }
+
+  &__results-area {
+    flex: 1;
+    margin-top: calc(20px * #{$pf-scale});
   }
 
   &__results {
-    margin-top: 1rem;
+    padding: 0;
+  }
 
-    &__result {
-      border-bottom: 1px solid #eee;
-      padding: 1rem;
+  &__result {
+    align-items: flex-start;
+    border-top: solid $pf-border-width $pf-border;
+    display: flex;
+    padding: calc(20px * #{$pf-scale}) 0;
 
-      &:last-child {
-        border-bottom: none;
+    &:last-of-type {
+      border-bottom: solid $pf-border-width $pf-border;
+    }
+
+    &-thumb {
+      aspect-ratio: $pf-image-ratio;
+      margin-top: calc(10px * #{$pf-scale});
+      max-width: calc(120px * #{$pf-scale});
+      position: relative;
+    }
+
+    &-image {
+      border-radius: $pf-image-radius;
+      display: block;
+      height: auto;
+      left: 50%;
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      transform: translateX(-50%);
+      width: auto;
+    }
+
+    &-inner {
+      align-items: flex-start;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      margin-top: calc(10px * #{$pf-scale});
+    }
+
+    &-title {
+      font-size: calc(21px * #{$pf-scale});
+      font-weight: 700;
+      margin: 0;
+
+      .pagefind-ui__result-link {
+        color: $pf-text;
+        text-decoration: none;
       }
+    }
 
-      &-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
+    &-excerpt {
+      font-size: calc(16px * #{$pf-scale});
+      font-weight: 400;
+      margin: calc(4px * #{$pf-scale}) 0 0;
+      min-width: calc(250px * #{$pf-scale});
+    }
 
-        a {
-          color: #333;
-          text-decoration: none;
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(10px * #{$pf-scale});
+      margin-top: calc(10px * #{$pf-scale});
 
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      &-url {
-        color: #666;
-        font-size: 0.8rem;
-        margin-bottom: 0.25rem;
-      }
-
-      &-excerpt {
-        color: #444;
-        font-size: 0.95rem;
-        line-height: 1.4;
+      &-tag {
+        background-color: $pf-tag;
+        border-radius: $pf-border-radius;
+        font-size: calc(14px * #{$pf-scale});
+        padding: calc(4px * #{$pf-scale}) calc(8px * #{$pf-scale});
       }
     }
   }
 
-  mark {
-    background-color: #dfe8ff;
-    border-radius: 2px;
-    padding: 0 2px;
+  &__result-nested {
+    display: flex;
+    flex-direction: column;
+    padding-left: calc(20px * #{$pf-scale});
+
+    &:first-of-type {
+      padding-top: calc(10px * #{$pf-scale});
+    }
+
+    .pagefind-ui__result-link {
+      font-size: 0.9em;
+      position: relative;
+
+      &::before {
+        content: '\2937 ';
+        position: absolute;
+        right: calc(100% + 0.1em);
+        top: 0;
+      }
+    }
+  }
+
+  &__loading {
+    background-color: $pf-text;
+    border-radius: $pf-border-radius;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  &__button {
+    background-color: $pf-bg;
+    border: $pf-border-width solid $pf-border;
+    border-radius: $pf-border-radius;
+    color: $pf-primary;
+    cursor: pointer;
+    font-size: calc(16px * #{$pf-scale});
+    font-weight: 700;
+    height: calc(44px * #{$pf-scale});
+    margin-top: calc(20px * #{$pf-scale});
+    padding: 0 calc(12px * #{$pf-scale});
+    text-align: center;
+    width: 100%;
+
+    &:hover {
+      background-color: $pf-bg;
+      border-color: $pf-primary;
+      color: $pf-primary;
+    }
   }
 
   &__message {
-    color: #888;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    align-items: center;
+    display: flex;
+    font-size: calc(16px * #{$pf-scale});
+    font-weight: 700;
+    height: calc(24px * #{$pf-scale});
+    margin-top: calc(8px * #{$pf-scale});
   }
 
-  &__credit {
+  &__hidden {
     display: none !important;
+  }
+  &__suppressed {
+    opacity: 0;
+    pointer-events: none;
   }
 }

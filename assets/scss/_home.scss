@@ -1,3 +1,5 @@
+@import 'variables';
+
 .home-header {
   position: relative;
   text-align: center;
@@ -13,7 +15,7 @@
   }
 
   &__circle {
-    background-color: #e8e8e8;
+    background-color: $home-header-circle-bg;
     background-image: $home-header-circle-image;
     background-position: center;
     background-repeat: no-repeat;
