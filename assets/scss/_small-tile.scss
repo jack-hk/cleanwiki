@@ -4,7 +4,14 @@
   display: grid;
   gap: $small-tile-gap;
   grid-auto-rows: $small-tile-row-height;
-  grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min, 1fr));
+
+  @include for-screen(mobile) {
+    grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min-s, 1fr));
+  }
+
+  @include for-screen(tablet) {
+    grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min, 1fr));
+  }
 
   &__item {
     align-items: center;
