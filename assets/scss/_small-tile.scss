@@ -6,8 +6,8 @@
   grid-auto-rows: $small-tile-row-height;
 
   @include for-screen(mobile) {
+    grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min-s, 1fr));
   }
-  grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min-s, 1fr));
 
   @include for-screen(tablet) {
     grid-template-columns: repeat(auto-fit, minmax($small-tile-col-min, 1fr));
