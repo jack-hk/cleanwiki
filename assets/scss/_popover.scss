@@ -2,7 +2,7 @@
   border: none;
   border-radius: 2%;
   box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @include for-screen(mobile) {
     animation: slideCenter 0.5s ease forwards;

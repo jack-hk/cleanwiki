@@ -98,10 +98,9 @@ $pf-font:
     font-weight: 700;
     height: calc(48px * #{$pf-scale});
     padding: 0 calc(50px * #{$pf-scale}) 0 calc(40px * #{$pf-scale});
-    position: relative;
     position: sticky;
     top: 0;
-    width: 100%;
+    width: 80%;
 
     &::placeholder {
       opacity: 0.2;
@@ -114,11 +113,12 @@ $pf-font:
     color: $pf-text;
     cursor: pointer;
     font-size: calc(14px * #{$pf-scale});
-    height: calc(40px * #{$pf-scale});
+    height: calc(48px * #{$pf-scale});
     padding: 0 calc(8px * #{$pf-scale});
-    position: absolute;
+    position: sticky;
     right: calc(3px * #{$pf-scale});
     top: calc(3px * #{$pf-scale});
+    width: 18%;
     z-index: 10;
   }
 
