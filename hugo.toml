@@ -48,7 +48,7 @@ weight = 30
 # ---------------------------
 [params]
 # PageFind search options
-enablePagefindCSS = 0   # Use PageFind's default CSS. Set false to use custom styles.
+enablePagefindCSS = false   # Use PageFind's default CSS. Set false to use custom styles.
 
 # ---------------------------
 # Navbar configuration
