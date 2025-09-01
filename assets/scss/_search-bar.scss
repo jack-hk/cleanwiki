@@ -99,6 +99,8 @@ $pf-font:
     height: calc(48px * #{$pf-scale});
     padding: 0 calc(50px * #{$pf-scale}) 0 calc(40px * #{$pf-scale});
     position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
 
     &::placeholder {
