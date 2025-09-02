@@ -49,6 +49,9 @@ weight = 30
 [params]
 # PageFind search options
 enablePagefindCSS = false   # Use PageFind's default CSS. Set false to use custom styles.
+# Subtitle which appears under the title.
+subtitle = "This site is my site, there are many like it, but this one is mine."
+
 
 # ---------------------------
 # Navbar configuration

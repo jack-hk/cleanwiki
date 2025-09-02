@@ -53,6 +53,7 @@
   &__main-content {
     display: flex;
     flex-direction: column;
+    margin-top: $layout-main-content-top-margin;
     padding: $layout-main-content-padding;
   }
 
@@ -61,7 +62,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: grayscale(100%);
     height: $layout-header-bg-height;
     opacity: $layout-header-bg-opacity;
     overflow: hidden;
