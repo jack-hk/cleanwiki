@@ -18,6 +18,47 @@ $main-body-background-size: 400px !default;
 $main-body-background-opacity: 0.1 !default;
 
 // ---------------------------
+// Fonts
+// ---------------------------
+$base-font-size: 16px !default;
+$base-font-family:
+  system-ui,
+  -apple-system,
+  sans-serif !default;
+$base-line-height: 1.6 !default;
+
+$font-light: 300 !default;
+$font-normal: 400 !default;
+$font-bold: 700 !default;
+
+// Brand/Title font (most distinctive)
+$font-brand: Georgia, 'Times New Roman', serif !default;
+// Heading font (structural hierarchy)
+$font-heading: Arial, Helvetica, sans-serif !default;
+// Body font (maximum readability)
+$font-body: Arial, Helvetica, sans-serif !default;
+
+$brand-size-xl: 50px !default;
+
+$font-xs: 12px !default;
+$font-sm: 14px !default;
+$font-base: 16px !default;
+$font-lg: 20px !default;
+$font-xl: 24px !default;
+$font-2xl: 32px !default;
+$font-3xl: 48px !default;
+
+$h1-size: $font-3xl !default;
+$h2-size: $font-2xl !default;
+$h3-size: $font-xl !default;
+$h4-size: $font-lg !default;
+$h5-size: $font-base !default;
+$h6-size: $font-sm !default;
+
+$heading-weight: $font-bold !default;
+$heading-line-height: 1.2 !default;
+
+// ---------------------------
 // Navbar
 // ---------------------------
 $navbar-icon-size: 30px !default;
@@ -104,7 +145,18 @@ $home-header-circle-image: $demo1-circle-image !default;
 $home-header-circle-opacity: 0.15 !default;
 $home-header-circle-size: 23rem !default;
 $home-header-circle-margin: ($home-header-circle-size * 0.33);
-$home-header-title-font-size: 42px !default;
+$home-header-title-font-size: $brand-size-xl;
+$home-header-title-font-family: $font-brand;
+$home-header-title-font-weight: 400 !default;
+$home-header-title-letter-spacing: normal !default;
+$home-header-title-overflow-wrap: normal !default;
+$home-header-title-white-space: normal !default;
+$home-header-title-word-break: normal !default;
+$home-header-title-word-spacing: normal !default;
+$home-header-subtitle-font-family: $font-heading;
+$home-header-subtitle-font-weight: 400 !default;
+$home-header-subtitle-letter-spacing: normal !default;
+$home-header-subtitle-word-spacing: normal !default;
 
 // ---------------------------
 // Pagefind UI (enablePagefindCSS = TRUE)
