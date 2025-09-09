@@ -19,22 +19,6 @@ weight = 10              # Order in menu (smaller = first)
   [menus.main.params]
   separator = true       # Draw a separator line after this item
 
-[[menus.main]]
-name = "Search"
-pre = "search"
-weight = 20
-  [menus.main.params]
-  popover = true                     # Show popover on hover/click
-  popoverContentPartial = "popovers/search.html" # Partial to load in popover
-
-[[menus.main]]
-name = "Navigation"
-pre = "bars"
-weight = 30
-  [menus.main.params]
-  popover = true
-  popoverContentPartial = "popovers/navigation.html"
-
 # ---------------------------
 # Hugo module settings
 # ---------------------------
