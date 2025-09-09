@@ -1,11 +1,7 @@
 // ---------------------------
 // Demo circle images
 // ---------------------------
-$demo1-circle-image: url(https://i.pinimg.com/736x/fd/4f/73/fd4f73f3595cccbe87c6ee9920dd9a5a.jpg) !default;
-$demo2-circle-image: url(https://www.pngitem.com/pimgs/m/21-219047_black-cool-circles-png-transparent-png.png) !default;
-$demo3-circle-image: url(https://lh3.googleusercontent.com/proxy/05UXFS9zRxfg1I0QaY3HPHApopeJuzT12UaIasyIRpQMjV5BgSxxL1DFJ2OfxDbuvN8rADFTYjO-Vd51aOwoP43wbjB0qFDIAd7uZOj-sK09saQBh73SjFv-h9MR0-jq44YT6f9-T7dMriqr4ERy) !default;
-$demo4-circle-image: url(https://www.clipartmax.com/png/small/359-3593679_drawing-dance-visual-arts-cool-circle-designs-drawing.png) !default;
-
+$demo-circle-image: url(https://static.thenounproject.com/png/4015928-200.png) !default;
 // ---------------------------
 // Main backgrounds
 // ---------------------------
@@ -76,9 +72,9 @@ $navbar-font-label: 14px !default;
 // Popover
 // ---------------------------
 // Popover variables
-$popover-border-radius: 2% !default;
+$popover-border-radius: 4px !default;
 $popover-box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75) !default;
-$popover-mobile-max-height: 70vh !default;
+$popover-mobile-max-height: 80vh !default;
 $popover-mobile-width: 90% !default;
 $popover-tablet-max-height: 90vh !default;
 $popover-tablet-top: 20px !default;
@@ -129,6 +125,7 @@ $big-tile-category-text: #ffffff !default;
 $big-tile-text-dark: #333333 !default;
 $big-tile-text-light: #ffffff !default;
 $big-tile-accent: #a6e3ff !default;
+$big-tile-transition: 0.3s ease !default;
 
 $big-tile-radius-xs: 3px !default;
 $big-tile-radius-sm: 6px !default;
@@ -151,7 +148,13 @@ $big-tile-fs-lg: 1.25rem !default;
 // Small-tile
 // ---------------------------
 $small-tile-bg: rgb(159, 168, 168) !default;
-$small-tile-text: #ffffff !default;
+$small-tile-text-color: #ffffff !default;
+$small-tile-text-weight: normal !default;
+$small-tile-text-shadow:
+  -1px 0 0.2em #000,
+  0 1px 0.2em #000,
+  1px 0 0.2em #000,
+  0 -1px 0.2em #000 !default;
 $small-tile-gradient-start: rgba(0, 0, 0, 0.7) !default;
 $small-tile-gradient-end: rgba(0, 0, 0, 0.2) !default;
 
@@ -190,8 +193,8 @@ $layout-header-after-opacity: 0 !default;
 // ---------------------------
 // Home-header
 // ---------------------------
-$home-header-circle-bg: #e8e8e8 !default;
-$home-header-circle-image: $demo1-circle-image !default;
+$home-header-circle-bg: #00000000 !default;
+$home-header-circle-image: $demo-circle-image !default;
 $home-header-circle-opacity: 0.15 !default;
 $home-header-circle-size: 23rem !default;
 $home-header-circle-margin: ($home-header-circle-size * 0.33);
@@ -217,7 +220,7 @@ $pagefind-ui-text: #393939 !default;
 $pagefind-ui-background: #ffffff !default;
 $pagefind-ui-border: #eeeeee !default;
 $pagefind-ui-border-width: 2px !default;
-$pagefind-ui-border-radius: 8px !default;
+$pagefind-ui-border-radius: 4px !default;
 $pagefind-ui-font: sans-serif !default;
 $pagefind-ui-tag: #eeeeee !default;
 $pagefind-ui-image-border-radius: 8px !default;

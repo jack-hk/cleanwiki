@@ -47,12 +47,9 @@
   }
 
   &__text {
-    color: $small-tile-text;
-    text-shadow:
-      -1px 0 0.2em #000,
-      0 1px 0.2em #000,
-      1px 0 0.2em #000,
-      0 -1px 0.2em #000;
+    color: $small-tile-text-color;
+    font-weight: $small-tile-text-weight;
+    text-shadow: $small-tile-text-shadow;
     z-index: 3;
   }
 }

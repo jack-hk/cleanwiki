@@ -29,8 +29,6 @@
 }
 
 .big-tile__item {
-  background-position: center;
-  background-size: cover;
   border-radius: $big-tile-radius-lg;
   box-shadow: $big-tile-shadow-md;
   display: flex;
@@ -38,7 +36,23 @@
   min-height: 20rem;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform $big-tile-transition;
+
+  &::before {
+    background-image: inherit;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    inset: 0;
+    position: absolute;
+    transition: transform $big-tile-transition;
+    z-index: 0;
+  }
+
+  &:hover::before {
+    transform: scale(1.1);
+  }
 
   &:hover {
     transform: translateY(-4px);

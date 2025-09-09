@@ -24,23 +24,17 @@
 /* -------------------------------
    VARIABLES
    ------------------------------- */
-$pf-scale: 0.8 !default;
-$pf-primary: #393939 !default;
-$pf-text: #393939 !default;
-$pf-bg: #ffffff !default;
-$pf-border: #eeeeee !default;
-$pf-tag: #eeeeee !default;
-$pf-border-width: 2px !default;
-$pf-border-radius: 8px !default;
-$pf-image-radius: 8px !default;
-$pf-image-ratio: 3 / 2 !default;
-$pf-font:
-  system,
-  -apple-system,
-  'BlinkMacSystemFont',
-  Roboto,
-  'Segoe UI',
-  sans-serif !default;
+$pf-scale: $pagefind-ui-scale !default;
+$pf-primary: $pagefind-ui-primary !default;
+$pf-text: $pagefind-ui-text !default;
+$pf-bg: $pagefind-ui-background !default;
+$pf-border: $pagefind-ui-border !default;
+$pf-tag: $pagefind-ui-tag !default;
+$pf-border-width: $pagefind-ui-border-width !default;
+$pf-border-radius: $pagefind-ui-border-radius !default;
+$pf-image-radius: $pagefind-ui-image-border-radius !default;
+$pf-image-ratio: $pagefind-ui-image-box-ratio !default;
+$pf-font: $pagefind-ui-font !default;
 
 /* -------------------------------
    RESET
