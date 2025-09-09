@@ -20,7 +20,7 @@ $main-body-background-opacity: 0.1 !default;
 // ---------------------------
 // Fonts
 // ---------------------------
-$base-font-size: 16px !default;
+$base-font-size: 18px !default;
 $base-font-family:
   system-ui,
   -apple-system,
@@ -42,7 +42,7 @@ $brand-size-xl: 50px !default;
 
 $font-xs: 12px !default;
 $font-sm: 14px !default;
-$font-base: 16px !default;
+$font-base: $base-font-size !default;
 $font-lg: 20px !default;
 $font-xl: 24px !default;
 $font-2xl: 32px !default;
@@ -71,6 +71,53 @@ $navbar-padding-item: 0.5rem !default;
 $navbar-icon-padding: 2px !default;
 $navbar-border-radius: 5px !default;
 $navbar-font-label: 14px !default;
+
+// ---------------------------
+// Popover
+// ---------------------------
+// Popover variables
+$popover-border-radius: 2% !default;
+$popover-box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75) !default;
+$popover-mobile-max-height: 70vh !default;
+$popover-mobile-width: 90% !default;
+$popover-tablet-max-height: 90vh !default;
+$popover-tablet-top: 20px !default;
+
+$popover-header-padding: 1rem !default;
+$popover-header-icon-bg: #999 !default;
+$popover-header-icon-size: 32px !default;
+$popover-header-icon-margin-right: 1rem !default;
+
+$popover-separator-height: 1.5px !default;
+$popover-separator-gradient: linear-gradient(
+  90deg,
+  rgba(0, 0, 0, 0.1) 10%,
+  rgba(0, 0, 0, 1) 50%,
+  rgba(0, 0, 0, 0.1) 90%
+) !default;
+
+$popover-subtitle-padding-left: 1rem !default;
+$popover-subtitle-padding-top: 1rem !default;
+
+$popover-main-gap: 1rem !default;
+$popover-column-gap: 0.5rem !default;
+
+$popover-item-radius: 4px !default;
+$popover-item-color: #000 !default;
+$popover-item-padding: 0.5rem !default;
+$popover-item-hover-bg: rgb(230, 230, 230) !default;
+
+$popover-footer-padding: 1rem !default;
+
+// Slide animations
+$slide-speed: 0.3s !default;
+$slide-easing: ease !default;
+$slide-right-from: -100% !default;
+$slide-right-to-offset: calc(
+  45px + #{$navbar-icon-size} + #{$navbar-popover-gap}
+) !default;
+$slide-center-from: 100vh !default;
+$slide-center-to: 0 !default;
 
 // ---------------------------
 // Big-tile
@@ -136,7 +183,10 @@ $layout-header-bg-opacity: $main-header-background-opacity !default;
 $layout-body-bg-image: $main-body-background-image !default;
 $layout-body-bg-size: $main-body-background-size !default;
 $layout-body-bg-opacity: $main-body-background-opacity !default;
-
+$layout-header-before-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg' !default;
+$layout-header-before-opacity: 0.05 !default;
+$layout-header-after-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg' !default;
+$layout-header-after-opacity: 0 !default;
 // ---------------------------
 // Home-header
 // ---------------------------

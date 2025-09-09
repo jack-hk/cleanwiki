@@ -68,6 +68,34 @@
     position: absolute;
     width: 100%;
     z-index: $layout-header-bg-z;
+
+    &::before {
+      background-image: url($layout-header-before-image);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      content: '';
+      height: $layout-header-bg-height;
+      opacity: $layout-header-before-opacity;
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
+      z-index: $layout-header-bg-z;
+    }
+
+    &::after {
+      background-image: url($layout-header-after-image);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      content: '';
+      height: $layout-header-bg-height;
+      opacity: $layout-header-after-opacity;
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
+      z-index: $layout-header-bg-z;
+    }
   }
 
   &__main-whole-background {

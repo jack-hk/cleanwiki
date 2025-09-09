@@ -1,79 +1,74 @@
 .popover-search {
   border: none;
-  border-radius: 2%;
-  box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: $popover-border-radius;
+  box-shadow: $popover-box-shadow;
   overflow-y: auto;
 
   @include for-screen(mobile) {
-    animation: slideCenter 0.5s ease forwards;
+    animation: slideCenter $slide-speed $slide-easing forwards;
     left: 0;
-    max-height: 70vh;
-    width: 90%;
+    max-height: $popover-mobile-max-height;
+    width: $popover-mobile-width;
   }
 
   @include for-screen(tablet) {
-    animation: slideRight 0.5s ease forwards;
+    animation: slideRight $slide-speed $slide-easing forwards;
     inset: auto;
-    max-height: 90vh;
-    top: 20px;
+    max-height: $popover-tablet-max-height;
+    top: $popover-tablet-top;
   }
 }
 
 .popover-navigation {
   border: none;
-  border-radius: 2%;
-  box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: $popover-border-radius;
+  box-shadow: $popover-box-shadow;
 
   @include for-screen(mobile) {
-    animation: slideCenter 0.5s ease forwards;
+    animation: slideCenter $slide-speed $slide-easing forwards;
     left: 0;
     top: 0;
-    width: 90%;
+    width: $popover-mobile-width;
   }
 
   @include for-screen(tablet) {
-    animation: slideRight 0.5s ease forwards;
+    animation: slideRight $slide-speed $slide-easing forwards;
     inset: auto;
-    top: 20px;
+    top: $popover-tablet-top;
   }
 
   &__header {
     align-items: center;
     border-bottom: none;
     display: flex;
-    margin: 0; // Overrides content header style
-    padding: 1rem;
+    margin: 0;
+    padding: $popover-header-padding;
 
     &-icon {
-      background: #999;
-      height: 32px;
-      margin-right: 1rem;
-      width: 32px;
+      background: $popover-header-icon-bg;
+      height: $popover-header-icon-size;
+      margin-right: $popover-header-icon-margin-right;
+      width: $popover-header-icon-size;
     }
   }
 
   &__separator {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.1) 10%,
-      rgba(0, 0, 0, 1) 50%,
-      rgba(0, 0, 0, 0.1) 90%
-    );
+    background: $popover-separator-gradient;
     content: '';
     float: left;
-    height: 1.5px;
+    height: $popover-separator-height;
     width: 100%;
   }
 
   &__subtitle {
     margin: 0;
-    padding-left: 1rem;
-    padding-top: 1rem;
+    padding-left: $popover-subtitle-padding-left;
+    padding-top: $popover-subtitle-padding-top;
   }
 
   &__main {
     display: grid;
-    gap: 1rem;
+    gap: $popover-main-gap;
     grid-template-columns: 1fr 1fr;
     padding: 1rem;
   }
@@ -81,44 +76,45 @@
   &__column {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: $popover-column-gap;
   }
 
   &__item {
-    border-radius: 4px;
-    color: #000;
-    padding: 0.5rem;
+    border-radius: $popover-item-radius;
+    color: $popover-item-color;
+    padding: $popover-item-padding;
     text-decoration: none;
 
     &:hover {
-      background-color: rgb(230, 230, 230);
+      background-color: $popover-item-hover-bg;
     }
   }
 
   &__footer {
     border-top: none;
     margin: 0;
-    padding: 1rem;
+    padding: $popover-footer-padding;
     text-align: center;
   }
 }
 
+// ====================
+// Keyframes
+// ====================
 @keyframes slideRight {
   from {
-    transform: translateX(-100%);
+    transform: translateX($slide-right-from);
   }
   to {
-    transform: translateX(
-      calc(45px + #{$navbar-icon-size} + #{$navbar-popover-gap})
-    );
+    transform: translateX($slide-right-to-offset);
   }
 }
 
 @keyframes slideCenter {
   from {
-    transform: translateY(100vh);
+    transform: translateY($slide-center-from);
   }
   to {
-    transform: translateY(0);
+    transform: translateY($slide-center-to);
   }
 }
