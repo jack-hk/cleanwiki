@@ -77,8 +77,8 @@
   &__main-header-background {
     background-image: $layout-header-bg-image;
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: $layout-header-bg-repeat;
+    background-size: $layout-header-bg-size;
     height: $layout-header-bg-height;
     opacity: $layout-header-bg-opacity;
     overflow: hidden;
@@ -125,5 +125,40 @@
     position: fixed;
     width: 100%;
     z-index: $layout-body-bg-z;
+
+    &::after {
+      background: linear-gradient(
+        to bottom,
+        white 0%,
+        white 60%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      content: '';
+      height: 70%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: $layout-side-graphic-z + 1;
+    }
+  }
+
+  &__side-graphic {
+    background-image: $layout-side-image;
+    background-repeat: $layout-side-repeat;
+    background-size: $layout-side-size;
+    display: block;
+    height: $layout-side-graphic-top-height;
+    margin-left: nth($layout-navbar-padding, 1) + $navbar-icon-size;
+    margin-top: $layout-side-graphic-top-margin;
+    min-height: $layout-side-graphic-min-height;
+    opacity: $layout-side-opacity;
+    position: absolute;
+    width: $layout-side-width;
+    z-index: $layout-side-graphic-z;
+
+    @include for-screen(mobile) {
+      display: none;
+    }
   }
 }

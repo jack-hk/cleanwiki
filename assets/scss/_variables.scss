@@ -181,6 +181,8 @@ $layout-navbar-z: 5 !default;
 $layout-header-bg-z: -3 !default;
 $layout-body-bg-z: -5 !default;
 $layout-header-bg-image: $main-header-background-image !default;
+$layout-header-bg-repeat: no-repeat !default;
+$layout-header-bg-size: cover !default;
 $layout-header-bg-height: $main-header-background-height !default;
 $layout-header-bg-opacity: $main-header-background-opacity !default;
 $layout-body-bg-image: $main-body-background-image !default;
@@ -190,6 +192,16 @@ $layout-header-before-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/1
 $layout-header-before-opacity: 0.05 !default;
 $layout-header-after-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg' !default;
 $layout-header-after-opacity: 0 !default;
+$layout-side-image: url('https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg') !default;
+$layout-side-opacity: 1 !default;
+$layout-side-width: 30px !default;
+$layout-side-graphic-z: 5 !default;
+$layout-side-repeat: repeat-y !default;
+$layout-side-size: cover !default;
+$layout-side-graphic-top-margin: 0 !default;
+$layout-side-graphic-top-height: 100% !default;
+$home-header-subtitle-font-size: $font-lg !default;
+$layout-side-graphic-min-height: 100% !default;
 // ---------------------------
 // Home-header
 // ---------------------------

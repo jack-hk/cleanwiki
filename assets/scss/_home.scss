@@ -7,6 +7,7 @@
 
   &__subtitle {
     font-family: $home-header-subtitle-font-family;
+    font-size: $home-header-subtitle-font-size;
     font-weight: $home-header-subtitle-font-weight;
     letter-spacing: $home-header-subtitle-letter-spacing;
     margin: 0 0 $home-header-circle-margin 0;
@@ -41,5 +42,13 @@
     transform: translate(-50%, 0);
     width: $home-header-circle-size;
     z-index: -1;
+  }
+}
+
+.home__about-us {
+  border-radius: 4px;
+
+  p {
+    margin: 0.5rem 0;
   }
 }
