@@ -71,7 +71,14 @@
     display: flex;
     flex-direction: column;
     margin-top: $layout-main-content-top-margin;
-    padding: $layout-main-content-padding;
+
+    @include for-screen(mobile) {
+      padding: $layout-main-content-padding-mobile;
+    }
+
+    @include for-screen(tablet) {
+      padding: $layout-main-content-padding;
+    }
   }
 
   &__main-header-background {

@@ -2,6 +2,9 @@
 {{- $e := .entry }}
 
 
-<button class="navbar__item-button" popovertarget="{{ $e.Name }}">
+<button
+  {{ with $e.Params.event }}onclick="{{ . | safeJS }}"{{ end }}
+  class="navbar__item-button"
+  popovertarget="{{ $e.Name }}">
   {{- partial "navbar-item-icon.html" (dict "entry" $e) }}
 </button>

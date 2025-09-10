@@ -11,4 +11,13 @@
 {{- end }}
 
 
+<script>
+  function scrollToTopOfElement(className) {
+    const el = document.querySelector(`.${className}`);
+    if (el) {
+      el.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+</script>
+
 <script src="/pagefind/pagefind-ui.js"></script>

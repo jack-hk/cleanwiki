@@ -37,11 +37,17 @@
     height: $home-header-circle-size;
     inset: 0;
     left: 50%;
-    opacity: $home-header-circle-opacity;
     position: absolute;
     transform: translate(-50%, 0);
     width: $home-header-circle-size;
     z-index: -1;
+
+    @include for-screen(tablet) {
+      opacity: $home-header-circle-opacity;
+    }
+    @include for-screen(mobile) {
+      opacity: $home-header-circle-opacity-mobile;
+    }
   }
 }
 
