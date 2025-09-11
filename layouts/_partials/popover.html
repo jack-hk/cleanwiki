@@ -2,6 +2,10 @@
 {{ range $i, $item := $popovers }}
   {{ $partialName := $item.Params.popoverContentPartial }}
   <div id="{{ $item.Name }}" popover class="popover-{{ $item.Name | lower }}">
+    <button
+      class="popover__close"
+      popovertarget="{{ $item.Name }}"
+      popovertargetaction="hide"></button>
     {{ if $partialName }}
       {{ partial $partialName $item }}
     {{ else }}
