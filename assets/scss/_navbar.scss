@@ -1,3 +1,5 @@
+@import 'variables';
+
 .navbar {
   position: relative;
 
@@ -24,31 +26,31 @@
     }
 
     @include for-screen(tablet) {
-      margin-bottom: var(--navbar-icon-gap);
+      margin-bottom: $navbar-icon-gap;
     }
 
     &-icon {
       margin: 0;
-      padding: var(--navbar-icon-padding);
-      width: var(--navbar-icon-size);
+      padding: $navbar-icon-padding;
+      width: $navbar-icon-size;
     }
 
     &-label {
-      font-size: var(--navbar-label-font-size);
+      font-size: $navbar-font-label;
     }
 
     &-button {
-      background-color: transparent;
+      background-color: rgba(0, 0, 0, 0);
       border: none;
-      color: var(--navbar-text-color);
+      color: $navbar-text;
       cursor: pointer;
       display: block;
-      padding: var(--navbar-item-padding);
+      padding: $navbar-padding-item;
       text-decoration: none;
 
       &:hover {
-        background-color: var(--navbar-bg-hover);
-        border-radius: var(--navbar-border-radius);
+        background-color: $navbar-bg-hover;
+        border-radius: $navbar-border-radius;
       }
     }
   }
@@ -57,15 +59,15 @@
     margin: 0;
 
     @include for-screen(mobile) {
-      border-right: 1px solid var(--navbar-separator-color);
-      margin-left: var(--navbar-icon-gap);
-      margin-right: var(--navbar-icon-gap);
+      border-right: 1px solid $navbar-separator;
+      margin-left: $navbar-icon-gap;
+      margin-right: $navbar-icon-gap;
       padding-right: 5px;
     }
 
     @include for-screen(tablet) {
-      border-bottom: 1px solid var(--navbar-separator-color);
-      margin-bottom: var(--navbar-icon-gap);
+      border-bottom: 1px solid $navbar-separator;
+      margin-bottom: $navbar-icon-gap;
       width: 100%;
     }
   }
