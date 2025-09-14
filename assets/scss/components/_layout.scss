@@ -1,5 +1,3 @@
-@import 'variables';
-
 .layout {
   display: flex;
   flex-direction: column;
@@ -9,13 +7,13 @@
   }
 
   &__navbar {
-    background-color: $layout-navbar-bg;
-    border-right: 1px solid $layout-navbar-border;
-    border-top: 1px solid $layout-navbar-border;
-    box-shadow: $layout-navbar-shadow;
+    background-color: var(--layout-navbar-bg);
+    border-right: 1px solid var(--layout-navbar-border);
+    border-top: 1px solid var(--layout-navbar-border);
+    box-shadow: var(--layout-navbar-shadow);
     overflow-y: auto;
     position: fixed;
-    z-index: $layout-navbar-z;
+    z-index: var(--layout-navbar-z);
 
     @include for-screen(mobile) {
       bottom: 0;
@@ -26,7 +24,7 @@
       display: flex;
       height: 100%;
       justify-content: center;
-      padding: $layout-navbar-padding;
+      padding: var(--layout-navbar-padding);
     }
 
     &::after {
@@ -48,7 +46,7 @@
   }
 
   &__dummy-navbar {
-    background-color: $layout-dummy-navbar-bg;
+    background-color: var(--layout-dummy-navbar-bg);
     display: none;
     position: static;
 
@@ -56,7 +54,7 @@
       display: flex;
       height: 100%;
       justify-content: center;
-      padding: $layout-navbar-padding;
+      padding: var(--layout-navbar-padding);
     }
   }
 
@@ -70,68 +68,68 @@
   &__main-content {
     display: flex;
     flex-direction: column;
-    margin-top: $layout-main-content-top-margin;
+    margin-top: var(--layout-main-content-top-margin);
 
     @include for-screen(mobile) {
-      padding: $layout-main-content-padding-mobile;
+      padding: var(--layout-main-content-padding-mobile);
     }
 
     @include for-screen(tablet) {
-      padding: $layout-main-content-padding;
+      padding: var(--layout-main-content-padding);
     }
   }
 
   &__main-header-background {
-    background-image: $layout-header-bg-image;
+    background-image: var(--layout-header-bg-image);
     background-position: center;
-    background-repeat: $layout-header-bg-repeat;
-    background-size: $layout-header-bg-size;
-    height: $layout-header-bg-height;
-    opacity: $layout-header-bg-opacity;
+    background-repeat: var(--layout-header-bg-repeat);
+    background-size: var(--layout-header-bg-size);
+    height: var(--layout-header-bg-height);
+    opacity: var(--layout-header-bg-opacity);
     overflow: hidden;
     position: absolute;
     width: 100%;
-    z-index: $layout-header-bg-z;
+    z-index: var(--layout-header-bg-z);
 
     &::before {
-      background-image: url($layout-header-before-image);
+      background-image: var(--layout-header-bg-before-image);
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       content: '';
-      height: $layout-header-bg-height;
-      opacity: $layout-header-before-opacity;
+      height: var(--layout-header-bg-height);
+      opacity: var(--layout-header-before-opacity);
       overflow: hidden;
       position: absolute;
       width: 100%;
-      z-index: $layout-header-bg-z;
+      z-index: var(--layout-header-bg-z);
     }
 
     &::after {
-      background-image: url($layout-header-after-image);
+      background-image: var(--layout-header-bg-after-image);
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       content: '';
-      height: $layout-header-bg-height;
-      opacity: $layout-header-after-opacity;
+      height: var(--layout-header-bg-height);
+      opacity: var(--layout-header-after-opacity);
       overflow: hidden;
       position: absolute;
       width: 100%;
-      z-index: $layout-header-bg-z;
+      z-index: var(--layout-header-bg-z);
     }
   }
 
   &__main-whole-background {
-    background-image: $layout-body-bg-image;
+    background-image: var(--layout-body-bg-image);
     background-repeat: repeat;
-    background-size: $layout-body-bg-size;
+    background-size: var(--layout-body-bg-size);
     height: 100%;
-    opacity: $layout-body-bg-opacity;
+    opacity: var(--layout-body-bg-opacity);
     overflow: hidden;
     position: fixed;
     width: 100%;
-    z-index: $layout-body-bg-z;
+    z-index: var(--layout-body-bg-z);
 
     &::after {
       background: linear-gradient(
@@ -146,23 +144,26 @@
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: $layout-side-graphic-z + 1;
+      z-index: calc(var(--layout-side-graphic-z) + 1);
     }
   }
 
   &__side-graphic {
-    background-image: $layout-side-image;
-    background-repeat: $layout-side-repeat;
-    background-size: $layout-side-size;
+    background-image: var(--layout-side-image);
+    background-repeat: var(--layout-side-repeat);
+    background-size: var(--layout-side-size);
     display: block;
-    height: $layout-side-graphic-top-height;
-    margin-left: nth($layout-navbar-padding, 1) + $navbar-icon-size;
-    margin-top: $layout-side-graphic-top-margin;
-    min-height: $layout-side-graphic-min-height;
-    opacity: $layout-side-opacity;
+    height: var(--layout-side-graphic-top-height);
+    margin-left: calc(
+      var(--layout-navbar-padding-top) + var(--navbar-icon-size)
+    );
+
+    margin-top: var(--layout-side-graphic-top-margin);
+    min-height: var(--layout-side-graphic-min-height);
+    opacity: var(--layout-side-opacity);
     position: absolute;
-    width: $layout-side-width;
-    z-index: $layout-side-graphic-z;
+    width: var(--layout-side-width);
+    z-index: var(--layout-side-graphic-z);
 
     @include for-screen(mobile) {
       display: none;

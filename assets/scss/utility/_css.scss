@@ -1,0 +1,27 @@
+/// Recursively outputs CSS variables from a map
+/// @param {Map} $map - the SCSS map
+/// @param {String} $prefix - the prefix for var names
+@mixin css-vars($map, $prefix: '') {
+  @each $key, $value in $map {
+    @if type-of($value) == 'map' {
+      @include css-vars($value, $prefix + '-' + $key);
+    } @else {
+      --#{$prefix}-#{$key}: #{$value};
+    }
+  }
+}
+
+// ---------------------------
+// Root defaults (emit vars)
+// ---------------------------
+:root {
+  @include css-vars($images, 'image');
+  @include css-vars($fonts, 'font');
+  @include css-vars($colors-light, 'color-light');
+  @include css-vars($layout, 'layout');
+  @include css-vars($navbar, 'navbar');
+  @include css-vars($big-tile, 'big-tile');
+  @include css-vars($small-tile, 'small-tile');
+  @include css-vars($home-header, 'home-header');
+  @include css-vars($pagefind-ui, 'pagefind-ui');
+}

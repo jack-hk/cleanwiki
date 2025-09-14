@@ -1,42 +1,53 @@
-body {
-  font-family: $base-font-family;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-}
+// ===========================
+// Fonts
+// ===========================
 
-h1 {
-  font-family: $font-heading;
-  font-size: $h1-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
-h2 {
-  font-family: $font-heading;
-  font-size: $h2-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
-h3 {
-  font-family: $font-heading;
-  font-size: $h3-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
-h4 {
-  font-family: $font-heading;
-  font-size: $h4-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
-h5 {
-  font-family: $font-heading;
-  font-size: $h5-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
-h6 {
-  font-family: $font-heading;
-  font-size: $h6-size;
-  font-weight: $heading-weight;
-  line-height: $heading-line-height;
-}
+$base-font-size: 18px !default;
+$base-line-height: 1.6 !default;
+
+$font-weights: (
+  light: 300,
+  normal: 400,
+  bold: 700,
+) !default;
+
+$fonts: (
+  base: (
+    'system-ui',
+    '-apple-system',
+    'sans-serif',
+  ),
+  heading: (
+    'Arial',
+    'Helvetica',
+    'sans-serif',
+  ),
+  brand: (
+    'Georgia',
+    'Times New Roman',
+    'serif',
+  ),
+) !default;
+
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.25rem,
+  xl: 1.5rem,
+  2xl: 2rem,
+  3xl: 3rem,
+  4xl: clamp(60px, 14vw, 75px),
+) !default;
+
+$headings: (
+  h1: 3xl,
+  h2: 2xl,
+  h3: xl,
+  h4: lg,
+  h5: base,
+  h6: sm,
+) !default;
+
+$heading-weight: map-get($font-weights, bold) !default;
+$heading-line-height: 1.2 !default;

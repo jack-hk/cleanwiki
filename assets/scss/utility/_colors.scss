@@ -1,0 +1,35 @@
+// ---------------------------
+// Dark/light mode
+// ---------------------------
+@function flatten-map($map, $prefix: null) {
+  $result: ();
+  @each $key, $value in $map {
+    $new-key: if($prefix, $prefix + '-' + $key, $key);
+    @if type-of($value) == 'map' {
+      $result: map-merge($result, flatten-map($value, $new-key));
+    } @else {
+      $result: map-merge(
+        $result,
+        (
+          $new-key: $value,
+        )
+      );
+    }
+  }
+  @return $result;
+}
+
+$flat-light: flatten-map($colors-light);
+$flat-dark: flatten-map($colors-dark);
+
+:root {
+  @each $name, $value in $flat-light {
+    --color-#{$name}: #{$value};
+  }
+}
+
+[data-theme='dark'] {
+  @each $name, $value in $flat-dark {
+    --color-#{$name}: #{$value};
+  }
+}

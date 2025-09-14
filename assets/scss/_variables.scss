@@ -1,241 +1,195 @@
 // ---------------------------
-// Demo circle images
+// Images
 // ---------------------------
-$demo-circle-image: url(https://static.thenounproject.com/png/4015928-200.png) !default;
+$images: (
+  demo: (
+    circle: url(https://static.thenounproject.com/png/4015928-200.png),
+  ),
+  background: (
+    header: url('https://www.nicepng.com/png/full/894-8944435_color-gradient-black-black-header-for-website.png'),
+    body: url('https://64.media.tumblr.com/4c8355d59c65b581d10ad91ca789c414/tumblr_p2pap0zxSq1w0sodmo3_1280.jpg'),
+    header-before: url('https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg'),
+    header-after: url('https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg'),
+    side: url('https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg'),
+  ),
+  home-header: (
+    circle: url(https://static.thenounproject.com/png/4015928-200.png),
+  ),
+);
+
+@function image($category, $name) {
+  @return map-get(map-get($images, $category), $name);
+}
+
 // ---------------------------
-// Main backgrounds
+// Backgrounds
 // ---------------------------
-$main-header-background-image: url('https://www.nicepng.com/png/full/894-8944435_color-gradient-black-black-header-for-website.png') !default;
-$main-header-background-height: 500px !default;
-$main-header-background-opacity: 0.25 !default;
-
-$main-body-background-image: url('https://64.media.tumblr.com/4c8355d59c65b581d10ad91ca789c414/tumblr_p2pap0zxSq1w0sodmo3_1280.jpg') !default;
-$main-body-background-size: 400px !default;
-$main-body-background-opacity: 0.1 !default;
-
-// ---------------------------
-// Fonts
-// ---------------------------
-$base-font-size: 18px !default;
-$base-font-family:
-  system-ui,
-  -apple-system,
-  sans-serif !default;
-$base-line-height: 1.6 !default;
-
-$font-light: 300 !default;
-$font-normal: 400 !default;
-$font-bold: 700 !default;
-
-// Brand/Title font (most distinctive)
-$font-brand: Georgia, 'Times New Roman', serif !default;
-// Heading font (structural hierarchy)
-$font-heading: Arial, Helvetica, sans-serif !default;
-// Body font (maximum readability)
-$font-body: Arial, Helvetica, sans-serif !default;
-
-$brand-size-xl: 50px !default;
-
-$font-xs: 12px !default;
-$font-sm: 14px !default;
-$font-base: $base-font-size !default;
-$font-lg: 20px !default;
-$font-xl: 24px !default;
-$font-2xl: 32px !default;
-$font-3xl: 48px !default;
-
-$h1-size: $font-3xl !default;
-$h2-size: $font-2xl !default;
-$h3-size: $font-xl !default;
-$h4-size: $font-lg !default;
-$h5-size: $font-base !default;
-$h6-size: $font-sm !default;
-
-$heading-weight: $font-bold !default;
-$heading-line-height: 1.2 !default;
+$backgrounds: (
+  header-height: 500px,
+  header-opacity: 0.25,
+  body-size: 400px,
+  body-opacity: 0.1,
+);
 
 // ---------------------------
 // Navbar
 // ---------------------------
-$navbar-icon-size: 30px !default;
-$navbar-icon-gap: 0.5rem !default;
-$navbar-popover-gap: 20px !default;
-$navbar-bg-hover: rgba(0, 0, 0, 0.2) !default;
-$navbar-text: black !default;
-$navbar-separator: black !default;
-$navbar-padding-item: 0.5rem !default;
-$navbar-icon-padding: 2px !default;
-$navbar-border-radius: 5px !default;
-$navbar-font-label: 14px !default;
+$navbar: (
+  icon-size: 30px,
+  icon-gap: 0.5rem,
+  popover-gap: 20px,
+  bg-hover: rgba(0, 0, 0, 0.2),
+  text-color: black,
+  separator-color: black,
+  item-padding: 0.5rem,
+  icon-padding: 2px,
+  border-radius: 5px,
+  label-font-size: 14px,
+);
 
 // ---------------------------
-// Popover
+// Big Tiles
 // ---------------------------
-// Popover variables
-$popover-border-radius: 4px !default;
-$popover-box-shadow: 4px 3px 10px 0px rgba(0, 0, 0, 0.75) !default;
-$popover-mobile-max-height: 80vh !default;
-$popover-mobile-width: 90% !default;
-$popover-tablet-max-height: 90vh !default;
-$popover-tablet-top: 20px !default;
-
-$popover-header-padding: 1rem !default;
-$popover-header-icon-bg: #999 !default;
-$popover-header-icon-size: 32px !default;
-$popover-header-icon-margin-right: 1rem !default;
-
-$popover-separator-height: 1.5px !default;
-$popover-separator-gradient: linear-gradient(
-  90deg,
-  rgba(0, 0, 0, 0.1) 10%,
-  rgba(0, 0, 0, 1) 50%,
-  rgba(0, 0, 0, 0.1) 90%
-) !default;
-
-$popover-subtitle-padding-left: 1rem !default;
-$popover-subtitle-padding-top: 1rem !default;
-
-$popover-main-gap: 1rem !default;
-$popover-column-gap: 0.5rem !default;
-
-$popover-item-radius: 4px !default;
-$popover-item-color: #000 !default;
-$popover-item-padding: 0.5rem !default;
-$popover-item-hover-bg: rgb(230, 230, 230) !default;
-
-$popover-footer-padding: 1rem !default;
-
-// Slide animations
-$slide-speed: 0.3s !default;
-$slide-easing: ease !default;
-$slide-right-from: -100% !default;
-$slide-right-to-offset: calc(
-  45px + #{$navbar-icon-size} + #{$navbar-popover-gap}
-) !default;
-$slide-center-from: 100vh !default;
-$slide-center-to: 0 !default;
+$big-tile: (
+  bg: rgb(241, 241, 241),
+  item-bg: rgb(232, 227, 227),
+  category-bg: #737373,
+  category-text: #ffffff,
+  text-dark: #333333,
+  text-light: #ffffff,
+  accent: #a6e3ff,
+  transition: 0.3s ease,
+  radius-xs: 3px,
+  radius-sm: 6px,
+  radius-lg: 12px,
+  shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15),
+  shadow-md: 0 6px 14px rgba(0, 0, 0, 0.15),
+  gap: 0.6rem,
+  pad-xs: 0.2rem 0.5rem,
+  pad-sm: 0.25rem 0.6rem,
+  pad: 1rem,
+  font-size-xs: 0.75rem,
+  font-size-sm: 0.85rem,
+  font-size-md: 0.9rem,
+  font-size-lg: 1.25rem,
+);
 
 // ---------------------------
-// Big-tile
+// Small Tiles
 // ---------------------------
-$big-tile-bg: rgb(241, 241, 241) !default;
-$big-tile-item-bg: rgb(232, 227, 227) !default;
-$big-tile-category-bg: #737373 !default;
-$big-tile-category-text: #ffffff !default;
-$big-tile-text-dark: #333333 !default;
-$big-tile-text-light: #ffffff !default;
-$big-tile-accent: #a6e3ff !default;
-$big-tile-transition: 0.3s ease !default;
-
-$big-tile-radius-xs: 3px !default;
-$big-tile-radius-sm: 6px !default;
-$big-tile-radius-lg: 12px !default;
-
-$big-tile-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15) !default;
-$big-tile-shadow-md: 0 6px 14px rgba(0, 0, 0, 0.15) !default;
-
-$big-tile-gap: 0.6rem !default;
-$big-tile-pad-xs: 0.2rem 0.5rem !default;
-$big-tile-pad-sm: 0.25rem 0.6rem !default;
-$big-tile-pad: 1rem !default;
-
-$big-tile-fs-xs: 0.75rem !default;
-$big-tile-fs-sm: 0.85rem !default;
-$big-tile-fs-md: 0.9rem !default;
-$big-tile-fs-lg: 1.25rem !default;
-
-// ---------------------------
-// Small-tile
-// ---------------------------
-$small-tile-bg: rgb(159, 168, 168) !default;
-$small-tile-text-color: #ffffff !default;
-$small-tile-text-weight: normal !default;
-$small-tile-text-shadow:
-  -1px 0 0.2em #000,
-  0 1px 0.2em #000,
-  1px 0 0.2em #000,
-  0 -1px 0.2em #000 !default;
-$small-tile-gradient-start: rgba(0, 0, 0, 0.7) !default;
-$small-tile-gradient-end: rgba(0, 0, 0, 0.2) !default;
-
-$small-tile-radius: 6px !default;
-$small-tile-gap: 1rem !default;
-$small-tile-padding: 0 1rem !default;
-$small-tile-row-height: 3rem !default;
-$small-tile-col-min: 16rem !default;
-$small-tile-col-min-s: 9rem !default;
-$small-tile-transition-bg: 0.5s ease !default;
-$small-tile-transition-overlay: 0.3s ease !default;
+$small-tile: (
+  bg: rgb(159, 168, 168),
+  text-color: #ffffff,
+  text-weight: normal,
+  text-shadow: (
+    -1px 0 0.2em #000,
+    0 1px 0.2em #000,
+    1px 0 0.2em #000,
+    0 -1px 0.2em #000,
+  ),
+  gradient-start: rgba(0, 0, 0, 0.7),
+  gradient-end: rgba(0, 0, 0, 0.2),
+  radius: 6px,
+  gap: 1rem,
+  padding: 0 1rem,
+  row-height: 3rem,
+  col-min: 16rem,
+  col-min-s: 9rem,
+  transition-bg: 0.5s ease,
+  transition-overlay: 0.3s ease,
+);
 
 // ---------------------------
 // Layout
 // ---------------------------
-$layout-navbar-bg: #ededed !default;
-$layout-navbar-border: rgb(131, 131, 131) !default;
-$layout-dummy-navbar-bg: #ffffff !default;
-$layout-navbar-shadow: rgba(163, 163, 163, 0.1) !default;
-$layout-navbar-padding: 36px 8px 8px 8px !default;
-$layout-main-content-padding: 0 10% !default;
-$layout-main-content-padding-mobile: 0 3% !default;
-$layout-main-content-top-margin: 0 !default;
-$layout-navbar-z: 5 !default;
-$layout-header-bg-z: -3 !default;
-$layout-body-bg-z: -5 !default;
-$layout-header-bg-image: $main-header-background-image !default;
-$layout-header-bg-repeat: no-repeat !default;
-$layout-header-bg-size: cover !default;
-$layout-header-bg-height: $main-header-background-height !default;
-$layout-header-bg-opacity: $main-header-background-opacity !default;
-$layout-body-bg-image: $main-body-background-image !default;
-$layout-body-bg-size: $main-body-background-size !default;
-$layout-body-bg-opacity: $main-body-background-opacity !default;
-$layout-header-before-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg' !default;
-$layout-header-before-opacity: 0.05 !default;
-$layout-header-after-image: 'https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg' !default;
-$layout-header-after-opacity: 0 !default;
-$layout-side-image: url('https://www.oppaca.com/hubfs/Imported_Blog_Media/158_cop2-1.jpg') !default;
-$layout-side-opacity: 1 !default;
-$layout-side-width: 30px !default;
-$layout-side-graphic-z: 5 !default;
-$layout-side-repeat: repeat-y !default;
-$layout-side-size: cover !default;
-$layout-side-graphic-top-margin: 0 !default;
-$layout-side-graphic-top-height: 100% !default;
-$home-header-subtitle-font-size: $font-lg !default;
-$layout-side-graphic-min-height: 100% !default;
-// ---------------------------
-// Home-header
-// ---------------------------
-$home-header-circle-bg: #00000000 !default;
-$home-header-circle-image: $demo-circle-image !default;
-$home-header-circle-opacity: 0.15 !default;
-$home-header-circle-opacity-mobile: 0.2 !default;
-$home-header-circle-size: 23rem !default;
-$home-header-circle-margin: ($home-header-circle-size * 0.33);
-$home-header-title-font-size: $brand-size-xl;
-$home-header-title-font-family: $font-brand;
-$home-header-title-font-weight: 400 !default;
-$home-header-title-letter-spacing: normal !default;
-$home-header-title-overflow-wrap: normal !default;
-$home-header-title-white-space: normal !default;
-$home-header-title-word-break: normal !default;
-$home-header-title-word-spacing: normal !default;
-$home-header-subtitle-font-family: $font-heading;
-$home-header-subtitle-font-weight: 400 !default;
-$home-header-subtitle-letter-spacing: normal !default;
-$home-header-subtitle-word-spacing: normal !default;
+$layout: (
+  navbar-bg: #ededed,
+  navbar-border: rgb(131, 131, 131),
+  dummy-navbar-bg: #ffffff,
+  navbar-shadow: rgba(163, 163, 163, 0.1),
+  navbar-padding: 36px 8px 8px 8px,
+  navbar-padding-top: 36px,
+  main-content-padding: 0 10%,
+  main-content-padding-mobile: 0 3%,
+  main-content-top-margin: 0,
+
+  navbar-z: 5,
+  header-bg-z: -3,
+  body-bg-z: -5,
+
+  header-bg-repeat: no-repeat,
+  header-bg-size: cover,
+  header-bg-height: 500px,
+  header-bg-opacity: 0.25,
+  header-bg-image: image(background, header),
+  header-bg-before-image: image(background, header-before),
+  header-bg-after-image: image(background, header-after),
+  header-before-opacity: 0.05,
+  header-after-opacity: 0,
+  side-image: image(background, side),
+  body-bg-size: 400px,
+  body-bg-opacity: 0.1,
+
+  side-opacity: 1,
+  side-width: 30px,
+  side-graphic-z: 5,
+  side-repeat: repeat-y,
+  side-size: cover,
+  side-graphic-top-margin: 0,
+  side-graphic-top-height: 100%,
+  side-graphic-min-height: 100%,
+);
 
 // ---------------------------
-// Pagefind UI (enablePagefindCSS = TRUE)
+// Home Header
 // ---------------------------
-$pagefind-ui-scale: 0.8 !default;
-$pagefind-ui-primary: #034ad8 !default;
-$pagefind-ui-text: #393939 !default;
-$pagefind-ui-background: #ffffff !default;
-$pagefind-ui-border: #eeeeee !default;
-$pagefind-ui-border-width: 2px !default;
-$pagefind-ui-border-radius: 4px !default;
-$pagefind-ui-font: sans-serif !default;
-$pagefind-ui-tag: #eeeeee !default;
-$pagefind-ui-image-border-radius: 8px !default;
-$pagefind-ui-image-box-ratio: 3 / 2 !default;
+$home-header: (
+  circle-bg: #00000000,
+  circle-image: image(home-header, circle),
+  circle-opacity: 0.3,
+  circle-opacity-mobile: 0.2,
+  circle-size: 23rem,
+  circle-margin: calc(23rem * 0.33),
+  title-font-size: 50px,
+  title-font-family: 'Georgia,
+  "Times New Roman",
+  serif',
+  title-font-weight: 400,
+  title-letter-spacing: normal,
+  title-overflow-wrap: normal,
+  title-white-space: normal,
+  title-word-break: normal,
+  title-word-spacing: normal,
+  subtitle-font-size: 20px,
+  subtitle-font-family: 'Arial,
+  "Helvetica",
+  sans-serif',
+  subtitle-font-weight: 400,
+  subtitle-letter-spacing: normal,
+  subtitle-word-spacing: normal,
+);
+
+// ---------------------------
+// Pagefind UI
+// ---------------------------
+$pagefind-ui: (
+  scale: 0.8,
+  primary-color: #034ad8,
+  text-color: #393939,
+  background-color: #ffffff,
+  border-color: #eeeeee,
+  border-width: 2px,
+  border-radius: 4px,
+  font-family: sans-serif,
+  tag-background: #eeeeee,
+  image-border-radius: 8px,
+  image-box-ratio: 3/2,
+  spacing-small: 4px,
+  spacing-medium: 10px,
+  spacing-large: 20px,
+  input-height: 48px,
+  button-height: 44px,
+  title-font-size: 21px,
+  excerpt-font-size: 16px,
+  tag-font-size: 14px,
+);

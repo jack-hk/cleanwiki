@@ -1,16 +1,18 @@
-@import 'variables.scss';
-@import 'screen.scss';
-@import 'content.scss';
-@import 'layout.scss';
-@import 'lined-section.scss';
-@import 'popover.scss';
+@import 'colors';
+@import 'font';
+@import 'variables';
 
-// Partials
-@import 'search-bar.scss';
-@import 'small-tile.scss';
-@import 'big-tile.scss';
-@import 'navbar.scss';
+@import 'utility/colors';
+@import 'utility/css';
+@import 'utility/font';
+@import 'utility/screen';
 
-// Pages
-@import 'home.scss';
-@import 'font.scss';
+@import 'components/big-tile';
+@import 'components/content';
+@import 'components/home';
+@import 'components/layout';
+@import 'components/lined-section';
+@import 'components/navbar';
+@import 'components/popover';
+@import 'components/search-bar';
+@import 'components/small-tile';
