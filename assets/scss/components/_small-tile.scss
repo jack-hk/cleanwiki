@@ -44,7 +44,8 @@
   }
 
   &__item:hover {
-    background-size: 120%;
+    background-size: var(--small-tile-transition-hover-scale);
+
     &::before {
       opacity: 0;
     }

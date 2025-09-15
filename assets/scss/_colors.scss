@@ -5,6 +5,7 @@
 $colors-light: (
   primary: #034ad8,
   secondary: #a6e3ff,
+  accent: #a6e3ff,
   text: (
     default: #333,
     muted: #737373,
@@ -12,7 +13,7 @@ $colors-light: (
   ),
   background: (
     default: #fff,
-    light: #ededed,
+    light: #fffaf5,
     overlay: rgba(0, 0, 0, 0.2),
   ),
   interactive: (
@@ -49,3 +50,20 @@ $colors-dark: (
     navbar: #fff,
   ),
 );
+
+/// Get a nested color value from the color map
+/// @param {String} $mode - The color mode (e.g., 'light', 'dark') to select the color palette.
+/// @param {ArgList} $keys... - A variable list of keys used to access nested color values within the palette.
+/// @return {Color} The resolved color value from the palette based on the mode and keys provided.
+@function color($mode, $keys...) {
+  $map: map-get($colors, $mode);
+  @each $key in $keys {
+    @if type-of($map) == 'map' and map-has-key($map, $key) {
+      $map: map-get($map, $key);
+    } @else {
+      @warn "Color path '#{$mode} > #{$keys}' not found!";
+      @return null;
+    }
+  }
+  @return $map;
+}

@@ -1,7 +1,5 @@
 body {
-  color: #222;
-  font-family: sans-serif;
-  line-height: 1.5;
+  background-color: var(--color-background-default);
   margin: 0;
 }
 
@@ -13,9 +11,4 @@ header {
 footer {
   border-top: 1px solid #222;
   margin-top: 1rem;
-}
-
-a {
-  color: rgb(0, 16, 242);
-  text-decoration: none;
 }

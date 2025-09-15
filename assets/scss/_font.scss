@@ -32,11 +32,11 @@ $fonts: (
 $font-sizes: (
   xs: 0.75rem,
   sm: 0.875rem,
-  base: 1rem,
+  base: 1.175rem,
   lg: 1.25rem,
   xl: 1.5rem,
   2xl: 2rem,
-  3xl: 3rem,
+  3xl: clamp(20px, 3vw, 28px),
   4xl: clamp(60px, 14vw, 75px),
 ) !default;
 
@@ -49,5 +49,7 @@ $headings: (
   h6: sm,
 ) !default;
 
-$heading-weight: map-get($font-weights, bold) !default;
-$heading-line-height: 1.2 !default;
+:root {
+  --heading-line-height: 1.2;
+  --heading-weight: var(--font-weights-bold);
+}

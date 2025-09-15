@@ -1,0 +1,25 @@
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  width: var(--section-header-width);
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-size: var(--section-header-font-size);
+    font-weight: var(--section-header-font-weight);
+    gap: var(--section-header-gap);
+    text-align: center;
+    width: 100%;
+
+    &::before,
+    &::after {
+      background-color: var(--section-header-line-color);
+      content: '';
+      flex: 1;
+      height: var(--section-header-line-size);
+    }
+  }
+}

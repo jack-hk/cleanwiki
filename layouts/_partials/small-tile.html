@@ -9,7 +9,7 @@
         href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
         class="small-tile__item"
         {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
-        <h5 class="small-tile__text">{{ $name }}</h5>
+        <h4 class="small-tile__text">{{ $name }}</h4>
       </a>
     {{- end -}}
   {{- else -}}
@@ -19,7 +19,7 @@
         href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"
         class="small-tile__item"
         {{ if $img }}style="background-image: url('{{ $img }}');"{{ end }}>
-        <h5 class="small-tile__text">{{ $name }}</h5>
+        <h4 class="small-tile__text">{{ $name }}</h4>
       </a>
     {{- end -}}
   {{- end }}

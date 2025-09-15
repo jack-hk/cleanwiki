@@ -51,36 +51,43 @@ $navbar: (
 // Big Tiles
 // ---------------------------
 $big-tile: (
-  bg: rgb(241, 241, 241),
-  item-bg: rgb(232, 227, 227),
-  category-bg: #737373,
-  category-text: #ffffff,
-  text-dark: #333333,
-  text-light: #ffffff,
-  accent: #a6e3ff,
+  item-bg: var(--color-secondary),
+  category-bg: var(--color-background-light),
+  category-text-color: var(--color-text-default),
+  title-text-color: var(--color-text-inverted),
+  special-text-color: var(--color-accent),
+  font-weight-bold: var(--font-weight-bold),
+  font-weight-normal: var(--font-weight-normal),
+  excerpt-text-color: var(--color-text-inverted),
+  category-letter-spacing: 0.03em,
   transition: 0.3s ease,
-  radius-xs: 3px,
+  transition-scale: 1.1,
+  transition-hover-height: -4px,
   radius-sm: 6px,
   radius-lg: 12px,
   shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15),
   shadow-md: 0 6px 14px rgba(0, 0, 0, 0.15),
+  overlay-bg: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.65) 40%,
+      transparent 60%
+    ),
   gap: 0.6rem,
-  pad-xs: 0.2rem 0.5rem,
   pad-sm: 0.25rem 0.6rem,
   pad: 1rem,
   font-size-xs: 0.75rem,
   font-size-sm: 0.85rem,
   font-size-md: 0.9rem,
-  font-size-lg: 1.25rem,
 );
 
 // ---------------------------
 // Small Tiles
 // ---------------------------
 $small-tile: (
-  bg: rgb(159, 168, 168),
-  text-color: #ffffff,
-  text-weight: normal,
+  bg: var(--color-secondary),
+  text-color: var(--color-text-inverted),
+  text-weight: var(--font-weight-bold),
   text-shadow: (
     -1px 0 0.2em #000,
     0 1px 0.2em #000,
@@ -97,26 +104,30 @@ $small-tile: (
   col-min-s: 9rem,
   transition-bg: 0.5s ease,
   transition-overlay: 0.3s ease,
+  transition-hover-scale: 120%,
 );
 
 // ---------------------------
 // Layout
 // ---------------------------
 $layout: (
-  navbar-bg: #ededed,
-  navbar-border: rgb(131, 131, 131),
-  dummy-navbar-bg: #ffffff,
+  navbar-bg-color: var(--color-background-light),
+  navbar-border-color: var(--color-border-default),
+  dummy-navbar-bg-color: var(--color-background-default),
   navbar-shadow: rgba(163, 163, 163, 0.1),
   navbar-padding: 36px 8px 8px 8px,
   navbar-padding-top: 36px,
+  navbar-bg-after: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 99%,
+      rgba(0, 0, 0, 0.25)
+    ),
   main-content-padding: 0 10%,
   main-content-padding-mobile: 0 3%,
   main-content-top-margin: 0,
-
   navbar-z: 5,
   header-bg-z: -3,
   body-bg-z: -5,
-
   header-bg-repeat: no-repeat,
   header-bg-size: cover,
   header-bg-height: 500px,
@@ -126,47 +137,60 @@ $layout: (
   header-bg-after-image: image(background, header-after),
   header-before-opacity: 0.05,
   header-after-opacity: 0,
-  side-image: image(background, side),
+  sidebar-image: image(background, side),
   body-bg-size: 400px,
+  body-bg-after-color: linear-gradient(
+      to bottom,
+      white 0%,
+      white 60%,
+      rgba(255, 255, 255, 0) 100%
+    ),
   body-bg-opacity: 0.1,
-
-  side-opacity: 1,
-  side-width: 30px,
-  side-graphic-z: 5,
-  side-repeat: repeat-y,
-  side-size: cover,
-  side-graphic-top-margin: 0,
-  side-graphic-top-height: 100%,
-  side-graphic-min-height: 100%,
+  sidebar-image-opacity: 1,
+  sidebar-image-width: 30px,
+  sidebar-image-image-z: 5,
+  sidebar-image-repeat: repeat-y,
+  sidebar-image-size: cover,
+  sidebar-image-top-margin: 0,
+  sidebar-image-top-height: 100%,
+  sidebar-image-min-height: 100%,
 );
 
 // ---------------------------
 // Home Header
 // ---------------------------
 $home-header: (
-  circle-bg: #00000000,
+  circle-bg: transparent,
   circle-image: image(home-header, circle),
-  circle-opacity: 0.3,
-  circle-opacity-mobile: 0.2,
+  circle-opacity: 0.2,
+  circle-opacity-mobile: 0.3,
   circle-size: 23rem,
-  circle-margin: calc(23rem * 0.33),
-  title-font-size: 50px,
-  title-font-family: 'Georgia,
-  "Times New Roman",
-  serif',
-  title-font-weight: 400,
+  circle-margin: calc(var(--home-header-circle-size) * 0.33),
+  title-font-size: var(--font-size-4xl),
+  title-font-family: var(--font-brand),
+  title-font-weight: var(--font-weight-normal),
   title-letter-spacing: normal,
   title-overflow-wrap: normal,
   title-white-space: normal,
   title-word-break: normal,
   title-word-spacing: normal,
-  subtitle-font-size: 20px,
-  subtitle-font-family: 'Arial,
-  "Helvetica",
-  sans-serif',
-  subtitle-font-weight: 400,
+  subtitle-font-size: var(--font-size-3xl),
+  subtitle-font-family: var(--font-heading),
+  subtitle-font-weight: var(--font-weight-normal),
   subtitle-letter-spacing: normal,
   subtitle-word-spacing: normal,
+);
+
+// ---------------------------
+// Lined Section
+// ---------------------------
+$section-header: (
+  font-size: var(--font-size-xl),
+  font-weight: var(--font-weight-bold),
+  width: 100%,
+  gap: 1rem,
+  line-color: var(--color-border-default),
+  line-size: 2px,
 );
 
 // ---------------------------

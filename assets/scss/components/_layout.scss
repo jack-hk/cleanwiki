@@ -7,9 +7,9 @@
   }
 
   &__navbar {
-    background-color: var(--layout-navbar-bg);
-    border-right: 1px solid var(--layout-navbar-border);
-    border-top: 1px solid var(--layout-navbar-border);
+    background-color: var(--layout-navbar-bg-color);
+    border-right: 1px solid var(--layout-navbar-border-color);
+    border-top: 1px solid var(--layout-navbar-border-color);
     box-shadow: var(--layout-navbar-shadow);
     overflow-y: auto;
     position: fixed;
@@ -28,11 +28,7 @@
     }
 
     &::after {
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0) 99%,
-        rgba(0, 0, 0, 0.25)
-      );
+      background: var(--layout-navbar-bg-after);
       border-radius: inherit;
       inset: 0;
       pointer-events: none;
@@ -46,7 +42,7 @@
   }
 
   &__dummy-navbar {
-    background-color: var(--layout-dummy-navbar-bg);
+    background-color: var(--layout-dummy-navbar-bg-color);
     display: none;
     position: static;
 
@@ -132,38 +128,33 @@
     z-index: var(--layout-body-bg-z);
 
     &::after {
-      background: linear-gradient(
-        to bottom,
-        white 0%,
-        white 60%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: var(--layout-body-bg-after-color);
       content: '';
       height: 70%;
       left: 0;
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: calc(var(--layout-side-graphic-z) + 1);
+      z-index: calc(var(--layout-sidebar-image-z) + 1);
     }
   }
 
-  &__side-graphic {
-    background-image: var(--layout-side-image);
-    background-repeat: var(--layout-side-repeat);
-    background-size: var(--layout-side-size);
+  &__sidebar-image {
+    background-image: var(--layout-sidebar-image);
+    background-repeat: var(--layout-sidebar-image-repeat);
+    background-size: var(--layout-sidebar-image-size);
     display: block;
-    height: var(--layout-side-graphic-top-height);
+    height: var(--layout-sidebar-image-top-height);
     margin-left: calc(
       var(--layout-navbar-padding-top) + var(--navbar-icon-size)
     );
 
-    margin-top: var(--layout-side-graphic-top-margin);
-    min-height: var(--layout-side-graphic-min-height);
-    opacity: var(--layout-side-opacity);
+    margin-top: var(--layout-sidebar-image-top-margin);
+    min-height: var(--layout-sidebar-image-min-height);
+    opacity: var(--layout-sidebar-image-opacity);
     position: absolute;
-    width: var(--layout-side-width);
-    z-index: var(--layout-side-graphic-z);
+    width: var(--layout-sidebar-image-width);
+    z-index: var(--layout-sidebar-image-z);
 
     @include for-screen(mobile) {
       display: none;

@@ -15,13 +15,16 @@
 // Root defaults (emit vars)
 // ---------------------------
 :root {
-  @include css-vars($images, 'image');
   @include css-vars($fonts, 'font');
-  @include css-vars($colors-light, 'color-light');
+  @include css-vars($font-weights, 'font-weight');
+  @include css-vars($font-sizes, 'font-size');
+  @include css-vars($headings, 'heading');
+  @include css-vars($images, 'image');
   @include css-vars($layout, 'layout');
   @include css-vars($navbar, 'navbar');
   @include css-vars($big-tile, 'big-tile');
   @include css-vars($small-tile, 'small-tile');
   @include css-vars($home-header, 'home-header');
+  @include css-vars($section-header, 'section-header');
   @include css-vars($pagefind-ui, 'pagefind-ui');
 }
