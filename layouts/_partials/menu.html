@@ -10,8 +10,28 @@
 {{- with index site.Menus $menuID }}
   <nav class="navbar">
     {{- partial "popover.html" . -}}
-    <ul class="navbar__list">
-      {{- partial "walk.html" (dict "page" $page "menuEntries" .) }}
+
+
+    <!-- Main Menu (Excludes InBottom=true items) -->
+    <ul class="navbar__list navbar__list--top">
+      {{- $topEntries := slice }}
+      {{- range . }}
+        {{- if not .Params.inBottom }}
+          {{- $topEntries = $topEntries | append . }}
+        {{- end }}
+      {{- end }}
+      {{- partial "walk.html" (dict "page" $page "menuEntries" $topEntries) }}
+    </ul>
+
+    <!-- Bottom Menu (Only includes InBottom=true items) -->
+    <ul class="navbar__list navbar__list--bottom">
+      {{- $bottomEntries := slice }}
+      {{- range . }}
+        {{- if .Params.inBottom }}
+          {{- $bottomEntries = $bottomEntries | append . }}
+        {{- end }}
+      {{- end }}
+      {{- partial "walk.html" (dict "page" $page "menuEntries" $bottomEntries) }}
     </ul>
   </nav>
 {{- end }}

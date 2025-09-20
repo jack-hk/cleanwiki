@@ -1,5 +1,15 @@
 .navbar {
+  display: flex;
+  justify-content: space-between;
   position: relative;
+
+  @include for-screen(mobile) {
+    flex-direction: row;
+  }
+
+  @include for-screen(tablet) {
+    flex-direction: column;
+  }
 
   &__list {
     display: flex;
@@ -73,6 +83,10 @@
       width: 100%;
     }
   }
+}
+
+.navbar__list--bottom {
+  margin-bottom: var(--navbar-bottom-list-bottom-margin);
 }
 
 .navbar__item--first {
