@@ -8,7 +8,7 @@ body {
 
 @each $level, $size in $headings {
   #{$level} {
-    color: var(--color-text-default);
+    color: var(--color-ink);
     font-family: var(--font-heading);
     font-size: var(--font-size-#{$size});
     font-weight: var(--font-weight-bold);

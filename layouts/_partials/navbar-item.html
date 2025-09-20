@@ -1,8 +1,9 @@
 {{- $page := .page }}
 {{- $e := .entry }}
+{{- $isFirst := .isFirst | default false }}
 
 
-<li class="navbar__item">
+<li class="navbar__item {{ if $isFirst }}navbar__item--first{{ end }}">
   {{- if $e.Params.popover }}
     {{- partial "navbar-item-popover.html" (dict "page" $page "entry" $e) }}
   {{- else }}

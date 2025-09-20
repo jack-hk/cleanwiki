@@ -4,5 +4,5 @@
 {{- $page := .page }}
 
 {{- range $i, $e := .menuEntries }}
-  {{- partial "navbar-item.html" (dict "page" $page "entry" $e) }}
+  {{- partial "navbar-item.html" (dict "page" $page "entry" $e "isFirst" (eq $i 0)) }}
 {{- end }}

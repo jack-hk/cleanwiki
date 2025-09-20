@@ -20,7 +20,7 @@
     list-style: none;
 
     @include for-screen(mobile) {
-      margin: 5px 0 0 5px;
+      margin: 5px 0 5px 5px;
     }
 
     @include for-screen(tablet) {
@@ -28,7 +28,10 @@
     }
 
     &-icon {
+      color: var(--color-ink);
+      font-size: 0;
       margin: 0;
+      padding: 0;
       padding: var(--navbar-icon-padding);
       width: var(--navbar-icon-size);
     }
@@ -66,7 +69,16 @@
     @include for-screen(tablet) {
       border-bottom: 1px solid var(--navbar-separator-color);
       margin-bottom: var(--navbar-icon-gap);
+      margin-top: var(--navbar-icon-gap);
       width: 100%;
+    }
+  }
+}
+
+.navbar__item--first {
+  .navbar__item-button {
+    @include for-screen(mobile) {
+      margin-left: var(--navbar-icon-gap);
     }
   }
 }
