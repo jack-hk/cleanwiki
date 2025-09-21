@@ -86,7 +86,13 @@
 }
 
 .navbar__list--bottom {
-  margin-bottom: var(--navbar-bottom-list-bottom-margin);
+  @include for-screen(mobile) {
+    margin-right: var(--navbar-icon-gap);
+  }
+
+  @include for-screen(tablet) {
+    margin-bottom: var(--navbar-bottom-list-bottom-margin);
+  }
 }
 
 .navbar__item--first {
