@@ -52,7 +52,7 @@ $navbar: (
 // Big Tiles
 // ---------------------------
 $big-tile: (
-  item-bg: var(--color-secondary),
+  item-bg: var(--color-background-default),
   category-bg: var(--color-background-light),
   category-text-color: var(--color-text-default),
   title-text-color: var(--color-text-light),
@@ -75,7 +75,7 @@ $big-tile: (
       transparent 60%
     ),
   gap: 0.6rem,
-  pad-sm: 0.25rem 0.6rem,
+  pad-sm: 0.3rem 0.5rem,
   pad: 1rem,
   font-size-xs: 0.75rem,
   font-size-sm: 0.85rem,
@@ -86,7 +86,7 @@ $big-tile: (
 // Small Tiles
 // ---------------------------
 $small-tile: (
-  bg: var(--color-secondary),
+  bg: var(--color-background-default),
   text-color: var(--color-text-light),
   text-weight: var(--font-weight-bold),
   text-shadow: (
@@ -197,16 +197,17 @@ $section-header: (
 // ---------------------------
 // Pagefind UI
 // ---------------------------
-$pagefind-ui: (
-  scale: 0.8,
-  primary-color: #034ad8,
-  text-color: #393939,
-  background-color: #ffffff,
-  border-color: #eeeeee,
+$pagefind: (
+  scale: 1,
+  font-scale: 1,
+  primary: var(--color-primary),
+  text: var(--color-text-default),
+  background: var(--color-background-light),
+  border: var(--color-border-default),
   border-width: 2px,
   border-radius: 4px,
-  font-family: sans-serif,
-  tag-background: #eeeeee,
+  font: var(--font-base),
+  tag: var(--color-accent),
   image-border-radius: 8px,
   image-box-ratio: 3/2,
   spacing-small: 4px,
@@ -216,5 +217,5 @@ $pagefind-ui: (
   button-height: 44px,
   title-font-size: 21px,
   excerpt-font-size: 16px,
-  tag-font-size: 14px,
+  clear-btn-margin: 10px,
 );

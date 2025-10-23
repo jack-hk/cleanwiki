@@ -15,6 +15,7 @@ $colors-light: (
   background: (
     default: #fff,
     light: #fffaf5,
+    blend: rgba(171, 164, 161, 0.4),
     overlay: rgba(0, 0, 0, 0.2),
   ),
   interactive: (
@@ -39,6 +40,7 @@ $colors-dark: (
   background: (
     default: #222,
     light: #333,
+    blend: rgba(12, 12, 12, 0.4),
     overlay: rgba(255, 255, 255, 0.2),
   ),
   interactive: (

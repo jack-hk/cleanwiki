@@ -6,6 +6,13 @@ body {
   line-height: var(--base-line-height);
 }
 
+td,
+th {
+  font-family: var(--font-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--base-line-height);
+}
+
 @each $level, $size in $headings {
   #{$level} {
     color: var(--color-ink);
