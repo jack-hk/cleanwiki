@@ -195,6 +195,29 @@ $section-header: (
 );
 
 // ---------------------------
+// Portal
+// ---------------------------
+$portal: (
+  intro-color: var(--color-ink),
+  intro-title-font-size: var(--font-size-3xl),
+  showcase-card-bg: var(--color-background-light),
+  showcase-card-color: var(--color-text-muted),
+  showcase-card-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08),
+  showcase-card-title-font-size: var(--font-size-lg),
+  showcase-card-title-font-weight: var(--font-weight-bold),
+  showcase-card-link-color: var(--color-accent),
+  showcase-card-link-font-weight: var(--font-weight-bold),
+  list-item-bg: var(--color-background-light),
+  list-link-color: var(--color-accent),
+  split-row-color: var(--color-text-default),
+  alphabet-link-font-weight: var(--font-weight-bold),
+  alphabet-link-color: var(--color-text-muted),
+  alphabet-link-bg-hover: var(--color-accent),
+  alphabet-link-color-hover: var(--color-text-light),
+  split-title-font-weight: var(--font-weight-bold),
+);
+
+// ---------------------------
 // Pagefind UI
 // ---------------------------
 $pagefind: (
