@@ -73,3 +73,8 @@ truncate = 150               # Max characters for excerpt
 "article" = "big-tile-article.html"
 "quote"   = "big-tile-quote.html"
 "event"   = "big-tile-event.html"
+
+[params.portal]
+  showcase_tiles = 3 # To display amount of tiles in the showcase section
+  show_alphabet = true # To hide the alphabet navigation
+  truncate_limit = 180 # To set truncate limit for excerpts in showcase tiles

@@ -11,5 +11,9 @@
     @media (min-width: 1200px) {
       @content;
     }
+  } @else if $breakpoint == large-desktop {
+    @media (min-width: 1600px) {
+      @content;
+    }
   }
 }

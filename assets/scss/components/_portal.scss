@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 2rem;
   margin: 2rem auto 0;
-  padding: 0 1rem;
+  padding: var(--portal-intro-padding);
 }
 
 .portal__intro-body {
@@ -12,36 +12,36 @@
 
 .portal__intro-title {
   font-size: var(--portal-intro-title-font-size);
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-weight: var(--portal-intro-title-font-weight);
+  margin-bottom: var(--portal-intro-title-margin-bottom);
 }
 
 .portal__intro-text {
-  color: var(--portal-intro-color);
+  color: var(--portal-intro-text-color);
   margin: 0 auto;
-  max-width: 700px;
+  max-width: var(--portal-intro-text-max-width);
 }
 
 .portal__showcase {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--portal-showcase-gap);
   overflow-x: auto;
-  padding: 5px 0;
+  padding: var(--portal-showcase-padding);
 }
 
 .showcase-card {
   background: var(--portal-showcase-card-bg);
-  border-radius: 1rem;
+  border-radius: var(--portal-showcase-card-border-radius);
   box-shadow: var(--portal-showcase-card-box-shadow);
   flex: 1;
-  min-width: 250px;
-  padding: 1rem;
-  transition: transform 0.2s ease;
+  min-width: var(--portal-showcase-card-min-width);
+  padding: var(--portal-showcase-card-padding);
+  transition: var(--portal-showcase-card-transition);
 }
 
 .showcase-card:hover {
-  transform: translateY(-3px);
+  transform: var(--portal-showcase-card-transition-hover-transform);
 }
 
 .showcase-card__title {
@@ -82,11 +82,9 @@
 }
 
 .portal__alphabet-nav {
-  background: var(--color-background-light);
-  border-color: var(--color-border-default);
-  border-radius: 4px;
-  border-style: solid;
-  border-width: 1px;
+  background: var(--portal-alphabet-nav-bg);
+  border: var(--portal-alphabet-nav-border);
+  border-radius: var(--portal-alphabet-nav-border-radius);
   display: none;
   height: 0;
   overflow-x: scroll;
@@ -94,53 +92,57 @@
 
 .portal__alphabet-list {
   display: flex;
-  gap: 0.75rem;
-  justify-content: flex-start;
   list-style: none;
-  padding: 0.5rem 1rem;
+  padding: var(--portal-alphabet-list-padding);
 }
 
 .portal__alphabet-link {
-  border-radius: 0.5rem;
+  border-radius: var(--portal-alphabet-link-border-radius);
   color: var(--portal-alphabet-link-color);
   display: block;
   font-weight: var(--portal-alphabet-link-font-weight);
-  padding: 0.25rem 0.5rem;
+  padding: var(--portal-alphabet-link-padding);
   text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: var(--portal-alphabet-link-transition);
 }
 
-.portal__alphabet-link:hover {
+.portal__alphabet-item--enabled .portal__alphabet-link:hover {
   background: var(--portal-alphabet-link-bg-hover);
   color: var(--portal-alphabet-link-color-hover);
 }
 
+.portal__alphabet-item--disabled .portal__alphabet-link {
+  background-color: var(--portal-alphabet-link-bg-disabled);
+  color: var(--portal-alphabet-link-color-disabled);
+}
+
+.portal__alphabet-item--disabled .portal__alphabet-link:hover {
+  cursor: default;
+}
+
 .portal-list-grid {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--portal-list-grid-gap);
   margin: 0 auto 2rem;
-  padding: 0 1rem;
+  padding: var(--portal-list-grid-padding);
 }
 
 .portal-list__section {
-  margin-bottom: 2rem;
+  margin-bottom: var(--portal-list-section-margin-bottom);
 }
 
 .portal-list__letter {
-  border-bottom: 2px solid #ddd;
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  padding-bottom: 0.25rem;
+  border-bottom: var(--portal-list-letter-border-bottom);
+  font-size: var(--portal-list-letter-font-size);
+  font-weight: var(--portal-list-letter-font-weight);
+  margin-bottom: var(--portal-list-letter-margin-bottom);
+  padding-bottom: var(--portal-list-letter-padding-bottom);
 }
 
 .portal-list__items {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--portal-list-items-gap);
   list-style: none;
   margin: 0;
   padding-left: 0;
@@ -148,44 +150,9 @@
 
 .portal-list__item {
   background-color: var(--portal-list-item-bg);
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  transition: background-color 0.2s ease;
-}
-
-.portal-list__cards {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  scroll-snap-type: x mandatory;
-}
-
-.portal-card {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
-  flex: 0 0 250px;
-  padding: 1rem;
-  scroll-snap-align: start;
-  transition: transform 0.2s ease;
-}
-
-.portal-card:hover {
-  transform: translateY(-3px);
-}
-
-.portal-card__title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.portal-card__summary {
-  color: #555;
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
+  border-radius: var(--portal-list-item-border-radius);
+  padding: var(--portal-list-item-padding);
+  transition: var(--portal-list-item-transition);
 }
 
 .portal-card__link {
@@ -203,10 +170,24 @@
   text-align: center;
 }
 
+@include for-screen(mobile) {
+  .portal-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @include for-screen(tablet) {
   .portal__showcase {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .portal__alphabet-list {
+    gap: 0.75rem;
+  }
+
+  .portal-list-grid {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   }
 }
 
@@ -216,8 +197,28 @@
     height: auto;
   }
 
+  .portal__alphabet-list {
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+
   .portal-list-grid,
   .portal__intro {
     margin: 2rem auto;
+  }
+
+  .portal-list-grid {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  }
+}
+
+@include for-screen(large-desktop) {
+  .portal__alphabet-list {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .portal-list-grid {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   }
 }

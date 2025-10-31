@@ -5,29 +5,41 @@
     <div class="portal__intro-body">
       <h2 class="portal__intro-title">{{ .Title }}</h2>
       {{ with .Content }}
-      <div class="portal__intro-text">{{ . }}</div>
+        <div class="portal__intro-text">{{ . }}</div>
       {{ else }}
-      <p class="portal__intro-text">
-        Browse all articles related to <strong>{{ .Title }}</strong> in
-        the {{ .Data.Singular | title }} taxonomy.
-      </p>
+        <p class="portal__intro-text">
+          Browse all articles related to <strong>{{ .Title }}</strong> in
+          the {{ .Data.Singular | title }} taxonomy.
+        </p>
       {{ end }}
     </div>
 
-<div class="portal__showcase">
-  {{ if ge (.Pages | len) 3 }}
-    {{ range first 3 (shuffle .Pages) }}
-      <div class="showcase-card">
-        <h3 class="showcase-card__title">{{ .Title }}</h3>
-        {{ with .Summary }}
-          <p class="showcase-card__text">{{ . | plainify | truncate 120 }}</p>
-        {{ end }}
-        <a href="{{ .RelPermalink }}" class="showcase-card__link">Read →</a>
-      </div>
-    {{ end }}
-  {{ end }}
-</div>
+    {{/* === Showcase Section === */}}
+    <div class="portal__showcase">
+      {{/* Priority: _index.md param > global param > default */}}
+      {{ $tileCount := default 3 .Site.Params.portal.showcase_tiles }}
+      {{ if isset .Params "showcase_tiles" }}
+        {{ $tileCount = .Params.showcase_tiles }}
+      {{ end }}
 
+      {{/* Truncate limit: _index.md param > global param > default */}}
+      {{ $truncateLimit := default 120 .Site.Params.portal.truncate_limit }}
+      {{ if isset .Params "truncate_limit" }}
+        {{ $truncateLimit = .Params.truncate_limit }}
+      {{ end }}
+
+      {{ if ge (.Pages | len) 1 }}
+        {{ range first $tileCount (shuffle .Pages) }}
+          <div class="showcase-card">
+            <h3 class="showcase-card__title">{{ .Title }}</h3>
+            {{ with .Summary }}
+              <p class="showcase-card__text">{{ . | plainify | truncate $truncateLimit }}</p>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="showcase-card__link">Read →</a>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
 
     <div class="portal__split-row">
       <div class="split-row__col">
@@ -47,45 +59,69 @@
     </div>
   </section>
 
-  <nav class="portal__alphabet-nav">
-    <ul class="portal__alphabet-list">
-      {{ range (seq 65 90) }}
-      <li class="portal__alphabet-item">
-        <a href="#{{ printf "%c" . }}" class="portal__alphabet-link">{{ printf "%c" . }}</a>
-      </li>
-      {{ end }}
-    </ul>
-  </nav>
+  {{/* === Optional Alphabet Navigation === */}}
+  {{ $showAlphabet := default true .Site.Params.portal.show_alphabet }}
+  {{ if isset .Params "show_alphabet" }}
+    {{ $showAlphabet = .Params.show_alphabet }}
+  {{ end }}
+
+  {{ if $showAlphabet }}
+    <nav class="portal__alphabet-nav">
+      <ul class="portal__alphabet-list">
+        {{ $pages := .Pages.ByTitle }}
+        {{ $letters := slice }}
+
+        {{ range $pages }}
+          {{ $first := upper (substr .Title 0 1) }}
+          {{ if not (in $letters $first) }}
+            {{ $letters = $letters | append $first }}
+          {{ end }}
+        {{ end }}
+
+        {{ range (seq 65 90) }}
+          {{ $char := printf "%c" . }}
+          {{ if in $letters $char }}
+            <li class="portal__alphabet-item portal__alphabet-item--enabled">
+              <a href="#{{ $char }}" class="portal__alphabet-link">{{ $char }}</a>
+            </li>
+          {{ else }}
+            <li class="portal__alphabet-item portal__alphabet-item--disabled">
+              <span class="portal__alphabet-link portal__alphabet-link--disabled">{{ $char }}</span>
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </nav>
+  {{ end }}
 
   <main class="portal__main">
     <section class="portal-list-grid">
-{{ $pages := .Pages.ByTitle }}
-{{ $letters := slice }}
+      {{ $pages := .Pages.ByTitle }}
+      {{ $letters := slice }}
 
-{{ range $pages }}
-  {{ $first := upper (substr .Title 0 1) }}
-  {{ if not (in $letters $first) }}
-    {{ $letters = $letters | append $first }}
-  {{ end }}
-{{ end }}
+      {{ range $pages }}
+        {{ $first := upper (substr .Title 0 1) }}
+        {{ if not (in $letters $first) }}
+          {{ $letters = $letters | append $first }}
+        {{ end }}
+      {{ end }}
 
-{{ range $letters }}
-  {{ $letter := . }}
-  <div class="portal-list__section" id="{{ $letter }}">
-    <h2 class="portal-list__letter">{{ $letter }}</h2>
-<ul class="portal-list__items">
-  {{ range $pages }}
-    {{ $first := upper (substr .Title 0 1) }}
-    {{ if eq $first $letter }}
-      <li class="portal-list__item">
-        <a href="{{ .RelPermalink }}" class="portal-card__link">{{ .Title }}</a>
-      </li>
-    {{ end }}
-  {{ end }}
-</ul>
-  </div>
-{{ end }}
-
+      {{ range $letters }}
+        {{ $letter := . }}
+        <div class="portal-list__section" id="{{ $letter }}">
+          <h2 class="portal-list__letter">{{ $letter }}</h2>
+          <ul class="portal-list__items">
+            {{ range $pages }}
+              {{ $first := upper (substr .Title 0 1) }}
+              {{ if eq $first $letter }}
+                <li class="portal-list__item">
+                  <a href="{{ .RelPermalink }}" class="portal-card__link">{{ .Title }}</a>
+                </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
     </section>
   </main>
 
@@ -95,6 +131,6 @@
     </p>
   </footer>
 </body>
-
 </html>
+
 {{ end }}

@@ -9,13 +9,14 @@ $colors-light: (
   ink: #151515,
   text: (
     default: #333,
+    light: #fffaf5,
     muted: #737373,
+    disabled: rgba(0, 0, 0, 0.1),
     inverted: #fff,
   ),
   background: (
     default: #fff,
     light: #fffaf5,
-    blend: rgba(171, 164, 161, 0.4),
     overlay: rgba(0, 0, 0, 0.2),
   ),
   interactive: (
@@ -34,13 +35,14 @@ $colors-dark: (
   secondary: #034ad8,
   text: (
     default: #eee,
+    light: #fffaf5,
     muted: #aaa,
+    disabled: rgba(255, 255, 255, 0.1),
     inverted: #000,
   ),
   background: (
     default: #222,
     light: #333,
-    blend: rgba(12, 12, 12, 0.4),
     overlay: rgba(255, 255, 255, 0.2),
   ),
   interactive: (
