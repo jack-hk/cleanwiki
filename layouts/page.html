@@ -1,10 +1,113 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <article class="page">
+    {{ if or (site.Params.pageLayout.showHeader | default true) (site.Params.pageLayout.showMeta | default true) (site.Params.pageLayout.showTaxonomies | default true) }}
+      <header class="page__header">
+        <h1 class="page__title">{{ .Title }}</h1>
 
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+        {{ if or (site.Params.pageLayout.showMeta | default true) }}
+          <div class="page__meta">
+            {{ if and (site.Params.pageLayout.showMeta | default true) .Date }}
+              <time
+                class="page__date"
+                datetime="{{ .Date | time.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date | time.Format ":date_long" }}
+              </time>
+            {{ end }}
 
-  {{ .Content }}
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+            {{ if and (site.Params.pageLayout.showMeta | default true) .Params.author }}
+              <span class="page__author">by {{ .Params.author }}</span>
+            {{ end }}
+
+            {{ if and (site.Params.pageLayout.showMeta | default true) .ReadingTime }}
+              <span class="page__reading-time">{{ .ReadingTime }} min read</span>
+            {{ end }}
+          </div>
+        {{ end }}
+
+        {{ if and (site.Params.pageLayout.showTaxonomies | default true) (or (.GetTerms "categories") (.GetTerms "tags")) }}
+          <div class="page__taxonomies">
+            {{ with .GetTerms "categories" }}
+              <div class="page__categories">
+                <span class="page__label">Categories:</span>
+                <ul class="page__list page__list--categories">
+                  {{ range . }}
+                    <li class="page__list-item">
+                      <a href="{{ .RelPermalink }}" class="page__link">{{ .LinkTitle }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              </div>
+            {{ end }}
+
+            {{ with .GetTerms "tags" }}
+              <div class="page__tags">
+                <span class="page__label">Tags:</span>
+                <ul class="page__list page__list--tags">
+                  {{ range . }}
+                    <li class="page__list-item">
+                      <a href="{{ .RelPermalink }}" class="page__link">#{{ .LinkTitle }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              </div>
+            {{ end }}
+          </div>
+        {{ end }}
+      </header>
+    {{ end }}
+
+    {{ if and (site.Params.pageLayout.showFeaturedImage | default true) .Params.featured_image }}
+      <figure class="page__figure">
+        <img src="{{ .Params.featured_image | relURL }}" alt="{{ .Title }}" class="page__image" />
+        {{ if .Params.image_caption }}
+          <figcaption class="page__caption">{{ .Params.image_caption }}</figcaption>
+        {{ end }}
+      </figure>
+    {{ end }}
+
+    <div class="page__content">
+      {{ .Content }}
+    </div>
+
+    {{ if or (and (site.Params.pageLayout.showSeries | default true) .Params.series) (and (site.Params.pageLayout.showUpdated | default true) .Params.updated) (and (site.Params.pageLayout.showReferences | default true) .Params.references) }}
+      <footer class="page__footer">
+        {{ if and (site.Params.pageLayout.showSeries | default true) .Params.series }}
+          <div class="page__series">
+            <span class="page__label">Series:</span>
+            <a
+              href="{{ (printf "/series/%s" (urlize .Params.series)) | relURL }}"
+              class="page__link">
+              {{ .Params.series }}
+            </a>
+          </div>
+        {{ end }}
+
+        {{ if and (site.Params.pageLayout.showUpdated | default true) .Params.updated }}
+          <div class="page__updated">
+            <span class="page__label">Last updated:</span>
+            <time datetime="{{ .Params.updated | time.Format "2006-01-02" }}">{{ .Params.updated | time.Format ":date_long" }}</time>
+          </div>
+        {{ end }}
+
+        {{ if and (site.Params.pageLayout.showReferences | default true) .Params.references }}
+          <div class="page__references">
+            <h2 class="page__label">References</h2>
+            <ul class="page__list page__list--references">
+              {{ range .Params.references }}
+                <li class="page__list-item">
+                  <a
+                    href="{{ .url }}"
+                    class="page__link"
+                    target="_blank"
+                    rel="noopener">
+                    {{ .title }}
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      </footer>
+    {{ end }}
+  </article>
 {{ end }}

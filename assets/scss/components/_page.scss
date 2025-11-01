@@ -1,0 +1,121 @@
+.page {
+  background-color: var(--page-bg);
+  border-color: var(--page-border-color);
+  border-radius: var(--page-border-radius);
+  border-style: solid;
+  border-width: var(--page-border-width);
+  box-shadow: var(--page-shadow);
+  color: var(--page-text-color);
+  contain: content;
+  margin: var(--page-margin);
+  padding: var(--page-padding);
+  text-align: left;
+
+  @include for-screen(mobile) {
+    padding: var(--page-padding-mobile);
+  }
+}
+
+.page__header {
+  border-bottom: var(--page-header-border-width) solid
+    var(--page-header-border-color);
+  margin-bottom: var(--page-header-margin-bottom);
+  padding-bottom: var(--page-header-padding-bottom);
+}
+
+.page__title {
+  font-size: var(--page-title-font-size);
+  font-weight: var(--page-title-font-weight);
+  margin: 0 0 var(--page-title-margin-bottom);
+}
+
+.page__meta {
+  color: var(--page-meta-text-color);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--page-meta-font-size);
+  gap: var(--page-meta-gap);
+  margin: var(--page-meta-margin) 0;
+}
+
+.page__date,
+.page__author,
+.page__reading-time {
+  display: inline-block;
+}
+
+.page__taxonomies {
+  margin-top: 0;
+}
+
+.page__label {
+  font-weight: var(--page-label-font-weight);
+  margin-right: var(--page-label-margin-right);
+}
+
+.page__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--page-list-gap);
+  list-style: none;
+  margin: var(--page-list-margin);
+  padding: 0;
+}
+
+.page__list-item {
+  display: inline;
+}
+
+.page__link {
+  color: var(--page-link-color);
+  text-decoration: none;
+  transition: var(--page-link-transition);
+
+  &:hover {
+    color: var(--page-link-hover-color);
+    text-decoration: underline;
+  }
+}
+
+.page__figure {
+  margin: var(--page-figure-margin);
+}
+
+.page__image {
+  border-radius: var(--page-image-border-radius);
+  width: var(--page-image-width);
+}
+
+.page__caption {
+  color: var(--page-caption-text-color);
+  font-size: var(--page-caption-font-size);
+  margin-top: var(--page-caption-margin-top);
+  text-align: center;
+}
+
+.page__content {
+  font-size: var(--page-content-font-size);
+  line-height: var(--page-content-line-height);
+}
+
+.page__footer {
+  border-top: var(--page-footer-border-width) solid
+    var(--page-footer-border-color);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--page-footer-font-size);
+  gap: 2rem;
+  margin-top: var(--page-footer-margin-top);
+  padding-top: var(--page-footer-padding-top);
+}
+
+.page__series,
+.page__updated,
+.page__references {
+  flex: 1;
+  min-width: 200px;
+}
+
+.page__references .page__link {
+  color: var(--page-references-link-color);
+}

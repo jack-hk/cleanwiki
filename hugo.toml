@@ -36,6 +36,17 @@ enablePagefindCSS = false   # Use PageFind's default CSS. Set false to use custo
 # Subtitle which appears under the title.
 subtitle = "This site is my site, there are many like it, but this one is mine."
 
+# ---------------------------
+# Page layout settings
+# ---------------------------
+[params.pageLayout]
+showHeader = true
+showMeta = true
+showTaxonomies = true
+showFeaturedImage = true
+showSeries = true
+showUpdated = true
+showReferences = true
 
 # ---------------------------
 # Navbar configuration
