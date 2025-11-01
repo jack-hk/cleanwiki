@@ -19,7 +19,9 @@
             {{ end }}
 
             {{ if and (site.Params.pageLayout.showMeta | default true) .ReadingTime }}
-              <span class="page__reading-time">{{ .ReadingTime }} min read</span>
+              <span class="page__reading-time"
+                >{{ .ReadingTime }} min read</span
+              >
             {{ end }}
           </div>
         {{ end }}
@@ -32,9 +34,13 @@
                 <ul class="page__list page__list--categories">
                   {{ range . }}
                     <li class="page__list-item">
-                      <a href="{{ .RelPermalink }}" class="page__link page__link--block">
+                      <a
+                        href="{{ .RelPermalink }}"
+                        class="page__link page__link--block">
                         {{ if site.Params.pageLayout.showTaxonomyIcons | default true }}
-                          <span class="page__icon page__icon--category">{{ partial "icons/category" }}</span>
+                          <span class="page__icon page__icon--category"
+                            >{{ partial "icons/category" }}</span
+                          >
                         {{ end }}
                         <span class="page__link-text">{{ .LinkTitle }}</span>
                       </a>
@@ -50,9 +56,13 @@
                 <ul class="page__list page__list--tags">
                   {{ range . }}
                     <li class="page__list-item">
-                      <a href="{{ .RelPermalink }}" class="page__link page__link--block">
+                      <a
+                        href="{{ .RelPermalink }}"
+                        class="page__link page__link--block">
                         {{ if site.Params.pageLayout.showTaxonomyIcons | default true }}
-                          <span class="page__icon page__icon--tag">{{ partial "icons/tag" }}</span>
+                          <span class="page__icon page__icon--tag"
+                            >{{ partial "icons/tag" }}</span
+                          >
                         {{ end }}
                         <span class="page__link-text">#{{ .LinkTitle }}</span>
                       </a>
@@ -68,12 +78,18 @@
 
     {{ if and (site.Params.pageLayout.showFeaturedImage | default true) .Params.featured_image }}
       <figure class="page__figure">
-        <img src="{{ .Params.featured_image | relURL }}" alt="{{ .Title }}" class="page__image" />
+        <img
+          src="{{ .Params.featured_image | relURL }}"
+          alt="{{ .Title }}"
+          class="page__image" />
         {{ if .Params.image_caption }}
-          <figcaption class="page__caption">{{ .Params.image_caption }}</figcaption>
+          <figcaption class="page__caption">
+            {{ .Params.image_caption }}
+          </figcaption>
         {{ end }}
       </figure>
     {{ end }}
+
 
     <div class="page__content">
       {{ .Content }}
@@ -96,7 +112,9 @@
             {{ end }}
 
             {{ if and (site.Params.pageLayout.showMeta | default true) .ReadingTime }}
-              <span class="page__reading-time">{{ .ReadingTime }} min read</span>
+              <span class="page__reading-time"
+                >{{ .ReadingTime }} min read</span
+              >
             {{ end }}
           </div>
         {{ end }}
@@ -109,9 +127,13 @@
                 <ul class="page__list page__list--categories">
                   {{ range . }}
                     <li class="page__list-item">
-                      <a href="{{ .RelPermalink }}" class="page__link page__link--block">
+                      <a
+                        href="{{ .RelPermalink }}"
+                        class="page__link page__link--block">
                         {{ if site.Params.pageLayout.showTaxonomyIcons | default true }}
-                          <span class="page__icon page__icon--category">{{ partial "icons/category" }}</span>
+                          <span class="page__icon page__icon--category"
+                            >{{ partial "icons/category" }}</span
+                          >
                         {{ end }}
                         <span class="page__link-text">{{ .LinkTitle }}</span>
                       </a>
@@ -127,9 +149,13 @@
                 <ul class="page__list page__list--tags">
                   {{ range . }}
                     <li class="page__list-item">
-                      <a href="{{ .RelPermalink }}" class="page__link page__link--block">
+                      <a
+                        href="{{ .RelPermalink }}"
+                        class="page__link page__link--block">
                         {{ if site.Params.pageLayout.showTaxonomyIcons | default true }}
-                          <span class="page__icon page__icon--tag">{{ partial "icons/tag" }}</span>
+                          <span class="page__icon page__icon--tag"
+                            >{{ partial "icons/tag" }}</span
+                          >
                         {{ end }}
                         <span class="page__link-text">#{{ .LinkTitle }}</span>
                       </a>
@@ -159,7 +185,9 @@
         {{ if and (site.Params.pageLayout.showUpdated | default true) .Params.updated }}
           <div class="page__updated">
             <span class="page__label">Last updated:</span>
-            <time datetime="{{ .Params.updated | time.Format "2006-01-02" }}">{{ .Params.updated | time.Format ":date_long" }}</time>
+            <time datetime="{{ .Params.updated | time.Format "2006-01-02" }}"
+              >{{ .Params.updated | time.Format ":date_long" }}</time
+            >
           </div>
         {{ end }}
 
