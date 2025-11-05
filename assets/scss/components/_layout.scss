@@ -71,6 +71,10 @@
     }
 
     @include for-screen(tablet) {
+      padding: var(--layout-main-content-padding-tablet);
+    }
+
+    @include for-screen(desktop) {
       padding: var(--layout-main-content-padding);
     }
   }
