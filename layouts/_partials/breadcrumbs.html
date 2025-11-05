@@ -1,0 +1,37 @@
+{{- if site.Params.breadcrumbs.enabled | default true -}}
+  {{- $homeURL := "/" -}}
+  {{- $separator := site.Params.breadcrumbs.separator | default "/" -}}
+  <nav class="breadcrumbs">
+    <ol class="breadcrumbs__list" style="--breadcrumbs-separator: '{{ $separator }}'">
+      <li class="breadcrumbs__item">
+        <a href="{{ $homeURL }}" class="breadcrumbs__link">Home</a>
+      </li>
+
+      {{- $section := "" -}}
+      {{- $sectionTitle := "" -}}
+
+      {{- if eq .Type "posts" -}}
+        {{- $section = "posts" -}}
+        {{- $sectionTitle = "Articles" -}}
+      {{- else if eq .Type "pages" -}}
+        {{- $section = "pages" -}}
+        {{- $sectionTitle = "Pages" -}}
+      {{- else -}}
+        {{- $section = .Section -}}
+        {{- $sectionTitle = humanize $section -}}
+      {{- end -}}
+
+      {{- if and $section (ne $section "") -}}
+        <li class="breadcrumbs__item">
+          <a href="/{{ $section }}/" class="breadcrumbs__link">{{ $sectionTitle }}</a>
+        </li>
+      {{- end -}}
+
+      {{- if and .Title (ne .Title "") -}}
+        <li class="breadcrumbs__item breadcrumbs__item--current">
+          <span class="breadcrumbs__text">{{ .Title }}</span>
+        </li>
+      {{- end -}}
+    </ol>
+  </nav>
+{{- end -}}

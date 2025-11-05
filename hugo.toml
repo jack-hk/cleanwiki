@@ -52,6 +52,13 @@ metaBelowContent = false
 taxonomiesBelowContent = false
 
 # ---------------------------
+# Breadcrumbs configuration
+# ---------------------------
+[params.breadcrumbs]
+enabled = true
+separator = "/"
+
+# ---------------------------
 # Navbar configuration
 # ---------------------------
 [params.navbarBar]

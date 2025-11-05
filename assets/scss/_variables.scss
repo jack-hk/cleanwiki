@@ -277,6 +277,22 @@ $pagefind: (
 );
 
 // ---------------------------
+// Breadcrumbs
+// ---------------------------
+$breadcrumbs: (
+  font-size: var(--font-size-sm),
+  text-color: var(--color-text-muted),
+  link-color: var(--color-accent),
+  link-hover-color: var(--color-accent),
+  gap: 0.2rem,
+  list-gap: 0.25rem,
+  separator-color: var(--color-text-muted),
+  current-text-color: var(--color-text-default),
+  padding: none,
+  margin-bottom: none,
+);
+
+// ---------------------------
 // Page
 // ---------------------------
 $page: (
@@ -295,7 +311,7 @@ $page: (
   header-margin-bottom: 1.5rem,
   title-font-size: var(--font-size-2xl),
   title-font-weight: var(--font-weight-bold),
-  title-margin-top: 1.4rem,
+  title-margin-top: 0.5rem,
   meta-text-color: var(--color-text-muted),
   meta-font-size: var(--font-size-sm),
   meta-gap: 1rem,

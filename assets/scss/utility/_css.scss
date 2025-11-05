@@ -28,5 +28,6 @@
   @include css-vars($section-header, 'section-header');
   @include css-vars($portal, 'portal');
   @include css-vars($pagefind, 'pagefind-ui');
+  @include css-vars($breadcrumbs, 'breadcrumbs');
   @include css-vars($page, 'page');
 }
