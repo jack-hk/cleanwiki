@@ -7,24 +7,14 @@
         <a href="{{ $homeURL }}" class="breadcrumbs__link">Home</a>
       </li>
 
-      {{- $section := "" -}}
-      {{- $sectionTitle := "" -}}
-
-      {{- if eq .Type "posts" -}}
-        {{- $section = "posts" -}}
-        {{- $sectionTitle = "Articles" -}}
-      {{- else if eq .Type "pages" -}}
-        {{- $section = "pages" -}}
-        {{- $sectionTitle = "Pages" -}}
-      {{- else -}}
-        {{- $section = .Section -}}
-        {{- $sectionTitle = humanize $section -}}
-      {{- end -}}
-
-      {{- if and $section (ne $section "") -}}
-        <li class="breadcrumbs__item">
-          <a href="/{{ $section }}/" class="breadcrumbs__link">{{ $sectionTitle }}</a>
-        </li>
+      {{- if .Ancestors -}}
+        {{- range .Ancestors.Reverse -}}
+          {{- if ne .Title "Home" -}}
+            <li class="breadcrumbs__item">
+              <a href="{{ .Permalink }}" class="breadcrumbs__link">{{ .Title }}</a>
+            </li>
+          {{- end -}}
+        {{- end -}}
       {{- end -}}
 
       {{- if and .Title (ne .Title "") -}}
