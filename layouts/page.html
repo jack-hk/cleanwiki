@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <article class="page">
+  <article class="page page--mobile-fullscreen">
     {{- partial "breadcrumbs" . -}}
 
     {{ if or (site.Params.pageLayout.showHeader | default true) (and (site.Params.pageLayout.showMeta | default true) (not (site.Params.pageLayout.metaBelowContent | default false))) (and (site.Params.pageLayout.showTaxonomies | default true) (not (site.Params.pageLayout.taxonomiesBelowContent | default false))) }}

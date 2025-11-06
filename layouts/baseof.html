@@ -15,7 +15,7 @@
         {{ partial "navbar.html" . }}
       </aside>
       <span class="layout__sidebar-image"></span>
-      <section class="layout__main">
+      <section class="layout__main{{ if eq .Kind "page" }} layout__main--content-page{{ end }}">
         <span class="layout__main-header-background"></span>
         <span class="layout__main-whole-background"></span>
         <main class="layout__main-content">

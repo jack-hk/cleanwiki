@@ -77,6 +77,14 @@
     @include for-screen(desktop) {
       padding: var(--layout-main-content-padding);
     }
+
+    &:has(.page--mobile-fullscreen),
+    &:has(.wiki--mobile-fullscreen) {
+      @include for-screen(mobile) {
+        margin-top: 0;
+        padding: 0;
+      }
+    }
   }
 
   &__main-header-background {
@@ -90,6 +98,18 @@
     position: absolute;
     width: 100%;
     z-index: var(--layout-header-bg-z);
+
+    // Hide header background on mobile for content pages only
+    .layout__main--content-page & {
+      @include for-screen(mobile) {
+        display: none;
+      }
+    }
+
+    // Show on tablet/desktop for all pages
+    @include for-screen(tablet) {
+      // Visible on tablet and up
+    }
 
     &::before {
       background-image: var(--layout-header-bg-before-image);
@@ -130,6 +150,12 @@
     position: fixed;
     width: 100%;
     z-index: var(--layout-body-bg-z);
+
+    .layout__main--content-page & {
+      @include for-screen(mobile) {
+        display: none;
+      }
+    }
 
     &::after {
       background: var(--layout-body-bg-after-color);

@@ -7,12 +7,35 @@
   box-shadow: var(--page-shadow);
   color: var(--page-text-color);
   contain: content;
-  margin: var(--page-margin);
   padding: var(--page-padding);
   text-align: left;
 
   @include for-screen(mobile) {
-    padding: var(--page-padding-mobile);
+    margin: 0;
+    padding: 1rem;
+  }
+
+  @include for-screen(tablet) {
+    margin: 20px 4%;
+  }
+
+  @include for-screen(desktop) {
+    margin: var(--page-margin);
+    padding: var(--page-padding);
+  }
+
+  &--mobile-fullscreen {
+    @include for-screen(mobile) {
+      border-radius: 0;
+      border-width: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+      width: 100%;
+    }
   }
 }
 
@@ -21,6 +44,12 @@
     var(--page-header-border-color);
   margin-bottom: var(--page-header-margin-bottom);
   padding-bottom: var(--page-header-padding-bottom);
+
+  .page--mobile-fullscreen & {
+    @include for-screen(mobile) {
+      padding: 1rem;
+    }
+  }
 }
 
 .page__title {
@@ -132,6 +161,12 @@
 .page__content {
   font-size: var(--page-content-font-size);
   line-height: var(--page-content-line-height);
+
+  .page--mobile-fullscreen & {
+    @include for-screen(mobile) {
+      padding: 0 1rem 1rem 1rem;
+    }
+  }
 }
 
 .page__content-footer {
@@ -139,6 +174,12 @@
     var(--page-footer-border-color);
   margin-top: var(--page-footer-margin-top);
   padding-top: var(--page-footer-padding-top);
+
+  .page--mobile-fullscreen & {
+    @include for-screen(mobile) {
+      padding: 1rem 1rem 0 1rem;
+    }
+  }
 }
 
 .page__footer {
@@ -150,6 +191,12 @@
   gap: 2rem;
   margin-top: var(--page-footer-margin-top);
   padding-top: var(--page-footer-padding-top);
+
+  .page--mobile-fullscreen & {
+    @include for-screen(mobile) {
+      padding: 1rem 1rem 1rem 1rem;
+    }
+  }
 }
 
 .page__series,
