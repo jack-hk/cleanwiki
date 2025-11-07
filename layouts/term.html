@@ -22,13 +22,20 @@
         {{ $tileCount = .Params.showcase_tiles }}
       {{ end }}
 
+      {{/* Minimum tiles required: _index.md param > global param > default */}}
+      {{ $minTileCount := default 3 .Site.Params.portal.min_showcase_tiles }}
+      {{ if isset .Params "min_showcase_tiles" }}
+        {{ $minTileCount = .Params.min_showcase_tiles }}
+      {{ end }}
+
       {{/* Truncate limit: _index.md param > global param > default */}}
       {{ $truncateLimit := default 120 .Site.Params.portal.truncate_limit }}
       {{ if isset .Params "truncate_limit" }}
         {{ $truncateLimit = .Params.truncate_limit }}
       {{ end }}
 
-      {{ if ge (.Pages | len) 1 }}
+      {{/* Only show showcase if article count meets minimum threshold */}}
+      {{ if ge (.Pages | len) $minTileCount }}
         {{ range first $tileCount (shuffle .Pages) }}
           <div class="showcase-card">
             <h3 class="showcase-card__title">{{ .Title }}</h3>
