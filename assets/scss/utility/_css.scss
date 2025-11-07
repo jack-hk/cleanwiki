@@ -30,4 +30,5 @@
   @include css-vars($pagefind, 'pagefind-ui');
   @include css-vars($breadcrumbs, 'breadcrumbs');
   @include css-vars($page, 'page');
+  @include css-vars($cusdis, 'cusdis');
 }

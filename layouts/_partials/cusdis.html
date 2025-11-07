@@ -1,0 +1,57 @@
+{{- if and (site.Params.cusdis.enabled | default false) (ne .Params.comments false) -}}
+  {{- $appID := site.Params.cusdis.app_id -}}
+  {{- $host := site.Params.cusdis.host | default "https://cusdis.com" -}}
+  {{- $pageID := .File.UniqueID -}}
+  {{- $pageURL := .Permalink -}}
+  {{- $pageTitle := .Title -}}
+
+
+  <section class="cusdis" id="cusdis-section">
+    <h2 class="cusdis__title">
+      Discussion
+      <span
+        class="cusdis__count"
+        data-cusdis-count-page-id="{{ .File.UniqueID }}"
+        >0</span
+      >
+    </h2>
+    <p class="cusdis__subtitle">See what the community has to say</p>
+
+    <div class="cusdis__confirmation" id="cusdis-confirmation">
+      <p class="cusdis__confirmation-text">
+        By accessing the discussion section below, you acknowledge that you have
+        read and agree to comply with our
+        <a
+          href="/terms-of-use"
+          class="cusdis__confirmation-link"
+          target="_blank"
+          rel="noopener">
+          terms of use.
+        </a>
+        Comments are moderated to maintain community standards.
+      </p>
+      <button class="cusdis__confirmation-button" id="cusdis-confirm-button">
+        I Agree and Want to View Comments
+      </button>
+    </div>
+
+    <div class="cusdis__container" id="cusdis-container" style="display: none;">
+      <div
+        id="cusdis_thread"
+        data-host="{{ $host }}"
+        data-app-id="{{ $appID }}"
+        data-page-id="{{ $pageID }}"
+        data-page-url="{{ $pageURL }}"
+        data-page-title="{{ $pageTitle }}"
+        data-theme="light"></div>
+    </div>
+  </section>
+
+  <script async defer src="{{ $host }}/js/cusdis.es.js"></script>
+  <script
+    defer
+    data-host="{{ $host }}"
+    data-app-id="{{ $appID }}"
+    src="{{ $host }}/js/cusdis-count.umd.js"></script>
+  <script defer src="/js/cusdis-confirm.js"></script>
+{{- end -}}

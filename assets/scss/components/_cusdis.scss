@@ -1,0 +1,102 @@
+.cusdis {
+  margin-top: var(--cusdis-section-margin-top);
+}
+
+.cusdis__title {
+  color: var(--cusdis-section-title-color);
+  font-weight: var(--cusdis-title-font-weight);
+  margin: 0;
+}
+
+.cusdis__count {
+  color: var(--cusdis-section-count-color);
+  font-size: var(--cusdis-section-count-font-size);
+  font-weight: var(--cusdis-section-count-font-weight);
+  margin-left: var(--cusdis-section-count-margin-left);
+}
+
+.cusdis__subtitle {
+  color: var(--cusdis-section-subtitle-color);
+  font-size: var(--cusdis-section-subtitle-font-size);
+  margin: 0 0 var(--cusdis-section-subtitle-margin-bottom) 0;
+}
+
+.cusdis__confirmation {
+  background-color: var(--cusdis-confirmation-background);
+  border: var(--cusdis-confirmation-border);
+  border-radius: var(--cusdis-confirmation-border-radius);
+  padding: var(--cusdis-confirmation-padding);
+}
+
+.cusdis__confirmation-text {
+  color: var(--cusdis-confirmation-text-color);
+  font-size: var(--cusdis-confirmation-text-font-size);
+  line-height: var(--cusdis-confirmation-text-line-height);
+  margin: 0 0 var(--cusdis-confirmation-text-margin-bottom) 0;
+}
+
+.cusdis__confirmation-link {
+  color: var(--cusdis-confirmation-link-color);
+  font-weight: var(--cusdis-confirmation-link-font-weight);
+  text-decoration: none;
+  transition: var(--cusdis-confirmation-transition);
+
+  &:hover {
+    opacity: var(--cusdis-confirmation-link-hover-opacity);
+    text-decoration: underline;
+  }
+}
+
+.cusdis__confirmation-button {
+  background-color: var(--cusdis-confirmation-button-background);
+  border: var(--cusdis-confirmation-button-border);
+  border-radius: var(--cusdis-confirmation-border-radius);
+  color: var(--cusdis-confirmation-button-color);
+  cursor: var(--cusdis-confirmation-button-cursor);
+  font-size: var(--cusdis-confirmation-button-font-size);
+  font-weight: var(--cusdis-confirmation-button-font-weight);
+  padding: var(--cusdis-confirmation-button-padding);
+  transition: var(--cusdis-confirmation-transition);
+
+  &:hover {
+    opacity: var(--cusdis-confirmation-button-hover-opacity);
+  }
+
+  &:active {
+    opacity: var(--cusdis-confirmation-button-active-opacity);
+  }
+}
+
+.cusdis__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cusdis-container-gap);
+  border-bottom: var(--cusdis-section-border);
+  padding-bottom: var(--cusdis-section-padding-bottom);
+}
+
+#cusdis_thread iframe {
+  height: var(--cusdis-iframe-height);
+  width: 100%;
+}
+
+@include for-screen(mobile) {
+  .cusdis {
+    margin-left: var(--cusdis-section-mobile-margin-left);
+    margin-right: var(--cusdis-section-mobile-margin-right);
+    margin-top: var(--cusdis-section-mobile-margin-top);
+
+    .cusdis__confirmation,
+    .cusdis__container {
+      padding-left: var(--cusdis-section-mobile-padding);
+      padding-right: var(--cusdis-section-mobile-padding);
+    }
+  }
+}
+
+@include for-screen(tablet) {
+  .cusdis {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

@@ -103,3 +103,12 @@ truncate = 150               # Max characters for excerpt
   min_showcase_tiles = 3
   show_alphabet = true # To hide the alphabet navigation
   truncate_limit = 180 # To set truncate limit for excerpts in showcase tiles
+
+# ---------------------------
+# Cusdis comments configuration
+# ---------------------------
+[params.cusdis]
+enabled = false # Set to true to enable comments
+app_id = "" # Your Cusdis App ID (get from https://cusdis.com/dashboard)
+host = "https://cusdis.com" # Cusdis host URL
+# Note: Individual pages can disable comments by adding 'comments: false' in front matter

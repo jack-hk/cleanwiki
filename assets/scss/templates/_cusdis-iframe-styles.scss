@@ -1,0 +1,77 @@
+// ===================================================
+// Cusdis iframe Styles Template
+// ===================================================
+// This file documents the available styles for customizing
+// the Cusdis comment iframe. These styles are NOT compiled
+// into the main CSS file to avoid affecting the page.
+//
+// Instead, styles are injected directly into the iframe
+// via the getIframeStyles() function in cusdis-confirm.js
+//
+// To modify iframe appearance:
+// 1. Edit this file as a reference
+// 2. Update the getIframeStyles() function in cusdis-confirm.js
+//    to apply your custom styles to the iframe only
+// ===================================================
+
+input {
+  background-color: var(--color-background-light) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: 4px !important;
+  color: var(--color-text-default) !important;
+  font-size: var(--font-size-base) !important;
+}
+
+label {
+  color: var(--color-text-default) !important;
+  font-family: var(--font-base) !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-heading) !important;
+}
+
+button {
+  background-color: transparent !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: 4px !important;
+  color: var(--color-text-default) !important;
+  cursor: pointer !important;
+  font-size: var(--font-size-base) !important;
+  padding: 0.5rem 1rem !important;
+  transition: background-color 0.3s ease !important;
+
+  &:hover {
+    background-color: var(--color-accent) !important;
+    border: none !important;
+    color: var(--color-text-light) !important;
+  }
+}
+
+.mr-2 {
+  font-size: var(--font-size-xl) !important;
+}
+
+.text-sm {
+  color: var(--color-text-muted) !important;
+  font-size: var(--font-size-xs) !important;
+}
+
+.text-gray-500 .text-sm {
+  font-size: var(--font-size-sm) !important;
+}
+
+.my-2 {
+  margin-bottom: 0.5rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.my-4 {
+  background-color: var(--color-background-default) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: 4px !important;
+  padding: 1rem !important;
+}
+
+.underline {
+  display: none !important;
+  opacity: 0 !important;
+}
