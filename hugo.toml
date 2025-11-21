@@ -12,12 +12,12 @@ title = "My New Hugo Site"
 
 # Main menu
 [[menus.main]]
-name = "Home"            # Display name in the menu
-pre = "house"            # Icon prefix (from your icon library)
-pageRef = "/"            # The page this menu item links to
-weight = 10              # Order in menu (smaller = first)
+name = "Home"
+pre = "house"
+pageRef = "/"
+weight = 10
   [menus.main.params]
-  separator = true       # Draw a separator line after this item
+  separator = true
 
 # ---------------------------
 # Hugo module settings
@@ -25,16 +25,29 @@ weight = 10              # Order in menu (smaller = first)
 [module]
   [module.hugoVersion]
     extended = false
-    min = "0.146.0"      # Minimum Hugo version required
+    min = "0.146.0"
 
 # ---------------------------
 # Custom site parameters
 # ---------------------------
 [params]
-# PageFind search options
-enablePagefindCSS = false   # Use PageFind's default CSS. Set false to use custom styles.
-# Subtitle which appears under the title.
+enablePagefindCSS = false
 subtitle = "This site is my site, there are many like it, but this one is mine."
+
+[params.pagefind]
+  initialPageSize = 5
+  loadMoreCount = 5
+  showSubResults = true
+  showImages = true
+  debounceTimeoutMs = 300
+  excerptLength = 30
+
+  [params.pagefind.thumbnailSources]
+    primary = "featured"
+    fallback1 = "thumbnail"
+    fallback2 = "placeholder"
+
+  placeholderImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23e5e7eb' width='400' height='400'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23999' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E"
 
 # ---------------------------
 # Page layout settings
@@ -62,14 +75,14 @@ separator = "/"
 # Navbar configuration
 # ---------------------------
 [params.navbarBar]
-iconsHaveLabels = false     # Show both icons and text? false = icons only
-iconSeparator = true        # Separate the first icon with a line or gap
+iconsHaveLabels = false
+iconSeparator = true
 
 # ---------------------------
 # Small tiles settings
 # ---------------------------
 [params.smallTiles]
-type = "categories"         # Choose type of content: "categories" or "tags"
+type = "categories"
 
 # Images to use for each small tile
 [params.smallTiles.images]
@@ -86,8 +99,8 @@ sup     = "https://picsum.photos/id/1020/400/300"
 # Big tiles settings
 # ---------------------------
 [params.bigTiles]
-count = 3                   # Number of big tiles to show
-truncate = 150               # Max characters for excerpt
+count = 3
+truncate = 150
 
 # Map categories to partial HTML files for rendering each big tile
 [params.bigTiles.partials]
@@ -96,10 +109,7 @@ truncate = 150               # Max characters for excerpt
 "event"   = "big-tile-event.html"
 
 [params.portal]
-  showcase_tiles = 3 # To display amount of tiles in the showcase section
-  # Minimum number of articles required to display showcase tiles
-  # If fewer articles exist than this amount, no tiles will be shown
-  # WARNING: This value must be same or less than showcase_tiles for anything to appear
+  showcase_tiles = 3
   min_showcase_tiles = 3
-  show_alphabet = true # To hide the alphabet navigation
-  truncate_limit = 180 # To set truncate limit for excerpts in showcase tiles
+  show_alphabet = true
+  truncate_limit = 180

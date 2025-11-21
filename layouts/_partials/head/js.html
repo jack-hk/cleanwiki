@@ -20,4 +20,17 @@
   }
 </script>
 
-<script src="/pagefind/pagefind-ui.js"></script>
+<!-- Load PageFind core API as a module -->
+<script type="module">
+  import * as pagefind from '/pagefind/pagefind.js';
+  window.pagefind = pagefind;
+  console.log('PageFind API loaded:', window.pagefind);
+
+  // Dispatch event to notify that pagefind is ready
+  window.dispatchEvent(new CustomEvent('pagefind-loaded'));
+</script>
+
+{{- $customPagefind := resources.Get "js/pagefind-custom.js" | js.Build (dict "minify" true "targetPath" "js/pagefind-custom.js") }}
+{{- if $customPagefind }}
+  <script src="{{ $customPagefind.RelPermalink }}"></script>
+{{- end }}

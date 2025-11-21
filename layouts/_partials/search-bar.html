@@ -1,29 +1,48 @@
 <div id="search"></div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    new PagefindUI({
-      element: '#search',
-      showSubResults: true,
-      autofocus: true,
-    });
+  window.pagefindConfig = {
+    initialPageSize: {{ site.Params.pagefind.initialPageSize | default 5 }},
+    loadMoreCount: {{ site.Params.pagefind.loadMoreCount | default 5 }},
+    showSubResults: {{ site.Params.pagefind.showSubResults | default true }},
+    showImages: {{ site.Params.pagefind.showImages | default true }},
+    debounceTimeoutMs: {{ site.Params.pagefind.debounceTimeoutMs | default 300 }},
+    excerptLength: {{ site.Params.pagefind.excerptLength | default 30 }},
+    thumbnailSources: {
+      primary: "{{ site.Params.pagefind.thumbnailSources.primary | default "featured" }}",
+      fallback1: "{{ site.Params.pagefind.thumbnailSources.fallback1 | default "thumbnail" }}",
+      fallback2: "{{ site.Params.pagefind.thumbnailSources.fallback2 | default "placeholder" }}"
+    },
+    placeholderImage: "{{ site.Params.pagefind.placeholderImage }}"
+  };
 
-    const container = document.querySelector('#search');
+  console.log('Search bar script loaded, config:', window.pagefindConfig);
 
-    container.addEventListener('click', (e) => {
-      const result = e.target.closest('.pagefind-ui__result');
-      if (!result) return; // clicked outside a result
-      const link = result.querySelector('.pagefind-ui__result-link');
-      if (!link) return;
-      if (!e.target.closest('a, button, input')) {
-        window.location.href = link.href;
+  // Initialize search when PageFind and CustomPagefind are both ready
+  function initializeSearch() {
+    console.log('Attempting to initialize search. CustomPagefind available?', !!window.CustomPagefind);
+    if (window.CustomPagefind) {
+      console.log('Initializing CustomPagefind');
+      const instance = new window.CustomPagefind(window.pagefindConfig);
+      console.log('CustomPagefind instance created:', instance);
+      return true;
+    }
+    return false;
+  }
+
+  if (!initializeSearch()) {
+    // Wait for CustomPagefind to be loaded
+    let attempts = 0;
+    const checkPageFind = setInterval(() => {
+      attempts++;
+      console.log('Waiting for CustomPagefind... attempt', attempts);
+      if (initializeSearch()) {
+        clearInterval(checkPageFind);
       }
-    });
-
-    // Optional: make cursor a pointer on hover
-    container.addEventListener('mouseover', (e) => {
-      const result = e.target.closest('.pagefind-ui__result');
-      if (result) result.style.cursor = 'pointer';
-    });
-  });
+      if (attempts > 50) {
+        clearInterval(checkPageFind);
+        console.error('CustomPagefind not loaded after 5 seconds');
+      }
+    }, 100);
+  }
 </script>
