@@ -13,9 +13,9 @@
 .pagefind-search-wrapper {
   align-items: center;
   background-color: var(--color-background-light);
-  border: 2px solid var(--color-border-default);
-  border-radius: 4px;
-  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.15);
+  border: var(--pagefind-ui-border-width) solid var(--color-border-default);
+  border-radius: var(--pagefind-ui-border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   display: flex;
   flex-shrink: 0;
@@ -25,8 +25,29 @@
   padding: var(--pagefind-ui-spacing-medium);
   position: sticky;
   top: var(--pagefind-ui-spacing-large);
+  transition: box-shadow 0.3s ease;
   width: 100%;
   z-index: 10;
+
+  &:has(.pagefind-search-input:focus) {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    border-color: var(--color-primary);
+  }
+}
+
+.pagefind-search-icon {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  svg {
+    height: 1.2em;
+    width: 1.2em;
+  }
 }
 
 .pagefind-search-input {
@@ -39,18 +60,16 @@
   font-family: var(--pagefind-ui-font);
   font-size: var(--pagefind-ui-excerpt-font-size);
   height: var(--pagefind-ui-input-height);
-  padding: var(--pagefind-ui-input-padding) var(--pagefind-ui-spacing-medium);
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  padding: var(--pagefind-ui-input-padding) 0;
+  transition: color 0.2s ease;
 
   &:focus {
     outline: none;
   }
 
   &::placeholder {
-    color: var(--pagefind-ui-text);
-    opacity: 0.6;
+    color: var(--color-text-muted);
+    opacity: 0.7;
   }
 }
 
@@ -58,18 +77,19 @@
   align-items: center;
   background: none;
   border: none;
-  color: var(--pagefind-ui-text);
+  color: var(--color-text-muted);
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: var(--pagefind-ui-input-height);
+  height: 1.5rem;
   justify-content: center;
-  opacity: 0.6;
+  opacity: 0.7;
   padding: 0;
-  transition: opacity 0.2s;
-  width: var(--pagefind-ui-input-height);
+  transition: opacity 0.2s ease, color 0.2s ease;
+  width: 1.5rem;
 
   &:hover {
+    color: var(--pagefind-ui-text);
     opacity: 1;
   }
 
@@ -85,48 +105,61 @@
   margin: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 6px 0 0 0;
+  padding: var(--pagefind-ui-spacing-medium) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pagefind-ui-spacing-medium);
 }
 
 .pagefind-result {
-  background-color: var(--pagefind-ui-background);
-  border: var(--pagefind-ui-border-width) solid var(--pagefind-ui-border);
+  background-color: var(--color-background-light);
+  border: var(--pagefind-ui-border-width) solid var(--color-border-default);
   border-radius: var(--pagefind-ui-border-radius);
   display: flex;
+  flex-direction: row;
   gap: var(--pagefind-ui-spacing-large);
-  margin-bottom: var(--pagefind-ui-spacing-medium);
   padding: var(--pagefind-ui-spacing-large);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  overflow: hidden;
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    box-shadow: var(--pagefind-ui-result-hover-shadow);
+    border-color: var(--color-primary);
   }
 
   a {
-    color: var(--pagefind-ui-primary);
+    color: var(--color-primary);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 
     &:hover {
       text-decoration: underline;
+      color: var(--color-accent);
     }
   }
 }
 
 .pagefind-result-thumb {
-  background-color: rgba(0, 0, 0, 0.05);
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--color-background-default), var(--color-background-light));
   border-radius: var(--pagefind-ui-image-border-radius);
   flex-shrink: 0;
   height: var(--pagefind-ui-thumbnail-height);
   overflow: hidden;
   width: var(--pagefind-ui-thumbnail-width);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     display: block;
     height: 100%;
     object-fit: cover;
     width: 100%;
+  }
+
+  &:empty {
+    background: linear-gradient(135deg, var(--color-background-default), var(--color-background-light));
   }
 
   &.pagefind-result-thumb--loading {
@@ -140,156 +173,192 @@
   flex-direction: column;
   gap: var(--pagefind-ui-spacing-medium);
   min-width: 0;
+  justify-content: center;
 }
 
 .pagefind-result-title {
-  color: var(--pagefind-ui-text);
+  color: var(--color-text-default);
   font-size: var(--pagefind-ui-title-font-size);
   font-weight: var(--font-weight-bold);
-  line-height: 1.3;
+  line-height: 1.4;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   a {
-    color: var(--pagefind-ui-primary);
+    color: var(--color-primary);
+    transition: color 0.2s ease;
 
     &:hover {
+      color: var(--color-accent);
       text-decoration: underline;
     }
   }
 }
 
 .pagefind-result-excerpt {
-  color: var(--pagefind-ui-text);
+  color: var(--color-text-default);
   font-size: var(--pagefind-ui-excerpt-font-size);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
   opacity: 0.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   em {
-    color: var(--pagefind-ui-primary);
+    background-color: rgba(166, 227, 255, 0.2);
+    color: var(--color-primary);
     font-style: normal;
     font-weight: var(--font-weight-bold);
+    padding: 0 2px;
+    border-radius: 2px;
   }
 }
 
 .pagefind-result-subresults {
-  border-left: 2px solid var(--pagefind-ui-border);
   list-style: none;
-  margin-left: 0;
+  margin: 0;
   margin-top: var(--pagefind-ui-spacing-medium);
-  padding-left: var(--pagefind-ui-spacing-large);
-  padding-left: 0;
+  padding: 0;
+  padding-top: var(--pagefind-ui-spacing-medium);
+  border-top: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pagefind-ui-spacing-medium);
 }
 
 .pagefind-result-subresult {
-  padding: var(--pagefind-ui-spacing-medium) 0;
-  padding-left: var(--pagefind-ui-spacing-large);
+  padding: 0;
+  margin: 0;
 
   &:not(:last-child) {
-    border-bottom: 1px solid var(--pagefind-ui-border);
+    padding-bottom: var(--pagefind-ui-spacing-medium);
+    border-bottom: 1px solid var(--color-border-default);
   }
 }
 
 .pagefind-result-subresult-title {
-  color: var(--pagefind-ui-text);
+  color: var(--color-text-default);
   font-size: var(--pagefind-ui-excerpt-font-size);
   font-weight: var(--font-weight-bold);
-  margin: 0 0 0.25rem 0;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
 
   a {
-    color: var(--pagefind-ui-primary);
+    color: var(--color-primary);
+    transition: color 0.2s ease;
+    text-decoration: none;
 
     &:hover {
+      color: var(--color-accent);
       text-decoration: underline;
     }
   }
 }
 
 .pagefind-result-subresult-excerpt {
-  color: var(--pagefind-ui-text);
+  color: var(--color-text-default);
   font-size: 0.9rem;
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0;
   opacity: 0.75;
 
   em {
-    color: var(--pagefind-ui-primary);
+    background-color: rgba(166, 227, 255, 0.15);
+    color: var(--color-primary);
     font-style: normal;
     font-weight: var(--font-weight-bold);
+    padding: 0 2px;
+    border-radius: 2px;
   }
 }
 
 .pagefind-results-info {
   flex-shrink: 0;
-  padding: var(--pagefind-ui-spacing-large);
-  padding-top: calc(var(--pagefind-ui-spacing-large) / 2);
+  padding: var(--pagefind-ui-spacing-medium) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
 }
 
 .pagefind-load-more {
-  background-color: var(--pagefind-ui-background);
-  border: var(--pagefind-ui-border-width) solid var(--pagefind-ui-border);
+  background-color: transparent;
+  border: var(--pagefind-ui-border-width) solid var(--color-border-default);
   border-radius: var(--pagefind-ui-border-radius);
-  color: var(--pagefind-ui-primary);
+  color: var(--color-primary);
   cursor: pointer;
   font-size: var(--pagefind-ui-excerpt-font-size);
   font-weight: var(--font-weight-bold);
-  padding: var(--pagefind-ui-spacing-large);
-  transition: all 0.2s ease;
+  padding: var(--pagefind-ui-button-padding);
+  transition: all 0.3s ease;
   width: 100%;
+  background-color: var(--color-background-light);
 
-  &:hover {
-    background-color: rgba(3, 74, 216, 0.05);
-    border-color: var(--pagefind-ui-primary);
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(3, 74, 216, 0.15);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: scale(0.98);
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
-
-    &:hover {
-      background-color: var(--pagefind-ui-background);
-      border-color: var(--pagefind-ui-border);
-    }
+    background-color: var(--color-background-light);
   }
 }
 
 .pagefind-no-results {
-  color: var(--pagefind-ui-text);
-  padding: calc(var(--pagefind-ui-spacing-large) * 2);
+  color: var(--color-text-default);
+  padding: calc(var(--pagefind-ui-spacing-large) * 2) var(--pagefind-ui-spacing-large);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--pagefind-ui-spacing-medium);
 }
 
 .pagefind-no-results-title {
   font-size: var(--pagefind-ui-title-font-size);
   font-weight: var(--font-weight-bold);
-  margin: 0 0 var(--pagefind-ui-spacing-medium) 0;
+  margin: 0;
 }
 
 .pagefind-no-results-text {
   margin: 0;
   opacity: 0.8;
+  color: var(--color-text-muted);
+  max-width: 300px;
 }
 
 .pagefind-result--loading {
+  pointer-events: none;
+  opacity: 0.7;
+
   .pagefind-result-thumb {
-    &::after {
-      animation: pagefind-pulse 1.5s ease-in-out infinite;
-      content: '';
-    }
+    animation: pagefind-pulse 2s ease-in-out infinite;
   }
 
   .pagefind-result-title,
   .pagefind-result-excerpt {
-    animation: pagefind-loading 1.5s ease-in-out infinite;
+    animation: pagefind-loading 1.8s ease-in-out infinite;
     background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.05) 25%,
-      rgba(0, 0, 0, 0.1) 50%,
-      rgba(0, 0, 0, 0.05) 75%
+      var(--color-background-default) 25%,
+      var(--color-background-light) 50%,
+      var(--color-background-default) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
@@ -300,10 +369,10 @@
 @keyframes pagefind-pulse {
   0%,
   100% {
-    opacity: 1;
+    opacity: 0.6;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
 }
 
@@ -320,42 +389,70 @@
   .pagefind-search-container {
     margin: 0;
     max-width: none;
-    padding: 0.5rem;
+    padding: 0.75rem;
     width: 100%;
   }
 
   .pagefind-search-wrapper {
-    border-radius: 2px;
+    border-radius: var(--pagefind-ui-border-radius);
     margin: 0;
-    margin-bottom: 0.5rem;
-    top: 0.5rem;
+    margin-bottom: 0.75rem;
+    top: 0.75rem;
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .pagefind-search-icon {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .pagefind-search-input {
     font-size: 16px;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0;
+    height: 2.5rem;
   }
 
   .pagefind-search-clear-btn {
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 
   .pagefind-results {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
+    gap: 0.75rem;
   }
 
   .pagefind-result {
     flex-direction: column;
     gap: var(--pagefind-ui-spacing-medium);
-    margin-bottom: 0.5rem;
     padding: 0.75rem;
   }
 
   .pagefind-result-thumb {
-    height: var(--pagefind-ui-thumbnail-height-mobile);
+    aspect-ratio: 1;
+    height: var(--pagefind-ui-thumbnail-height);
+    width: var(--pagefind-ui-thumbnail-width);
     margin: 0 auto;
-    max-width: 300px;
-    width: 100%;
+  }
+
+  .pagefind-result-content {
+    gap: 0.5rem;
+  }
+
+  .pagefind-result-title {
+    font-size: 1rem;
+  }
+
+  .pagefind-result-excerpt {
+    font-size: 0.85rem;
+  }
+
+  .pagefind-load-more {
+    padding: 0.75rem;
+  }
+
+  .pagefind-no-results {
+    padding: calc(var(--pagefind-ui-spacing-large) * 1.5) var(--pagefind-ui-spacing-large);
   }
 }
