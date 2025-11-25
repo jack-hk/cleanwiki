@@ -235,13 +235,14 @@ class CustomPagefind {
 
     const imageHtml = this.config.showImages ? this.createThumbnail(result) : '';
 
+    const mainTitle = result.meta?.title || result.title;
     const contentHtml = `
       <div class="pagefind-result-content">
         <h3 class="pagefind-result-title">
-          <a href="${result.url}">${this.escapeHtml(result.meta?.title || result.title)}</a>
+          <a href="${result.url}">${this.escapeHtml(mainTitle)}</a>
         </h3>
         <p class="pagefind-result-excerpt">${result.excerpt}</p>
-        ${this.config.showSubResults && result.sub_results?.length ? this.createSubResults(result.sub_results) : ''}
+        ${this.config.showSubResults && result.sub_results?.length ? this.createSubResults(result.sub_results, mainTitle) : ''}
       </div>
     `;
 
@@ -289,10 +290,24 @@ class CustomPagefind {
     `;
   }
 
-  createSubResults(subResults) {
+  createSubResults(subResults, mainTitle) {
     if (!Array.isArray(subResults) || subResults.length === 0) return '';
 
-    const limitedResults = subResults.slice(0, 3);
+    // Normalize titles for comparison (lowercase, trim whitespace)
+    const normalizeTitle = (title) => title.toLowerCase().trim();
+    const normalizedMainTitle = normalizeTitle(mainTitle);
+
+    // Filter out sub-results that exactly match the main title
+    const filteredResults = subResults.filter((sub) => {
+      const normalizedSubTitle = normalizeTitle(sub.title);
+      return normalizedSubTitle !== normalizedMainTitle;
+    });
+
+    // If no results remain after filtering, return empty
+    if (filteredResults.length === 0) return '';
+
+    // Show up to 3 results
+    const limitedResults = filteredResults.slice(0, 3);
     let html = '<ul class="pagefind-result-subresults">';
 
     limitedResults.forEach((sub) => {
