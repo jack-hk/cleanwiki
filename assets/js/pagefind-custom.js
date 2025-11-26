@@ -142,6 +142,48 @@ class CustomPagefind {
     }, this.config.debounceTimeoutMs);
   }
 
+  sortResults(results, query) {
+    const queryTerms = query.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+
+    return results.sort((a, b) => {
+      // Get normalized titles
+      const titleA = (a.meta?.title || a.title || '').split('|')[0].toLowerCase().trim();
+      const titleB = (b.meta?.title || b.title || '').split('|')[0].toLowerCase().trim();
+
+      // Score calculation function
+      const calculateScore = (title, terms) => {
+        let score = 0;
+
+        // Exact match = highest priority
+        if (title === terms.join(' ')) {
+          score += 1000;
+        }
+
+        // Title starts with query = very high priority
+        if (title.startsWith(terms.join(' '))) {
+          score += 500;
+        }
+
+        // All query terms in title = high priority
+        if (terms.every(term => title.includes(term))) {
+          score += 250;
+        }
+
+        // Count how many query terms appear in title
+        const matchingTerms = terms.filter(term => title.includes(term)).length;
+        score += matchingTerms * 50;
+
+        return score;
+      };
+
+      const scoreA = calculateScore(titleA, queryTerms);
+      const scoreB = calculateScore(titleB, queryTerms);
+
+      // Sort by score (descending) - higher scores come first
+      return scoreB - scoreA;
+    });
+  }
+
   async performSearch(query) {
     console.log('performSearch called with query:', query, 'pagefindReady:', this.pagefindReady, 'pagefind exists:', !!window.pagefind);
 
@@ -180,7 +222,8 @@ class CustomPagefind {
           })
         );
 
-        this.allResults = fullyLoadedResults;
+        // Sort results: prioritize exact/near-exact title matches
+        this.allResults = this.sortResults(fullyLoadedResults, query);
       } else {
         this.allResults = [];
       }
