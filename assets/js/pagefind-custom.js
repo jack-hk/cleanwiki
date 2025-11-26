@@ -223,7 +223,9 @@ class CustomPagefind {
     resultsList.innerHTML = '';
     visibleResults.forEach((result) => {
       const element = this.createResultElement(result);
-      resultsList.appendChild(element);
+      if (element) {
+        resultsList.appendChild(element);
+      }
     });
 
     this.updateLoadMoreButton(results);
@@ -235,7 +237,15 @@ class CustomPagefind {
 
     const imageHtml = this.config.showImages ? this.createThumbnail(result) : '';
 
-    const mainTitle = result.meta?.title || result.title;
+    // Get the main title and remove site name suffix (e.g., "| Golden Wastes")
+    let mainTitle = result.meta?.title || result.title;
+    mainTitle = mainTitle.split('|')[0].trim(); // Remove everything after |
+
+    // Skip results with empty titles
+    if (!mainTitle) {
+      return null;
+    }
+
     const contentHtml = `
       <div class="pagefind-result-content">
         <h3 class="pagefind-result-title">
@@ -293,11 +303,14 @@ class CustomPagefind {
   createSubResults(subResults, mainTitle) {
     if (!Array.isArray(subResults) || subResults.length === 0) return '';
 
-    // Normalize titles for comparison (lowercase, trim whitespace)
-    const normalizeTitle = (title) => title.toLowerCase().trim();
+    // Normalize titles: remove site suffix, convert to lowercase, trim whitespace
+    const normalizeTitle = (title) => {
+      return title.split('|')[0].toLowerCase().trim();
+    };
+
     const normalizedMainTitle = normalizeTitle(mainTitle);
 
-    // Filter out sub-results that exactly match the main title
+    // Filter out sub-results that exactly match the main title (after cleaning both)
     const filteredResults = subResults.filter((sub) => {
       const normalizedSubTitle = normalizeTitle(sub.title);
       return normalizedSubTitle !== normalizedMainTitle;
@@ -311,10 +324,13 @@ class CustomPagefind {
     let html = '<ul class="pagefind-result-subresults">';
 
     limitedResults.forEach((sub) => {
+      // Remove site name suffix from subresult titles
+      let subTitle = sub.title.split('|')[0].trim();
+
       html += `
         <li class="pagefind-result-subresult">
           <h4 class="pagefind-result-subresult-title">
-            <a href="${sub.url}">${this.escapeHtml(sub.title)}</a>
+            <a href="${sub.url}">${this.escapeHtml(subTitle)}</a>
           </h4>
           <p class="pagefind-result-subresult-excerpt">${sub.excerpt}</p>
         </li>
@@ -350,7 +366,9 @@ class CustomPagefind {
       const newResults = allResults.slice(this.displayedCount, newCount);
       newResults.forEach((result) => {
         const element = this.createResultElement(result);
-        resultsList.appendChild(element);
+        if (element) {
+          resultsList.appendChild(element);
+        }
       });
 
       this.displayedCount = newCount;
