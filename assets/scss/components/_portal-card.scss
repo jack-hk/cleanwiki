@@ -322,9 +322,123 @@
   font-style: var(--portal-card-footer-text-font-style);
 }
 
+// Carousel Controls (Mobile & Tablet only)
+.portal-card__carousel-controls {
+  display: none;
+}
+
+.portal-card__carousel-btn {
+  align-items: center;
+  background: var(--portal-card-link-bg);
+  border: 2px solid var(--portal-card-border-color);
+  border-radius: 50%;
+  color: var(--portal-card-link-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 2rem;
+  height: 50px;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  width: 50px;
+  z-index: 10;
+}
+
+.portal-card__carousel-btn:hover {
+  background: var(--portal-card-link-bg-hover);
+  border-color: var(--portal-card-link-border-color-hover);
+  color: var(--portal-card-link-color-hover);
+}
+
+.portal-card__carousel-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.portal-card__carousel-btn--prev {
+  left: 10px;
+}
+
+.portal-card__carousel-btn--next {
+  right: 10px;
+}
+
+.portal-card__carousel-dots {
+  bottom: -40px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.portal-card__carousel-dot {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 12px;
+  padding: 0;
+  transition: all 0.3s ease;
+  width: 12px;
+}
+
+.portal-card__carousel-dot--active {
+  background: var(--portal-card-link-bg);
+  transform: scale(1.2);
+}
+
 @include for-screen(mobile) {
+  .portal-card__main {
+    position: relative;
+  }
+
   .portal-card__spread {
-    gap: var(--portal-card-spread-gap-mobile);
+    align-items: center;
+    cursor: grab;
+    gap: 0;
+    min-height: 600px;
+    overflow: visible;
+    padding: 2rem 1rem 4rem;
+    position: relative;
+  }
+
+  .portal-card__carousel-controls {
+    display: block;
+  }
+
+  .card {
+    left: 50%;
+    max-width: 350px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.5s ease;
+    width: 90%;
+  }
+
+  .card.portal-card__carousel-card--active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 2;
+  }
+
+  .card.portal-card__carousel-card--prev {
+    opacity: 0.3;
+    transform: translate(-120%, -50%) scale(0.85);
+    z-index: 1;
+  }
+
+  .card.portal-card__carousel-card--next {
+    opacity: 0.3;
+    transform: translate(20%, -50%) scale(0.85);
+    z-index: 1;
   }
 
   .card--left,
@@ -344,21 +458,61 @@
 }
 
 @include for-screen(tablet) {
+  .portal-card__main {
+    position: relative;
+  }
+
   .portal-card__spread {
-    align-items: stretch;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--portal-card-spread-gap-tablet);
-    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    gap: 0;
+    min-height: 700px;
+    overflow: visible;
+    padding: 3rem 2rem 5rem;
+    position: relative;
+  }
+
+  .portal-card__carousel-controls {
+    display: block;
+  }
+
+  .card {
+    left: 50%;
+    max-width: 400px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.5s ease;
+    width: 100%;
+  }
+
+  .card.portal-card__carousel-card--active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 2;
+  }
+
+  .card.portal-card__carousel-card--prev {
+    opacity: 0.4;
+    transform: translate(-130%, -50%) scale(0.9);
+    z-index: 1;
+  }
+
+  .card.portal-card__carousel-card--next {
+    opacity: 0.4;
+    transform: translate(30%, -50%) scale(0.9);
+    z-index: 1;
   }
 
   .card--left,
   .card--right,
   .card--center {
     display: flex;
-    flex: 1 1 280px;
     flex-direction: column;
-    max-width: 300px;
+    max-width: 400px;
   }
 
   .card__inner {
@@ -389,17 +543,40 @@
 }
 
 @include for-screen(desktop) {
+  .portal-card__main {
+    position: relative;
+  }
+
   .portal-card__spread {
     align-items: flex-end;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: var(--portal-card-spread-gap-desktop);
+    min-height: auto;
+    overflow: visible;
+    padding: var(--portal-card-spread-padding);
+  }
+
+  .portal-card__carousel-controls {
+    display: none;
+  }
+
+  .card {
+    // Reset carousel positioning for default desktop view
+    left: auto !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    transition: var(--portal-card-card-transition);
+    width: 100%;
   }
 
   .card--left,
   .card--right {
     max-width: var(--portal-card-card-side-width);
-    transform: var(--portal-card-card-side-transform);
+    transform: var(--portal-card-card-side-transform) !important;
   }
 
   .card--center {
@@ -407,11 +584,80 @@
   }
 
   .card--left {
-    transform: var(--portal-card-card-left-transform);
+    transform: var(--portal-card-card-left-transform) !important;
   }
 
   .card--right {
-    transform: var(--portal-card-card-right-transform);
+    transform: var(--portal-card-card-right-transform) !important;
+  }
+
+  // Desktop carousel mode (when enabled via parameter)
+  .portal-card__main[data-carousel-desktop='true'] {
+    position: relative;
+
+    .portal-card__spread {
+      align-items: center;
+      cursor: grab;
+      gap: 0;
+      min-height: 700px;
+      overflow: visible;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .portal-card__carousel-controls {
+      display: block;
+    }
+
+    .card {
+      left: 50%;
+      max-width: 450px;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      transition: all 0.5s ease;
+      width: 100%;
+    }
+
+    .card.portal-card__carousel-card--active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 2;
+    }
+
+    .card.portal-card__carousel-card--prev {
+      opacity: 0.4;
+      transform: translate(-130%, -50%) scale(0.9);
+      z-index: 1;
+    }
+
+    .card.portal-card__carousel-card--next {
+      opacity: 0.4;
+      transform: translate(30%, -50%) scale(0.9);
+      z-index: 1;
+    }
+
+    .card--left,
+    .card--right,
+    .card--center {
+      display: flex;
+      flex-direction: column;
+      max-width: 450px;
+    }
+
+    .card__inner {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .card__content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
   }
 }
 

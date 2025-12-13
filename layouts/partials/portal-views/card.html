@@ -12,7 +12,15 @@
     </div>
   </section>
 
-  <main class="portal-card__main">
+  {{ $carouselOnDesktop := default false .Site.Params.portalCard.carousel_on_desktop }}
+  {{ if isset .Params "carousel_on_desktop" }}
+    {{ $carouselOnDesktop = .Params.carousel_on_desktop }}
+  {{ end }}
+
+
+  <main
+    class="portal-card__main"
+    data-carousel-desktop="{{ $carouselOnDesktop }}">
     <div class="portal-card__spread">
       {{ $cardCount := default 3 .Site.Params.portalCard.card_count }}
       {{ if isset .Params "card_count" }}

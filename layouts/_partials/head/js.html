@@ -34,3 +34,8 @@
 {{- if $customPagefind }}
   <script src="{{ $customPagefind.RelPermalink }}"></script>
 {{- end }}
+
+{{- $carouselScript := resources.Get "js/portal-card-carousel.js" | js.Build (dict "minify" true "targetPath" "js/portal-card-carousel.js") }}
+{{- if $carouselScript }}
+  <script src="{{ $carouselScript.RelPermalink }}"></script>
+{{- end }}
