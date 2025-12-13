@@ -1,0 +1,375 @@
+.portal-card__intro {
+  margin: var(--portal-card-intro-margin);
+  padding: var(--portal-card-intro-padding);
+  text-align: center;
+}
+
+.portal-card__intro-body {
+  margin: 0 auto;
+  max-width: var(--portal-card-intro-max-width);
+}
+
+.portal-card__intro-title {
+  color: var(--portal-card-intro-title-color);
+  font-family: var(--portal-card-title-font-family);
+  font-size: var(--portal-card-intro-title-font-size);
+  font-weight: var(--portal-card-intro-title-font-weight);
+  letter-spacing: var(--portal-card-title-letter-spacing);
+  margin-bottom: var(--portal-card-intro-title-margin-bottom);
+  text-transform: var(--portal-card-title-text-transform);
+}
+
+.portal-card__intro-text {
+  color: var(--portal-card-intro-text-color);
+  font-size: var(--portal-card-intro-text-font-size);
+  font-style: var(--portal-card-intro-text-font-style);
+  line-height: var(--portal-card-intro-text-line-height);
+}
+
+.portal-card__main {
+  margin: var(--portal-card-main-margin);
+  padding: var(--portal-card-main-padding);
+}
+
+.portal-card__spread {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--portal-card-spread-gap);
+  justify-content: center;
+  margin: 0 auto;
+  max-width: var(--portal-card-spread-max-width);
+  padding: var(--portal-card-spread-padding);
+}
+
+.card {
+  perspective: 1000px;
+  position: relative;
+  transition: var(--portal-card-card-transition);
+  width: 100%;
+}
+
+.card__inner {
+  background: var(--portal-card-card-bg);
+  border-radius: var(--portal-card-card-border-radius);
+  box-shadow: var(--portal-card-card-box-shadow);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: var(--portal-card-card-inner-transition);
+}
+
+.card:hover .card__inner {
+  box-shadow: var(--portal-card-card-box-shadow-hover);
+  transform: var(--portal-card-card-hover-transform);
+}
+
+.card--left,
+.card--right {
+  max-width: var(--portal-card-card-side-width);
+}
+
+.card--center {
+  max-width: var(--portal-card-card-center-width);
+  z-index: 2;
+}
+
+.card__border {
+  border: var(--portal-card-border-width) solid var(--portal-card-border-color);
+  border-radius: var(--portal-card-card-border-radius);
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.card__corner {
+  background: var(--portal-card-corner-bg);
+  border: var(--portal-card-corner-border-width) solid
+    var(--portal-card-corner-border-color);
+  height: var(--portal-card-corner-size);
+  position: absolute;
+  width: var(--portal-card-corner-size);
+}
+
+.card__corner--tl {
+  border-bottom: none;
+  border-radius: var(--portal-card-card-border-radius) 0 0 0;
+  border-right: none;
+  left: calc(var(--portal-card-corner-size) * -0.5);
+  top: calc(var(--portal-card-corner-size) * -0.5);
+}
+
+.card__corner--tr {
+  border-bottom: none;
+  border-left: none;
+  border-radius: 0 var(--portal-card-card-border-radius) 0 0;
+  right: calc(var(--portal-card-corner-size) * -0.5);
+  top: calc(var(--portal-card-corner-size) * -0.5);
+}
+
+.card__corner--bl {
+  border-radius: 0 0 0 var(--portal-card-card-border-radius);
+  border-right: none;
+  border-top: none;
+  bottom: calc(var(--portal-card-corner-size) * -0.5);
+  left: calc(var(--portal-card-corner-size) * -0.5);
+}
+
+.card__corner--br {
+  border-left: none;
+  border-radius: 0 0 var(--portal-card-card-border-radius) 0;
+  border-top: none;
+  bottom: calc(var(--portal-card-corner-size) * -0.5);
+  right: calc(var(--portal-card-corner-size) * -0.5);
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--portal-card-content-gap);
+  padding: var(--portal-card-content-padding);
+  position: relative;
+  z-index: 2;
+}
+
+.card__header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--portal-card-header-gap);
+}
+
+.card__ornament {
+  background: var(--portal-card-ornament-color);
+  height: var(--portal-card-ornament-height);
+  position: relative;
+  width: var(--portal-card-ornament-width);
+}
+
+.card__ornament::before,
+.card__ornament::after {
+  background: var(--portal-card-ornament-color);
+  content: '';
+  height: var(--portal-card-ornament-height);
+  position: absolute;
+  top: 0;
+  width: var(--portal-card-ornament-dot-size);
+}
+
+.card__ornament::before {
+  left: calc(var(--portal-card-ornament-dot-size) * -2);
+}
+
+.card__ornament::after {
+  right: calc(var(--portal-card-ornament-dot-size) * -2);
+}
+
+.card__title {
+  color: var(--portal-card-card-title-color);
+  font-family: var(--portal-card-title-font-family);
+  font-size: var(--portal-card-card-title-font-size);
+  font-weight: var(--portal-card-card-title-font-weight);
+  letter-spacing: var(--portal-card-title-letter-spacing);
+  margin: 0;
+  text-align: center;
+  text-transform: var(--portal-card-title-text-transform);
+}
+
+.card--center .card__title {
+  font-size: var(--portal-card-card-title-font-size-center);
+}
+
+.card__text {
+  color: var(--portal-card-card-text-color);
+  font-size: var(--portal-card-card-text-font-size);
+  font-style: var(--portal-card-card-text-font-style);
+  line-height: var(--portal-card-card-text-line-height);
+  text-align: center;
+}
+
+.card__link {
+  align-items: center;
+  align-self: center;
+  background: var(--portal-card-link-bg);
+  border: var(--portal-card-link-border);
+  border-radius: var(--portal-card-link-border-radius);
+  color: var(--portal-card-link-color);
+  display: flex;
+  font-size: var(--portal-card-link-font-size);
+  font-weight: var(--portal-card-link-font-weight);
+  gap: var(--portal-card-link-gap);
+  letter-spacing: var(--portal-card-link-letter-spacing);
+  margin-top: auto;
+  padding: var(--portal-card-link-padding);
+  text-decoration: none;
+  text-transform: var(--portal-card-link-text-transform);
+  transition: var(--portal-card-link-transition);
+}
+
+.card__link:hover {
+  background: var(--portal-card-link-bg-hover);
+  border-color: var(--portal-card-link-border-color-hover);
+  color: var(--portal-card-link-color-hover);
+  transform: var(--portal-card-link-hover-transform);
+}
+
+.card__link-arrow {
+  transition: transform 0.2s ease;
+}
+
+.card__link:hover .card__link-arrow {
+  transform: translateX(4px);
+}
+
+.portal-card__empty {
+  color: var(--portal-card-empty-color);
+  padding: var(--portal-card-empty-padding);
+  text-align: center;
+}
+
+.portal-card__list {
+  margin: var(--portal-card-list-margin);
+  padding: var(--portal-card-list-padding);
+}
+
+.portal-card__list-title {
+  color: var(--portal-card-list-title-color);
+  font-family: var(--portal-card-title-font-family);
+  font-size: var(--portal-card-list-title-font-size);
+  font-weight: var(--portal-card-list-title-font-weight);
+  letter-spacing: var(--portal-card-title-letter-spacing);
+  margin-bottom: var(--portal-card-list-title-margin-bottom);
+  text-align: center;
+  text-transform: var(--portal-card-title-text-transform);
+}
+
+.portal-card__list-grid {
+  display: grid;
+  gap: var(--portal-card-list-grid-gap);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--portal-card-list-grid-min-width), 1fr)
+  );
+  margin: 0 auto;
+  max-width: var(--portal-card-list-grid-max-width);
+}
+
+.portal-card__list-item {
+  background: var(--portal-card-list-item-bg);
+  border: var(--portal-card-list-item-border);
+  border-radius: var(--portal-card-list-item-border-radius);
+  color: var(--portal-card-list-item-color);
+  display: block;
+  padding: var(--portal-card-list-item-padding);
+  text-decoration: none;
+  transition: var(--portal-card-list-item-transition);
+}
+
+.portal-card__list-item:hover {
+  background: var(--portal-card-list-item-bg-hover);
+  border-color: var(--portal-card-list-item-border-color-hover);
+  transform: var(--portal-card-list-item-hover-transform);
+}
+
+.portal-card__list-item-title {
+  color: var(--portal-card-list-item-title-color);
+  font-size: var(--portal-card-list-item-title-font-size);
+  font-weight: var(--portal-card-list-item-title-font-weight);
+  margin: 0 0 0.5rem;
+}
+
+.portal-card__list-item-text {
+  color: var(--portal-card-list-item-text-color);
+  font-size: var(--portal-card-list-item-text-font-size);
+  line-height: var(--portal-card-list-item-text-line-height);
+  margin: 0;
+}
+
+.portal-card__footer {
+  margin-top: var(--portal-card-footer-margin-top);
+  padding: var(--portal-card-footer-padding);
+  text-align: center;
+}
+
+.portal-card__footer-text {
+  color: var(--portal-card-footer-text-color);
+  font-size: var(--portal-card-footer-text-font-size);
+  font-style: var(--portal-card-footer-text-font-style);
+}
+
+@include for-screen(mobile) {
+  .portal-card__spread {
+    gap: var(--portal-card-spread-gap-mobile);
+  }
+
+  .card--left,
+  .card--right,
+  .card--center {
+    max-width: 100%;
+  }
+
+  .portal-card__list-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include for-screen(tablet) {
+  .portal-card__spread {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--portal-card-spread-gap-tablet);
+  }
+
+  .card--left,
+  .card--right {
+    max-width: var(--portal-card-card-side-width-tablet);
+  }
+
+  .card--center {
+    max-width: var(--portal-card-card-center-width-tablet);
+  }
+
+  .portal-card__list-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@include for-screen(desktop) {
+  .portal-card__spread {
+    align-items: flex-end;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--portal-card-spread-gap-desktop);
+  }
+
+  .card--left,
+  .card--right {
+    max-width: var(--portal-card-card-side-width);
+    transform: var(--portal-card-card-side-transform);
+  }
+
+  .card--center {
+    max-width: var(--portal-card-card-center-width);
+  }
+
+  .card--left {
+    transform: var(--portal-card-card-left-transform);
+  }
+
+  .card--right {
+    transform: var(--portal-card-card-right-transform);
+  }
+}
+
+@include for-screen(large-desktop) {
+  .portal-card__intro {
+    max-width: var(--portal-card-intro-max-width-large);
+  }
+
+  .portal-card__list-grid {
+    max-width: var(--portal-card-list-grid-max-width-large);
+  }
+}

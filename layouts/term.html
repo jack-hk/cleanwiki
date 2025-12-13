@@ -1,143 +1,15 @@
 {{ define "main" }}
 
-<body class="portal">
-  <section class="portal__intro">
-    <div class="portal__intro-body">
-      <h2 class="portal__intro-title">{{ .Title }}</h2>
-      {{ with .Content }}
-        <div class="portal__intro-text">{{ . }}</div>
-      {{ else }}
-        <p class="portal__intro-text">
-          Browse all articles related to <strong>{{ .Title }}</strong> in
-          the {{ .Data.Singular | title }} taxonomy.
-        </p>
-      {{ end }}
-    </div>
+{{ $defaultView := default "list" .Site.Params.portal.default_view }}
+{{ $portalView := default $defaultView .Params.portal_view }}
 
-    {{/* === Showcase Section === */}}
-    <div class="portal__showcase">
-      {{/* Priority: _index.md param > global param > default */}}
-      {{ $tileCount := default 3 .Site.Params.portal.showcase_tiles }}
-      {{ if isset .Params "showcase_tiles" }}
-        {{ $tileCount = .Params.showcase_tiles }}
-      {{ end }}
+{{ $validViews := slice "list" "card" }}
+{{ if not (in $validViews $portalView) }}
+  {{ warnf "Invalid portal view '%s' specified for %s. Falling back to 'list'. Valid views: %s" $portalView .Path $validViews }}
+  {{ $portalView = "list" }}
+{{ end }}
 
-      {{/* Minimum tiles required: _index.md param > global param > default */}}
-      {{ $minTileCount := default 3 .Site.Params.portal.min_showcase_tiles }}
-      {{ if isset .Params "min_showcase_tiles" }}
-        {{ $minTileCount = .Params.min_showcase_tiles }}
-      {{ end }}
-
-      {{/* Truncate limit: _index.md param > global param > default */}}
-      {{ $truncateLimit := default 120 .Site.Params.portal.truncate_limit }}
-      {{ if isset .Params "truncate_limit" }}
-        {{ $truncateLimit = .Params.truncate_limit }}
-      {{ end }}
-
-      {{/* Only show showcase if article count meets minimum threshold */}}
-      {{ if ge (.Pages | len) $minTileCount }}
-        {{ range first $tileCount (shuffle .Pages) }}
-          <div class="showcase-card">
-            <h3 class="showcase-card__title">{{ .Title }}</h3>
-            {{ with .Summary }}
-              <p class="showcase-card__text">{{ . | plainify | truncate $truncateLimit }}</p>
-            {{ end }}
-            <a href="{{ .RelPermalink }}" class="showcase-card__link">Read →</a>
-          </div>
-        {{ end }}
-      {{ end }}
-    </div>
-
-    <div class="portal__split-row">
-      <div class="split-row__col">
-        <h3 class="split-row__title">About This Category</h3>
-        <p class="split-row__text">
-          You’re viewing all articles tagged under
-          <strong>{{ .Title }}</strong>.
-        </p>
-      </div>
-      <div class="split-row__col">
-        <h3 class="split-row__title">Get Involved</h3>
-        <p class="split-row__text">
-          Contribute your own articles or suggest related topics to enrich
-          this section.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  {{/* === Optional Alphabet Navigation === */}}
-  {{ $showAlphabet := default true .Site.Params.portal.show_alphabet }}
-  {{ if isset .Params "show_alphabet" }}
-    {{ $showAlphabet = .Params.show_alphabet }}
-  {{ end }}
-
-  {{ if $showAlphabet }}
-    <nav class="portal__alphabet-nav">
-      <ul class="portal__alphabet-list">
-        {{ $pages := .Pages.ByTitle }}
-        {{ $letters := slice }}
-
-        {{ range $pages }}
-          {{ $first := upper (substr .Title 0 1) }}
-          {{ if not (in $letters $first) }}
-            {{ $letters = $letters | append $first }}
-          {{ end }}
-        {{ end }}
-
-        {{ range (seq 65 90) }}
-          {{ $char := printf "%c" . }}
-          {{ if in $letters $char }}
-            <li class="portal__alphabet-item portal__alphabet-item--enabled">
-              <a href="#{{ $char }}" class="portal__alphabet-link">{{ $char }}</a>
-            </li>
-          {{ else }}
-            <li class="portal__alphabet-item portal__alphabet-item--disabled">
-              <span class="portal__alphabet-link portal__alphabet-link--disabled">{{ $char }}</span>
-            </li>
-          {{ end }}
-        {{ end }}
-      </ul>
-    </nav>
-  {{ end }}
-
-  <main class="portal__main">
-    <section class="portal-list-grid">
-      {{ $pages := .Pages.ByTitle }}
-      {{ $letters := slice }}
-
-      {{ range $pages }}
-        {{ $first := upper (substr .Title 0 1) }}
-        {{ if not (in $letters $first) }}
-          {{ $letters = $letters | append $first }}
-        {{ end }}
-      {{ end }}
-
-      {{ range $letters }}
-        {{ $letter := . }}
-        <div class="portal-list__section" id="{{ $letter }}">
-          <h2 class="portal-list__letter">{{ $letter }}</h2>
-          <ul class="portal-list__items">
-            {{ range $pages }}
-              {{ $first := upper (substr .Title 0 1) }}
-              {{ if eq $first $letter }}
-                <li class="portal-list__item">
-                  <a href="{{ .RelPermalink }}" class="portal-card__link">{{ .Title }}</a>
-                </li>
-              {{ end }}
-            {{ end }}
-          </ul>
-        </div>
-      {{ end }}
-    </section>
-  </main>
-
-  <footer class="portal__footer">
-    <p class="portal__footer-text">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    </p>
-  </footer>
-</body>
-</html>
+{{ $partialPath := printf "portal-views/%s.html" $portalView }}
+{{ partial $partialPath . }}
 
 {{ end }}

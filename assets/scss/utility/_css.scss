@@ -27,6 +27,7 @@
   @include css-vars($home-header, 'home-header');
   @include css-vars($section-header, 'section-header');
   @include css-vars($portal, 'portal');
+  @include css-vars($portal-card, 'portal-card');
   @include css-vars($pagefind, 'pagefind-ui');
   @include css-vars($breadcrumbs, 'breadcrumbs');
   @include css-vars($page, 'page');
