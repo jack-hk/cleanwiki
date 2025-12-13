@@ -9,9 +9,9 @@
     debounceTimeoutMs: {{ site.Params.pagefind.debounceTimeoutMs | default 300 }},
     excerptLength: {{ site.Params.pagefind.excerptLength | default 30 }},
     thumbnailSources: {
-      primary: "{{ site.Params.pagefind.thumbnailSources.primary | default "featured" }}",
+      primary: "{{ site.Params.pagefind.thumbnailSources.primary | default "image" }}",
       fallback1: "{{ site.Params.pagefind.thumbnailSources.fallback1 | default "thumbnail" }}",
-      fallback2: "{{ site.Params.pagefind.thumbnailSources.fallback2 | default "placeholder" }}"
+      fallback2: "{{ site.Params.pagefind.thumbnailSources.fallback2 | default "featured" }}"
     },
     placeholderImage: "{{ site.Params.pagefind.placeholderImage }}"
   };

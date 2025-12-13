@@ -11,9 +11,9 @@ class CustomPagefind {
       debounceTimeoutMs: 300,
       excerptLength: 30,
       thumbnailSources: {
-        primary: 'featured',
+        primary: 'image',
         fallback1: 'thumbnail',
-        fallback2: 'placeholder'
+        fallback2: 'featured'
       },
       placeholderImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23e5e7eb" width="400" height="400"/%3E%3C/svg%3E',
       ...options
@@ -314,26 +314,16 @@ class CustomPagefind {
   createThumbnail(result) {
     let imageUrl = this.config.placeholderImage;
 
-    if (this.config.thumbnailSources.primary === 'featured' && result.meta?.image) {
-      imageUrl = result.meta.image;
-    } else if (this.config.thumbnailSources.primary === 'thumbnail' && result.meta?.thumbnail) {
-      imageUrl = result.meta.thumbnail;
+    if (this.config.thumbnailSources.primary && result.meta?.[this.config.thumbnailSources.primary]) {
+      imageUrl = result.meta[this.config.thumbnailSources.primary];
     }
 
-    if (imageUrl === this.config.placeholderImage) {
-      if (this.config.thumbnailSources.fallback1 === 'featured' && result.meta?.image) {
-        imageUrl = result.meta.image;
-      } else if (this.config.thumbnailSources.fallback1 === 'thumbnail' && result.meta?.thumbnail) {
-        imageUrl = result.meta.thumbnail;
-      }
+    if (imageUrl === this.config.placeholderImage && this.config.thumbnailSources.fallback1 && result.meta?.[this.config.thumbnailSources.fallback1]) {
+      imageUrl = result.meta[this.config.thumbnailSources.fallback1];
     }
 
-    if (imageUrl === this.config.placeholderImage) {
-      if (this.config.thumbnailSources.fallback2 === 'featured' && result.meta?.image) {
-        imageUrl = result.meta.image;
-      } else if (this.config.thumbnailSources.fallback2 === 'thumbnail' && result.meta?.thumbnail) {
-        imageUrl = result.meta.thumbnail;
-      }
+    if (imageUrl === this.config.placeholderImage && this.config.thumbnailSources.fallback2 && result.meta?.[this.config.thumbnailSources.fallback2]) {
+      imageUrl = result.meta[this.config.thumbnailSources.fallback2];
     }
 
     return `
