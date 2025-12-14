@@ -8,8 +8,6 @@
       this.spread = this.carousel.querySelector('.portal-card__spread');
       this.cards = Array.from(this.spread.querySelectorAll('.card'));
       this.currentIndex = 0;
-      this.startX = 0;
-      this.isDragging = false;
 
       if (this.cards.length === 0) return;
 
@@ -70,17 +68,6 @@
     }
 
     attachEventListeners() {
-      // Touch events for swipe
-      this.spread.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-      this.spread.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-      this.spread.addEventListener('touchend', () => this.handleTouchEnd());
-
-      // Mouse events for drag
-      this.spread.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-      this.spread.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-      this.spread.addEventListener('mouseup', () => this.handleMouseUp());
-      this.spread.addEventListener('mouseleave', () => this.handleMouseUp());
-
       // Keyboard navigation
       document.addEventListener('keydown', (e) => {
         if (!this.isCarouselActive()) return;
@@ -119,50 +106,7 @@
       return window.innerWidth < 1200;
     }
 
-    handleTouchStart(e) {
-      if (!this.isCarouselActive()) return;
-      this.startX = e.touches[0].clientX;
-      this.isDragging = true;
-    }
 
-    handleTouchMove(e) {
-      if (!this.isDragging || !this.isCarouselActive()) return;
-      e.preventDefault();
-    }
-
-    handleTouchEnd() {
-      if (!this.isDragging || !this.isCarouselActive()) return;
-      this.isDragging = false;
-    }
-
-    handleMouseDown(e) {
-      if (!this.isCarouselActive()) return;
-      this.startX = e.clientX;
-      this.isDragging = true;
-      this.spread.style.cursor = 'grabbing';
-    }
-
-    handleMouseMove(e) {
-      if (!this.isDragging || !this.isCarouselActive()) return;
-      e.preventDefault();
-      const diff = e.clientX - this.startX;
-      
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          this.prev();
-        } else {
-          this.next();
-        }
-        this.isDragging = false;
-        this.spread.style.cursor = 'grab';
-      }
-    }
-
-    handleMouseUp() {
-      if (!this.isCarouselActive()) return;
-      this.isDragging = false;
-      this.spread.style.cursor = 'grab';
-    }
 
     prev() {
       this.currentIndex = (this.currentIndex - 1 + this.cards.length) % this.cards.length;
