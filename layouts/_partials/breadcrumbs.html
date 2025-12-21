@@ -9,10 +9,31 @@
 
       {{- if .Ancestors -}}
         {{- range .Ancestors.Reverse -}}
-          {{- if ne .Title "Home" -}}
+          {{- if and (ne .Title "Home") (ne .Title "") -}}
             <li class="breadcrumbs__item">
               <a href="{{ .Permalink }}" class="breadcrumbs__link">{{ .Title }}</a>
             </li>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- if site.Params.breadcrumbs.show_taxonomies | default true -}}
+        {{- $blacklist := site.Params.breadcrumbs.taxonomy_blacklist | default slice -}}
+        {{- range $taxonomyName, $taxonomy := site.Taxonomies -}}
+          {{- $terms := $.GetTerms $taxonomyName -}}
+          {{- range $terms -}}
+            {{- $termKey := .LinkTitle | lower -}}
+            {{- $isBlacklisted := false -}}
+            {{- range $blacklist -}}
+              {{- if eq (. | lower) $termKey -}}
+                {{- $isBlacklisted = true -}}
+              {{- end -}}
+            {{- end -}}
+            {{- if not $isBlacklisted -}}
+              <li class="breadcrumbs__item">
+                <a href="{{ .Permalink }}" class="breadcrumbs__link">{{ .LinkTitle }}</a>
+              </li>
+            {{- end -}}
           {{- end -}}
         {{- end -}}
       {{- end -}}

@@ -68,7 +68,11 @@
 }
 
 .split-row__col {
+  background: var(--portal-split-row-bg);
+  border: var(--portal-split-row-border);
+  border-radius: var(--portal-split-row-border-radius);
   flex: 1 1 45%;
+  padding: var(--portal-split-row-padding);
 }
 
 .split-row__title {
@@ -78,7 +82,7 @@
 }
 
 .split-row__text {
-  color: var(--portal-showcase-card-color);
+  color: var(--portal-split-row-color);
 }
 
 .portal__alphabet-nav {

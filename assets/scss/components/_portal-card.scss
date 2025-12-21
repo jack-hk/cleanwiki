@@ -391,6 +391,124 @@
   transform: scale(1.2);
 }
 
+.portal-card__main[data-carousel-desktop='true'] {
+  position: relative;
+
+  .portal-card__spread {
+    align-items: center;
+    gap: 0;
+    min-height: 600px;
+    overflow: visible;
+    padding: 2rem 1rem 4rem;
+    position: relative;
+  }
+
+  .portal-card__carousel-controls {
+    display: block !important;
+  }
+
+  .card {
+    left: 50% !important;
+    max-width: 350px;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) scale(0.8) !important;
+    transition: all 0.5s ease;
+    width: 90%;
+  }
+
+  .card.portal-card__carousel-card--active {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    z-index: 2;
+  }
+
+  .card.portal-card__carousel-card--prev {
+    opacity: 0.3 !important;
+    transform: translate(-120%, -50%) scale(0.85) !important;
+    z-index: 1;
+  }
+
+  .card.portal-card__carousel-card--next {
+    opacity: 0.3 !important;
+    transform: translate(20%, -50%) scale(0.85) !important;
+    z-index: 1;
+  }
+
+  .card--left,
+  .card--right,
+  .card--center {
+    max-width: 350px;
+  }
+
+  @include for-screen(tablet) {
+    .portal-card__spread {
+      min-height: 700px;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .card {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .card.portal-card__carousel-card--prev {
+      opacity: 0.4 !important;
+      transform: translate(-130%, -50%) scale(0.9) !important;
+    }
+
+    .card.portal-card__carousel-card--next {
+      opacity: 0.4 !important;
+      transform: translate(30%, -50%) scale(0.9) !important;
+    }
+
+    .card--left,
+    .card--right,
+    .card--center {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+    }
+
+    .card__inner {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .card__content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .card__image,
+    .card--center .card__image {
+      height: var(--portal-card-image-height);
+    }
+
+    .card__title,
+    .card--center .card__title {
+      font-size: var(--portal-card-card-title-font-size);
+    }
+  }
+
+  @include for-screen(desktop) {
+    .card {
+      max-width: 450px;
+    }
+
+    .card--left,
+    .card--right,
+    .card--center {
+      max-width: 450px;
+    }
+  }
+}
+
 @include for-screen(mobile) {
   .portal-card__main {
     position: relative;
@@ -587,74 +705,6 @@
 
   .card--right {
     transform: var(--portal-card-card-right-transform) !important;
-  }
-
-  // Desktop carousel mode (when enabled via parameter)
-  .portal-card__main[data-carousel-desktop='true'] {
-    position: relative;
-
-    .portal-card__spread {
-      align-items: center;
-      gap: 0;
-      min-height: 700px;
-      overflow: visible;
-      padding: 3rem 2rem 5rem;
-    }
-
-    .portal-card__carousel-controls {
-      display: block;
-    }
-
-    .card {
-      left: 50%;
-      max-width: 450px;
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      transition: all 0.5s ease;
-      width: 100%;
-    }
-
-    .card.portal-card__carousel-card--active {
-      opacity: 1;
-      pointer-events: all;
-      transform: translate(-50%, -50%) scale(1);
-      z-index: 2;
-    }
-
-    .card.portal-card__carousel-card--prev {
-      opacity: 0.4;
-      transform: translate(-130%, -50%) scale(0.9);
-      z-index: 1;
-    }
-
-    .card.portal-card__carousel-card--next {
-      opacity: 0.4;
-      transform: translate(30%, -50%) scale(0.9);
-      z-index: 1;
-    }
-
-    .card--left,
-    .card--right,
-    .card--center {
-      display: flex;
-      flex-direction: column;
-      max-width: 450px;
-    }
-
-    .card__inner {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-    }
-
-    .card__content {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-    }
   }
 }
 
