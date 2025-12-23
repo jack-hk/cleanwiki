@@ -50,6 +50,7 @@
 }
 
 .card__inner {
+  background: #fafafa;
   background: var(--portal-card-card-bg);
   border-radius: var(--portal-card-card-border-radius);
   box-shadow: var(--portal-card-card-box-shadow);
@@ -280,6 +281,7 @@
 }
 
 .portal-card__list-item {
+  background: #fafafa;
   background: var(--portal-card-list-item-bg);
   border: var(--portal-card-list-item-border);
   border-radius: var(--portal-card-list-item-border-radius);

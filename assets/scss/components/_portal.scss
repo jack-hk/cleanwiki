@@ -31,6 +31,7 @@
 }
 
 .showcase-card {
+  background: #fafafa;
   background: var(--portal-showcase-card-bg);
   border-radius: var(--portal-showcase-card-border-radius);
   box-shadow: var(--portal-showcase-card-box-shadow);
@@ -153,6 +154,7 @@
 }
 
 .portal-list__item {
+  background-color: #fafafa;
   background-color: var(--portal-list-item-bg);
   border-radius: var(--portal-list-item-border-radius);
   padding: var(--portal-list-item-padding);

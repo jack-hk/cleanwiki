@@ -156,6 +156,10 @@
     height: 100%;
     object-fit: cover;
     width: 100%;
+
+    [data-theme='dark'] & {
+      filter: invert(1) hue-rotate(180deg);
+    }
   }
 
   &:empty {

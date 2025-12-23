@@ -8,5 +8,37 @@
     {{ printf "%s | %s" .Title site.Title }}
   {{ end }}
 </title>
+
+<script>
+(function() {
+  const theme = localStorage.getItem('theme') || 'auto';
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const finalTheme = theme === 'auto' ? (prefersDark ? 'dark' : 'light') : theme;
+  document.documentElement.setAttribute('data-theme', finalTheme);
+
+  if (finalTheme === 'dark') {
+    const style = document.createElement('style');
+    style.id = 'dark-mode-flash-fix';
+    style.textContent = `
+      .layout__main-whole-background,
+      .layout__sidebar-image,
+      .home-header__circle {
+        filter: invert(1);
+      }
+      .layout__main-whole-background {
+        opacity: 0.035;
+      }
+      .layout__main-header-background {
+        opacity: 0.3;
+      }
+      .layout__sidebar-image {
+        opacity: 0.065;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+})();
+</script>
+
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
