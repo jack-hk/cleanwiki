@@ -64,14 +64,14 @@
               </div>
 
               <div class="card__content">
+                {{ $currentPage := . }}
                 {{ with .Params.image }}
                   <div class="card__image-wrapper">
                     <img
                       src="{{ . }}"
-                      alt="{{ $.Title }}"
+                      alt="{{ $currentPage.Title }}"
                       class="card__image"
-                      {{- if $.Params.invertForDark }} data-invert-dark="true"{{ end }}
-                      loading="lazy" />
+                      loading="lazy"{{ if $currentPage.Params.invertDark }} data-invert-dark="true"{{ end }} />
                   </div>
                 {{ end }}
 
