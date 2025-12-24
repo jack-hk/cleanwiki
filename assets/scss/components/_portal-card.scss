@@ -154,6 +154,12 @@
   width: 100%;
 }
 
+.card__image[data-invert-dark] {
+  [data-theme='dark'] & {
+    filter: invert(0) hue-rotate(180deg);
+  }
+}
+
 .card--center .card__image {
   height: var(--portal-card-image-height-center);
 }

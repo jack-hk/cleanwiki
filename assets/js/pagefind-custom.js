@@ -326,9 +326,19 @@ class CustomPagefind {
       imageUrl = result.meta[this.config.thumbnailSources.fallback2];
     }
 
+    // Check multiple possible field name variations
+    const shouldInvert = result.meta?.invertfordark ||
+                        result.meta?.invertForDark ||
+                        result.meta?.invert_for_dark ||
+                        result.meta?.['invert-for-dark'];
+
+    console.log('Thumbnail meta:', result.meta, 'shouldInvert:', shouldInvert);
+
+    const invertAttr = shouldInvert ? ' data-invert-dark="true"' : '';
+
     return `
       <div class="pagefind-result-thumb">
-        <img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}">
+        <img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}"${invertAttr}>
       </div>
     `;
   }
