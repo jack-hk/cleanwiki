@@ -242,10 +242,14 @@ class CustomPagefind {
   displayResults(results) {
     const resultsList = this.container.querySelector('.pagefind-results');
     const infoDiv = this.container.querySelector('.pagefind-results-info');
+    const searchWrapper = this.container.querySelector('.pagefind-search-wrapper');
 
     if (!this.currentQuery.trim()) {
       resultsList.innerHTML = '';
       infoDiv.innerHTML = '';
+      if (searchWrapper) {
+        searchWrapper.classList.remove('has-results');
+      }
       return;
     }
 
@@ -257,6 +261,9 @@ class CustomPagefind {
         </div>
       `;
       infoDiv.innerHTML = '';
+      if (searchWrapper) {
+        searchWrapper.classList.remove('has-results');
+      }
       return;
     }
 
@@ -270,6 +277,11 @@ class CustomPagefind {
         resultsList.appendChild(element);
       }
     });
+
+    // Add has-results class when results are present
+    if (searchWrapper) {
+      searchWrapper.classList.add('has-results');
+    }
 
     this.updateLoadMoreButton(results);
   }
