@@ -39,28 +39,26 @@
   justify-content: center;
   margin: 0 auto;
   max-width: var(--portal-card-spread-max-width);
-  padding: var(--portal-card-spread-padding);
+  padding: 2rem 1rem 4rem;
 }
 
 .card {
-  perspective: 1000px;
   position: relative;
-  transition: var(--portal-card-card-transition);
   width: 100%;
 }
 
 .card__inner {
   background: #fafafa;
   background: var(--portal-card-card-bg);
+  border: var(--portal-card-border-width) solid var(--portal-card-border-color);
   border-radius: var(--portal-card-card-border-radius);
   box-shadow: var(--portal-card-card-box-shadow);
+  overflow: hidden;
   position: relative;
-  transform-style: preserve-3d;
   transition: var(--portal-card-card-inner-transition);
 }
 
 .card:hover .card__inner {
-  box-shadow: var(--portal-card-card-box-shadow-hover);
   transform: var(--portal-card-card-hover-transform);
 }
 
@@ -75,24 +73,11 @@
 }
 
 .card__border {
-  border: var(--portal-card-border-width) solid var(--portal-card-border-color);
-  border-radius: var(--portal-card-card-border-radius);
-  height: 100%;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
+  display: none;
 }
 
 .card__corner {
-  background: var(--portal-card-corner-bg);
-  border: var(--portal-card-corner-border-width) solid
-    var(--portal-card-corner-border-color);
-  height: var(--portal-card-corner-size);
-  position: absolute;
-  width: var(--portal-card-corner-size);
+  display: none;
 }
 
 .card__corner--tl {
@@ -229,22 +214,12 @@
   padding: var(--portal-card-link-padding);
   text-decoration: none;
   text-transform: var(--portal-card-link-text-transform);
-  transition: var(--portal-card-link-transition);
 }
 
 .card__link:hover {
   background: var(--portal-card-link-bg-hover);
   border-color: var(--portal-card-link-border-color-hover);
   color: var(--portal-card-link-color-hover);
-  transform: var(--portal-card-link-hover-transform);
-}
-
-.card__link-arrow {
-  transition: transform 0.2s ease;
-}
-
-.card__link:hover .card__link-arrow {
-  transform: translateX(4px);
 }
 
 .portal-card__empty {
@@ -289,13 +264,11 @@
   display: block;
   padding: var(--portal-card-list-item-padding);
   text-decoration: none;
-  transition: var(--portal-card-list-item-transition);
 }
 
 .portal-card__list-item:hover {
   background: var(--portal-card-list-item-bg-hover);
   border-color: var(--portal-card-list-item-border-color-hover);
-  transform: var(--portal-card-list-item-hover-transform);
 }
 
 .portal-card__list-item-title {
@@ -343,13 +316,12 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.3s ease;
   width: 50px;
   z-index: 10;
 }
 
 .portal-card__carousel-btn:hover {
-  background: var(--portal-card-link-bg-hover);
+  background: var(--portal-card-knot-bg);
   border-color: var(--portal-card-link-border-color-hover);
   color: var(--portal-card-link-color-hover);
 }
@@ -384,13 +356,11 @@
   cursor: pointer;
   height: 12px;
   padding: 0;
-  transition: all 0.3s ease;
   width: 12px;
 }
 
 .portal-card__carousel-dot--active {
-  background: var(--portal-card-link-bg);
-  transform: scale(1.2);
+  background: var(--portal-card-knot-bg);
 }
 
 .portal-card__main[data-carousel-desktop='true'] {
@@ -417,7 +387,9 @@
     position: absolute !important;
     top: 50% !important;
     transform: translate(-50%, -50%) scale(0.8) !important;
-    transition: all 0.5s ease;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
     width: 90%;
   }
 
@@ -449,7 +421,7 @@
   @include for-screen(tablet) {
     .portal-card__spread {
       min-height: 700px;
-      padding: 3rem 2rem 5rem;
+      padding: 0;
     }
 
     .card {
@@ -521,7 +493,7 @@
     gap: 0;
     min-height: 600px;
     overflow: visible;
-    padding: 2rem 1rem 4rem;
+    padding: 0;
     position: relative;
   }
 
@@ -537,7 +509,9 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    transition: all 0.5s ease;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
     width: 90%;
   }
 
@@ -602,7 +576,9 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    transition: all 0.5s ease;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
     width: 100%;
   }
 
@@ -687,7 +663,6 @@
     position: relative !important;
     top: auto !important;
     transform: none !important;
-    transition: var(--portal-card-card-transition);
     width: 100%;
   }
 

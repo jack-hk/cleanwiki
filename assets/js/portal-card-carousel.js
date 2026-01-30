@@ -128,8 +128,6 @@
         // Reset for desktop view
         this.cards.forEach((card) => {
           card.classList.remove('portal-card__carousel-card--active', 'portal-card__carousel-card--prev', 'portal-card__carousel-card--next');
-          card.style.transform = '';
-          card.style.opacity = '';
         });
         return;
       }
