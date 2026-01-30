@@ -89,6 +89,7 @@ class CustomPagefind {
   render() {
     this.container.innerHTML = `
       <div class="pagefind-search-container">
+        <div class="pagefind-search-bg">
         <div class="pagefind-search-wrapper">
           <input
             type="text"
@@ -96,11 +97,13 @@ class CustomPagefind {
             placeholder="Search this site..."
             autocomplete="off"
           />
+          <span class="pagefind-search-count" aria-live="polite"></span>
           <button class="pagefind-search-clear-btn" aria-label="Clear search" style="display: none;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
               <path d="M5.28 5.22a.75.75 0 00-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 101.06 1.06L8 9.06l2.72 2.72a.75.75 0 101.06-1.06L9.06 8l2.72-2.72a.75.75 0 00-1.06-1.06L8 6.94 5.28 5.22z"/>
             </svg>
           </button>
+        </div>
         </div>
         <ul class="pagefind-results"></ul>
         <div class="pagefind-results-info"></div>
@@ -243,12 +246,16 @@ class CustomPagefind {
     const resultsList = this.container.querySelector('.pagefind-results');
     const infoDiv = this.container.querySelector('.pagefind-results-info');
     const searchWrapper = this.container.querySelector('.pagefind-search-wrapper');
+    const resultsCount = this.container.querySelector('.pagefind-search-count');
 
     if (!this.currentQuery.trim()) {
       resultsList.innerHTML = '';
       infoDiv.innerHTML = '';
       if (searchWrapper) {
         searchWrapper.classList.remove('has-results');
+      }
+      if (resultsCount) {
+        resultsCount.textContent = '';
       }
       return;
     }
@@ -264,6 +271,9 @@ class CustomPagefind {
       if (searchWrapper) {
         searchWrapper.classList.remove('has-results');
       }
+      if (resultsCount) {
+        resultsCount.textContent = '0 results';
+      }
       return;
     }
 
@@ -277,6 +287,11 @@ class CustomPagefind {
         resultsList.appendChild(element);
       }
     });
+
+    if (resultsCount) {
+      const total = results.length;
+      resultsCount.textContent = `${total} ${total === 1 ? 'result' : 'results'}`;
+    }
 
     // Add has-results class when results are present
     if (searchWrapper) {
