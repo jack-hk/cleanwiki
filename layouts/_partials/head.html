@@ -9,17 +9,26 @@
   {{ end }}
 </title>
 
-<script>
-(function() {
-  const theme = localStorage.getItem('theme') || 'auto';
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const finalTheme = theme === 'auto' ? (prefersDark ? 'dark' : 'light') : theme;
-  document.documentElement.setAttribute('data-theme', finalTheme);
+<link
+  rel="preload"
+  as="image"
+  href="{{ "mountains-header-transparent.png" | relURL }}"
+  fetchpriority="high" />
 
-  if (finalTheme === 'dark') {
-    const style = document.createElement('style');
-    style.id = 'dark-mode-flash-fix';
-    style.textContent = `
+<script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'auto';
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
+    const finalTheme =
+      theme === 'auto' ? (prefersDark ? 'dark' : 'light') : theme;
+    document.documentElement.setAttribute('data-theme', finalTheme);
+
+    if (finalTheme === 'dark') {
+      const style = document.createElement('style');
+      style.id = 'dark-mode-flash-fix';
+      style.textContent = `
       .layout__main-whole-background,
       .layout__sidebar-image,
       .home-header__circle {
@@ -35,9 +44,9 @@
         opacity: 0.065;
       }
     `;
-    document.head.appendChild(style);
-  }
-})();
+      document.head.appendChild(style);
+    }
+  })();
 </script>
 
 {{ partialCached "head/css.html" . }}
