@@ -159,6 +159,9 @@
   overflow: hidden;
   padding: var(--pagefind-ui-spacing-large);
   transition: all 0.3s ease;
+  @include for-screen(mobile) {
+    margin: auto 1rem;
+  }
 
   &:hover {
     border-color: var(--color-primary);
