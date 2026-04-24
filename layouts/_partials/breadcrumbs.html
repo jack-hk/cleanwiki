@@ -2,17 +2,26 @@
   {{- $homeURL := "/" -}}
   {{- $separator := site.Params.breadcrumbs.separator | default "/" -}}
   <nav class="breadcrumbs">
-    <ol class="breadcrumbs__list" style="--breadcrumbs-separator: '{{ $separator }}'">
+    <ol
+      class="breadcrumbs__list"
+      style="--breadcrumbs-separator: '{{ $separator }}'">
       <li class="breadcrumbs__item">
         <a href="{{ $homeURL }}" class="breadcrumbs__link">Home</a>
       </li>
+      {{- $seen := dict -}}
 
       {{- if .Ancestors -}}
         {{- range .Ancestors.Reverse -}}
           {{- if and (ne .Title "Home") (ne .Title "") -}}
-            <li class="breadcrumbs__item">
-              <a href="{{ .Permalink }}" class="breadcrumbs__link">{{ .Title }}</a>
-            </li>
+            {{- $key := .Title | lower -}}
+            {{- if and $key (not (isset $seen $key)) -}}
+              <li class="breadcrumbs__item">
+                <a href="{{ .Permalink }}" class="breadcrumbs__link"
+                  >{{ .Title }}</a
+                >
+              </li>
+              {{- $seen = merge $seen (dict $key true) -}}
+            {{- end -}}
           {{- end -}}
         {{- end -}}
       {{- end -}}
@@ -30,18 +39,28 @@
               {{- end -}}
             {{- end -}}
             {{- if not $isBlacklisted -}}
-              <li class="breadcrumbs__item">
-                <a href="{{ .Permalink }}" class="breadcrumbs__link">{{ .LinkTitle }}</a>
-              </li>
+              {{- $key := .LinkTitle | lower -}}
+              {{- if and $key (not (isset $seen $key)) -}}
+                <li class="breadcrumbs__item">
+                  <a href="{{ .Permalink }}" class="breadcrumbs__link"
+                    >{{ .LinkTitle }}</a
+                  >
+                </li>
+                {{- $seen = merge $seen (dict $key true) -}}
+              {{- end -}}
             {{- end -}}
           {{- end -}}
         {{- end -}}
       {{- end -}}
 
       {{- if and .Title (ne .Title "") -}}
-        <li class="breadcrumbs__item breadcrumbs__item--current">
-          <span class="breadcrumbs__text">{{ .Title }}</span>
-        </li>
+        {{- $key := .Title | lower -}}
+        {{- if and $key (not (isset $seen $key)) -}}
+          <li class="breadcrumbs__item breadcrumbs__item--current">
+            <span class="breadcrumbs__text">{{ .Title }}</span>
+          </li>
+          {{- $seen = merge $seen (dict $key true) -}}
+        {{- end -}}
       {{- end -}}
     </ol>
   </nav>
