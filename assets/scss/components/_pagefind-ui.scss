@@ -1,4 +1,5 @@
 .popover-search {
+  overscroll-behavior: contain;
   padding: 0;
 }
 
@@ -145,8 +146,6 @@
   gap: var(--pagefind-ui-spacing-medium);
   list-style: none;
   margin: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   padding: var(--pagefind-ui-spacing-large);
 }
 
