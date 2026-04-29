@@ -88,6 +88,8 @@ class CustomPagefind {
 
   render() {
     this.container.innerHTML = `
+      <div class="pagefind-search-wrapper-decor">
+      </div>
       <div class="pagefind-search-container">
         <div class="pagefind-search-bg">
         <div class="pagefind-search-wrapper">
@@ -104,6 +106,23 @@ class CustomPagefind {
             </svg>
           </button>
         </div>
+          <button
+    class="popover-search__close"
+    popovertarget="Search"
+    popovertargetaction="hide"
+    aria-label="Close search">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
         </div>
         <ul class="pagefind-results"></ul>
         <div class="pagefind-results-info"></div>
