@@ -372,12 +372,14 @@ class CustomPagefind {
       imageUrl = result.meta[this.config.thumbnailSources.fallback2];
     }
 
-    // UPDATED: Now points to result.meta?.invert_dark (with underscore)
-    const invertDark = result.meta?.invert_dark === 'true' ? ' data-invert-dark="true"' : '';
+    const iconColor = result.meta?.icon_color;
+    const thumbnail = iconColor
+      ? `<span class="pagefind-result-thumb__colored-icon" role="img" aria-label="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}" style="--pagefind-icon-image: url('${this.escapeHtml(imageUrl)}'); --pagefind-icon-color: ${this.escapeHtml(iconColor)}"></span>`
+      : `<img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}">`;
 
     return `
       <div class="pagefind-result-thumb">
-        <img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}"${invertDark}>
+        ${thumbnail}
       </div>
     `;
   }
