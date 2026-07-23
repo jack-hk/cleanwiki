@@ -374,12 +374,16 @@ class CustomPagefind {
 
     const iconColor = result.meta?.icon_color;
     const thumbnail = iconColor
-      ? `<span class="pagefind-result-thumb__colored-icon" role="img" aria-label="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}" style="--pagefind-icon-image: url('${this.escapeHtml(imageUrl)}'); --pagefind-icon-color: ${this.escapeHtml(iconColor)}"></span>`
+      ? `<span class="pagefind-result-thumb__colored-icon" role="img" aria-label="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}" style="--pagefind-icon-image: url('${this.escapeHtml(imageUrl)}'); background-color: ${this.escapeHtml(iconColor)}"></span>`
       : `<img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}">`;
+    const badge = result.meta?.badge_on_thumbnail === 'true' && result.meta?.badge_path
+      ? `<span class="pagefind-result-thumb__badge" aria-hidden="true" style="--pagefind-badge-image: url('${this.escapeHtml(result.meta.badge_path)}'); --pagefind-badge-size: ${this.escapeHtml(result.meta.badge_size_percent || '64')}%"><span class="pagefind-result-thumb__badge-background" style="background-color: ${this.escapeHtml(result.meta.badge_background_color || '#e00020')}"></span><span class="pagefind-result-thumb__badge-mark" style="background-color: ${this.escapeHtml(result.meta.badge_foreground_color || 'currentColor')}"></span></span>`
+      : '';
 
     return `
       <div class="pagefind-result-thumb">
         ${thumbnail}
+        ${badge}
       </div>
     `;
   }

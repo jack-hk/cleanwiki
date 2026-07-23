@@ -234,6 +234,7 @@
   height: var(--pagefind-ui-thumbnail-height);
   justify-content: center;
   overflow: hidden;
+  position: relative;
   width: var(--pagefind-ui-thumbnail-width);
 
   img {
@@ -244,7 +245,6 @@
   }
 
   &__colored-icon {
-    background-color: var(--pagefind-icon-color, currentColor);
     height: 100%;
     -webkit-mask-image: var(--pagefind-icon-image);
     mask-image: var(--pagefind-icon-image);
@@ -255,6 +255,41 @@
     -webkit-mask-size: contain;
     mask-size: contain;
     width: 100%;
+  }
+
+  &__badge {
+    align-items: center;
+    bottom: 0.25rem;
+    display: flex;
+    height: var(--pagefind-badge-size, 32px);
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+    right: 0.25rem;
+    width: var(--pagefind-badge-size, 32px);
+    z-index: 2;
+
+  }
+
+  &__badge-background {
+    border-radius: 50%;
+    height: 84%;
+    position: absolute;
+    width: 84%;
+  }
+
+  &__badge-mark {
+    height: 66%;
+    -webkit-mask-image: var(--pagefind-badge-image);
+    mask-image: var(--pagefind-badge-image);
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    position: relative;
+    width: 66%;
   }
 
   &:empty {
