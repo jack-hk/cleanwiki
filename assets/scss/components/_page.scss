@@ -43,8 +43,12 @@
 .page__header {
   border-bottom: var(--page-header-border-width) solid
     var(--page-header-border-color);
-  margin-bottom: var(--page-header-margin-bottom);
+  margin-bottom: 0;
   padding-bottom: var(--page-header-padding-bottom);
+
+  @include for-screen(tablet) {
+    margin-bottom: var(--page-header-margin-bottom);
+  }
 
   .page--mobile-fullscreen & {
     @include for-screen(mobile) {
@@ -101,7 +105,6 @@
     var(--page-list-item-border-color);
   border-radius: var(--page-list-item-border-radius);
   display: inline;
-  padding: var(--page-list-item-padding);
   transition: var(--page-list-item-transition);
   &:hover {
     background-color: var(--page-list-item-hover-bg-color);
@@ -115,6 +118,7 @@
 .page__link {
   color: var(--page-link-color);
   font-size: var(--page-link-font-size);
+  padding: var(--page-list-item-padding);
   text-decoration: none;
   transition:
     color 0.2s ease,

@@ -179,6 +179,11 @@
   margin: 0;
   padding: 1rem 0;
 
+  /* Hide entirely when nothing is typed and JS empties the list */
+  &:empty {
+    display: none;
+  }
+
   @include for-screen(tablet) {
     padding: 1.25rem;
   }
@@ -371,6 +376,11 @@
   padding: var(--pagefind-ui-spacing-medium) 0;
   text-align: center;
   transition: padding 0.3s ease;
+
+  /* Hide entirely when nothing is typed */
+  &:empty {
+    display: none;
+  }
 
   @include for-screen(tablet) {
     padding: 0;

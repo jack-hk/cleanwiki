@@ -372,7 +372,8 @@ class CustomPagefind {
       imageUrl = result.meta[this.config.thumbnailSources.fallback2];
     }
 
-    const invertDark = result.meta?.invertdark === 'true' ? ' data-invert-dark="true"' : '';
+    // UPDATED: Now points to result.meta?.invert_dark (with underscore)
+    const invertDark = result.meta?.invert_dark === 'true' ? ' data-invert-dark="true"' : '';
 
     return `
       <div class="pagefind-result-thumb">

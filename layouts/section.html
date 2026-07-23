@@ -1,8 +1,13 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
+  {{ $defaultView := default "list" .Site.Params.portal.default_view }}
+  {{ $portalView := default $defaultView .Params.portal_view }}
+
+  {{ $validViews := slice "list" "card" }}
+  {{ if not (in $validViews $portalView) }}
+    {{ warnf "Invalid portal view '%s' specified for %s. Falling back to 'list'. Valid views: %s" $portalView .Path $validViews }}
+    {{ $portalView = "list" }}
   {{ end }}
+
+  {{ $partialPath := printf "portal-views/%s.html" $portalView }}
+  {{ partial $partialPath . }}
 {{ end }}
