@@ -2,12 +2,26 @@
   <section class="portal-card__intro">
     <div class="portal-card__intro-body">
       <h2 class="portal-card__intro-title">{{ .Title }}</h2>
-      {{ with .Content }}
-        <div class="portal-card__intro-text">{{ . }}</div>
-      {{ else }}
-        <p class="portal-card__intro-text">
-          Discover the mysteries within <strong>{{ .Title }}</strong>.
-        </p>
+      {{ $showIntroText := default true .Site.Params.portalCard.show_intro_text }}
+      {{ if isset .Params "show_intro_text" }}
+        {{ $showIntroText = .Params.show_intro_text }}
+      {{ end }}
+      {{ if $showIntroText }}
+        {{ if isset .Params "intro_text" }}
+          <p class="portal-card__intro-text">{{ .Params.intro_text }}</p>
+        {{ else }}
+          {{ with .Site.Params.portalCard.intro_text }}
+            <p class="portal-card__intro-text">{{ . }}</p>
+          {{ else }}
+            {{ with .Content }}
+              <div class="portal-card__intro-text">{{ . }}</div>
+            {{ else }}
+              <p class="portal-card__intro-text">
+                Choose your path. Each class offers unique abilities and playstyles in the brutal world of Golden Wastes.
+              </p>
+            {{ end }}
+          {{ end }}
+        {{ end }}
       {{ end }}
     </div>
   </section>
@@ -124,9 +138,18 @@
     </div>
   </section>
 
-  <footer class="portal-card__footer">
-    <p class="portal-card__footer-text">
-      The cards have spoken. Choose your path wisely.
-    </p>
-  </footer>
+  {{ $showBottomTextbox := default true .Site.Params.portalCard.show_bottom_textbox }}
+  {{ if isset .Params "show_bottom_textbox" }}
+    {{ $showBottomTextbox = .Params.show_bottom_textbox }}
+  {{ end }}
+  {{ $bottomTextboxText := default "The cards have spoken. Choose your path wisely." .Site.Params.portalCard.bottom_textbox_text }}
+  {{ with .Params.bottom_textbox_text }}{{ $bottomTextboxText = . }}{{ end }}
+
+  {{ if $showBottomTextbox }}
+    <footer class="portal-card__footer">
+      <div class="split-row__col split-row__col--full">
+        <p class="split-row__text">{{ $bottomTextboxText }}</p>
+      </div>
+    </footer>
+  {{ end }}
 </div>

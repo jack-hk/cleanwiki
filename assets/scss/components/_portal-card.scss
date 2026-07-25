@@ -20,10 +20,10 @@
 }
 
 .portal-card__intro-text {
-  color: var(--portal-card-intro-text-color);
-  font-size: var(--portal-card-intro-text-font-size);
-  font-style: var(--portal-card-intro-text-font-style);
-  line-height: var(--portal-card-intro-text-line-height);
+  color: var(--color-text-default);
+  font-size: var(--font-size-base);
+  font-style: normal;
+  line-height: 1.6;
 }
 
 .portal-card__main {
@@ -288,13 +288,6 @@
 .portal-card__footer {
   margin-top: var(--portal-card-footer-margin-top);
   padding: var(--portal-card-footer-padding);
-  text-align: center;
-}
-
-.portal-card__footer-text {
-  color: var(--portal-card-footer-text-color);
-  font-size: var(--portal-card-footer-text-font-size);
-  font-style: var(--portal-card-footer-text-font-style);
 }
 
 // Carousel Controls (Mobile & Tablet only)

@@ -2,13 +2,35 @@
   <section class="portal__intro">
     <div class="portal__intro-body">
       <h2 class="portal__intro-title">{{ .Title }}</h2>
-      {{ with .Content }}
-        <div class="portal__intro-text">{{ . }}</div>
-      {{ else }}
-        <p class="portal__intro-text">
-          Browse all articles related to <strong>{{ .Title }}</strong> in
-          the {{ .Data.Singular | title }} taxonomy.
-        </p>
+      {{ $showIntroText := default true .Site.Params.portal.show_intro_text }}
+      {{ if isset .Params "show_intro_text" }}
+        {{ $showIntroText = .Params.show_intro_text }}
+      {{ end }}
+      {{ if $showIntroText }}
+        {{ $introText := "" }}
+        {{ $hasConfiguredIntro := false }}
+        {{ if isset .Params "intro_text" }}
+          {{ $introText = .Params.intro_text }}
+          {{ $hasConfiguredIntro = true }}
+        {{ else }}
+          {{ with .Site.Params.portal.intro_text }}
+            {{ $introText = . }}
+            {{ $hasConfiguredIntro = true }}
+          {{ end }}
+        {{ end }}
+        {{ if $hasConfiguredIntro }}
+        {{ $introHTML := replace ($introText | htmlEscape) "{title}" (printf "<strong>%s</strong>" (.Title | htmlEscape)) }}
+        {{ $introHTML = replace $introHTML "{taxonomy}" ((.Data.Singular | title) | htmlEscape) }}
+          <p class="portal__intro-text">{{ $introHTML | safeHTML }}</p>
+        {{ else }}
+          {{ with .Content }}
+            <div class="portal__intro-text">{{ . }}</div>
+          {{ else }}
+            <p class="portal__intro-text">
+              Browse all articles related to <strong>{{ .Title }}</strong> in the {{ .Data.Singular | title }} taxonomy.
+            </p>
+          {{ end }}
+        {{ end }}
       {{ end }}
     </div>
 
@@ -28,8 +50,15 @@
         {{ $truncateLimit = .Params.truncate_limit }}
       {{ end }}
 
-      {{ if ge (.Pages | len) $minTileCount }}
-        {{ range first $tileCount (shuffle .Pages) }}
+      {{ $showcasePages := slice }}
+      {{ range .Pages }}
+        {{ if strings.TrimSpace (.Content | plainify) }}
+          {{ $showcasePages = $showcasePages | append . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if ge ($showcasePages | len) $minTileCount }}
+        {{ range first $tileCount (shuffle $showcasePages) }}
           <div class="showcase-card">
             <h3 class="showcase-card__title">{{ .Title }}</h3>
             {{ with .Summary }}
@@ -92,9 +121,12 @@
         {{ $letters := slice }}
 
         {{ range $pages }}
-          {{ $first := upper (substr .Title 0 1) }}
-          {{ if not (in $letters $first) }}
-            {{ $letters = $letters | append $first }}
+          {{ $pageTitle := strings.TrimSpace .Title }}
+          {{ if $pageTitle }}
+            {{ $first := upper (substr $pageTitle 0 1) }}
+            {{ if and (findRE "^[A-Z]$" $first) (not (in $letters $first)) }}
+              {{ $letters = $letters | append $first }}
+            {{ end }}
           {{ end }}
         {{ end }}
 
@@ -174,25 +206,40 @@
     <section class="portal-list-grid" data-layout="{{ $listLayout }}">
       {{ $pages := .Pages.ByTitle }}
       {{ $letters := slice }}
+      {{ $hasOther := false }}
 
       {{ range $pages }}
-        {{ $first := upper (substr .Title 0 1) }}
-        {{ if not (in $letters $first) }}
-          {{ $letters = $letters | append $first }}
+        {{ $pageTitle := strings.TrimSpace .Title }}
+        {{ if $pageTitle }}
+          {{ $first := upper (substr $pageTitle 0 1) }}
+          {{ if findRE "^[A-Z]$" $first }}
+            {{ if not (in $letters $first) }}
+              {{ $letters = $letters | append $first }}
+            {{ end }}
+          {{ else }}
+            {{ $hasOther = true }}
+          {{ end }}
         {{ end }}
+      {{ end }}
+      {{ if $hasOther }}
+        {{ $letters = $letters | append "#" }}
       {{ end }}
 
       {{ range $letters }}
         {{ $letter := . }}
-        <div class="portal-list__section" id="{{ $letter }}">
+        <div class="portal-list__section" id="{{ if eq $letter "#" }}other{{ else }}{{ $letter }}{{ end }}">
           <h2 class="portal-list__letter">{{ $letter }}</h2>
           <ul class="portal-list__items">
             {{ range $pages }}
-              {{ $first := upper (substr .Title 0 1) }}
-              {{ if eq $first $letter }}
-                <li class="portal-list__item">
-                  <a href="{{ .RelPermalink }}" class="portal-card__link">{{ .Title }}</a>
-                </li>
+              {{ $pageTitle := strings.TrimSpace .Title }}
+              {{ if $pageTitle }}
+                {{ $first := upper (substr $pageTitle 0 1) }}
+                {{ $pageLetter := cond (not (not (findRE "^[A-Z]$" $first))) $first "#" }}
+                {{ if eq $pageLetter $letter }}
+                  <li class="portal-list__item">
+                    <a href="{{ .RelPermalink }}" class="portal-card__link">{{ $pageTitle }}</a>
+                  </li>
+                {{ end }}
               {{ end }}
             {{ end }}
           </ul>

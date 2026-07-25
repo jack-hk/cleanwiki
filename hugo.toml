@@ -113,6 +113,8 @@ truncate = 150
   min_showcase_tiles = 3
   show_layout_toggle = true
   default_list_layout = "fixed"
+  show_intro_text = true
+  intro_text = "Browse all articles related to {title} in the {taxonomy} taxonomy."
   show_left_textbox = true
   left_textbox_title = "About This Category"
   left_textbox_text = "You're viewing all articles tagged under {title}."
@@ -123,3 +125,13 @@ truncate = 150
   bottom_textbox_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
   show_alphabet = true
   truncate_limit = 180
+
+[params.portalCard]
+  card_count = 3
+  min_card_count = 3
+  truncate_limit = 100
+  carousel_on_desktop = false
+  show_intro_text = true
+  intro_text = "Choose your path. Each class offers unique abilities and playstyles in the brutal world of Golden Wastes."
+  show_bottom_textbox = true
+  bottom_textbox_text = "The cards have spoken. Choose your path wisely."
