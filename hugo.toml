@@ -119,5 +119,7 @@ truncate = 150
   show_right_textbox = true
   right_textbox_title = "Get Involved"
   right_textbox_text = "Contribute your own articles or suggest related topics to enrich this section."
+  show_bottom_textbox = true
+  bottom_textbox_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
   show_alphabet = true
   truncate_limit = 180

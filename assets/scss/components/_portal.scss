@@ -76,6 +76,12 @@
   padding: var(--portal-split-row-padding);
 }
 
+.split-row__col--full {
+  box-sizing: border-box;
+  flex-basis: 100%;
+  width: 100%;
+}
+
 .split-row__title {
   font-size: var(--font-size-lg);
   font-weight: var(--portal-split-title-font-weight);
@@ -265,7 +271,6 @@
 
 .portal__footer {
   padding: 1rem;
-  text-align: center;
 }
 
 @include for-screen(mobile) {

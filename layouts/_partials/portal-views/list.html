@@ -201,9 +201,18 @@
     </section>
   </main>
 
-  <footer class="portal__footer">
-    <p class="portal__footer-text">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    </p>
-  </footer>
+  {{ $showBottomTextbox := default true .Site.Params.portal.show_bottom_textbox }}
+  {{ if isset .Params "show_bottom_textbox" }}
+    {{ $showBottomTextbox = .Params.show_bottom_textbox }}
+  {{ end }}
+  {{ $bottomTextboxText := default "Lorem Ipsum is simply dummy text of the printing and typesetting industry." .Site.Params.portal.bottom_textbox_text }}
+  {{ with .Params.bottom_textbox_text }}{{ $bottomTextboxText = . }}{{ end }}
+
+  {{ if $showBottomTextbox }}
+    <footer class="portal__footer">
+      <div class="split-row__col split-row__col--full">
+        <p class="split-row__text">{{ $bottomTextboxText }}</p>
+      </div>
+    </footer>
+  {{ end }}
 </div>
