@@ -41,22 +41,43 @@
       {{ end }}
     </div>
 
-    <div class="portal__split-row">
-      <div class="split-row__col">
-        <h3 class="split-row__title">About This Category</h3>
-        <p class="split-row__text">
-          You're viewing all articles tagged under
-          <strong>{{ .Title }}</strong>.
-        </p>
+    {{ $showLeftTextbox := default true .Site.Params.portal.show_left_textbox }}
+    {{ if isset .Params "show_left_textbox" }}
+      {{ $showLeftTextbox = .Params.show_left_textbox }}
+    {{ end }}
+    {{ $leftTextboxTitle := default "About This Category" .Site.Params.portal.left_textbox_title }}
+    {{ $leftTextboxText := default "You're viewing all articles tagged under {title}." .Site.Params.portal.left_textbox_text }}
+    {{ with .Params.left_textbox_title }}{{ $leftTextboxTitle = . }}{{ end }}
+    {{ with .Params.left_textbox_text }}{{ $leftTextboxText = . }}{{ end }}
+    {{ $leftTextboxHTML := replace ($leftTextboxText | htmlEscape) "{title}" (printf "<strong>%s</strong>" (.Title | htmlEscape)) }}
+
+    {{ $showRightTextbox := default true .Site.Params.portal.show_right_textbox }}
+    {{ if isset .Params "show_right_textbox" }}
+      {{ $showRightTextbox = .Params.show_right_textbox }}
+    {{ end }}
+    {{ $rightTextboxTitle := default "Get Involved" .Site.Params.portal.right_textbox_title }}
+    {{ $rightTextboxText := default "Contribute your own articles or suggest related topics to enrich this section." .Site.Params.portal.right_textbox_text }}
+    {{ with .Params.right_textbox_title }}{{ $rightTextboxTitle = . }}{{ end }}
+    {{ with .Params.right_textbox_text }}{{ $rightTextboxText = . }}{{ end }}
+
+    {{ if or $showLeftTextbox $showRightTextbox }}
+      <div class="portal__split-row">
+        {{ if $showLeftTextbox }}
+          <div class="split-row__col">
+            <h3 class="split-row__title">{{ $leftTextboxTitle }}</h3>
+            <p class="split-row__text">
+              {{ $leftTextboxHTML | safeHTML }}
+            </p>
+          </div>
+        {{ end }}
+        {{ if $showRightTextbox }}
+          <div class="split-row__col">
+            <h3 class="split-row__title">{{ $rightTextboxTitle }}</h3>
+            <p class="split-row__text">{{ $rightTextboxText }}</p>
+          </div>
+        {{ end }}
       </div>
-      <div class="split-row__col">
-        <h3 class="split-row__title">Get Involved</h3>
-        <p class="split-row__text">
-          Contribute your own articles or suggest related topics to enrich
-          this section.
-        </p>
-      </div>
-    </div>
+    {{ end }}
   </section>
 
   {{ $showAlphabet := default true .Site.Params.portal.show_alphabet }}
@@ -93,8 +114,64 @@
     </nav>
   {{ end }}
 
-  <main class="portal__main">
-    <section class="portal-list-grid">
+  {{ $showLayoutToggle := default true .Site.Params.portal.show_layout_toggle }}
+  {{ if isset .Params "show_layout_toggle" }}
+    {{ $showLayoutToggle = .Params.show_layout_toggle }}
+  {{ end }}
+  {{ $listLayout := default "fixed" .Site.Params.portal.default_list_layout }}
+  {{ if isset .Params "list_layout" }}
+    {{ $listLayout = .Params.list_layout }}
+  {{ end }}
+  {{ if not (in (slice "fixed" "masonry") $listLayout) }}
+    {{ warnf "Invalid portal list layout '%s' specified for %s. Falling back to 'fixed'." $listLayout .Path }}
+    {{ $listLayout = "fixed" }}
+  {{ end }}
+
+  <main class="portal__main" data-portal-list>
+    <div class="portal-list__toolbar">
+      <div class="portal-list__controls">
+        {{ if $showLayoutToggle }}
+        <button
+          class="portal-list__layout-toggle"
+          type="button"
+          data-layout-toggle
+          aria-label="Switch alphabetical list layout"
+          aria-pressed="{{ eq $listLayout "masonry" }}"
+          title="Switch to {{ if eq $listLayout "fixed" }}masonry{{ else }}fixed{{ end }} layout">
+          <svg class="portal-list__layout-icon portal-list__layout-icon--fixed" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg class="portal-list__layout-icon portal-list__layout-icon--masonry" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="8" height="8" rx="1"></rect>
+            <rect x="13" y="3" width="8" height="5" rx="1"></rect>
+            <rect x="13" y="10" width="8" height="11" rx="1"></rect>
+          </svg>
+        </button>
+        {{ end }}
+        <button
+          class="portal-list__filter-toggle"
+          type="button"
+          data-filter-toggle
+          aria-label="Filter alphabetical list"
+          aria-expanded="false"
+          aria-controls="portal-list-filter">
+          <svg class="portal-list__filter-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 5h16l-6.5 7.5V19l-3 1v-7.5z"></path>
+          </svg>
+        </button>
+        <div class="portal-list__filter" data-list-filter hidden>
+          <input
+            class="portal-list__filter-input"
+            id="portal-list-filter"
+            type="search"
+            data-filter-input
+            aria-label="Filter alphabetical list"
+            placeholder="Filter entries…"
+            autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <section class="portal-list-grid" data-layout="{{ $listLayout }}">
       {{ $pages := .Pages.ByTitle }}
       {{ $letters := slice }}
 

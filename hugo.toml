@@ -111,5 +111,13 @@ truncate = 150
 [params.portal]
   showcase_tiles = 3
   min_showcase_tiles = 3
+  show_layout_toggle = true
+  default_list_layout = "fixed"
+  show_left_textbox = true
+  left_textbox_title = "About This Category"
+  left_textbox_text = "You're viewing all articles tagged under {title}."
+  show_right_textbox = true
+  right_textbox_title = "Get Involved"
+  right_textbox_text = "Contribute your own articles or suggest related topics to enrich this section."
   show_alphabet = true
   truncate_limit = 180
