@@ -64,6 +64,9 @@ showTaxonomyIcons = true
 metaBelowContent = false
 taxonomiesBelowContent = false
 
+[params.wiki]
+show_date = false
+
 # ---------------------------
 # Breadcrumbs configuration
 # ---------------------------
