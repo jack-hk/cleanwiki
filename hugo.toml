@@ -1,7 +1,7 @@
 # ---------------------------
 # Site settings
 # ---------------------------
-baseURL = "https://example.org/"
+baseURL = "https://golden-wastes.pages.dev/"
 languageCode = "en-US"
 title = "My New Hugo Site"
 
@@ -61,6 +61,7 @@ showSeries = true
 showUpdated = true
 showReferences = true
 showTaxonomyIcons = true
+showReadingTime = false
 metaBelowContent = false
 taxonomiesBelowContent = false
 
@@ -104,6 +105,11 @@ sup     = "https://picsum.photos/id/1020/400/300"
 [params.bigTiles]
 count = 3
 truncate = 150
+pages = [
+  "/article/the-project",
+  "/article/how-to-play",
+  "/article/the-wastes",
+]
 
 # Map categories to partial HTML files for rendering each big tile
 [params.bigTiles.partials]

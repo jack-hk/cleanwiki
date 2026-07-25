@@ -13,7 +13,17 @@
       </a>
     {{- end -}}
   {{- else -}}
-    {{- range $name, $pages := site.Taxonomies.categories }}
+    {{- $names := slice -}}
+    {{- range $name, $pages := site.Taxonomies.categories -}}
+      {{- $names = $names | append $name -}}
+    {{- end -}}
+    {{- range $name, $image := $images -}}
+      {{- if not (in $names $name) -}}
+        {{- $names = $names | append $name -}}
+      {{- end -}}
+    {{- end -}}
+    {{- range sort $names -}}
+      {{- $name := . -}}
       {{- $img := index $images $name | default "" -}}
       <a
         href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}"

@@ -1,34 +1,36 @@
 <section class="big-tile">
   {{- $count := .Site.Params.bigTiles.count | default 3 -}}
   {{- $truncate := .Site.Params.bigTiles.truncate | default 150 -}}
-  {{- $pages := site.RegularPages -}}
+  {{- $pagePaths := .Site.Params.bigTiles.pages | default slice -}}
   {{- $partials := .Site.Params.bigTiles.partials -}}
 
-  {{- range first $count $pages }}
-    {{- $category := index .Params.categories 0 | default "default" -}}
-    {{- $partialName := index $partials $category -}}
+  {{- range first $count $pagePaths }}
+    {{- with site.GetPage . }}
+      {{- $category := index .Params.categories 0 | default "default" -}}
+      {{- $partialName := index $partials $category -}}
 
-    {{- if $partialName }}
-      {{- partial (printf "big-tile/%s.html" $partialName) (dict
-        "page" .
-        "truncate" $truncate
-        "category" $category
-        )
-      }}
-    {{- else }}
-      <article class="big-tile__item big-tile__item--default">
-        <a href="{{ .RelPermalink }}">
-          <h2>{{ .Title }}</h2>
-          <p>
-            {{- $summary := .Summary | default .Content -}}
-            {{- if gt (len $summary) $truncate }}
-              {{ $summary | plainify | truncate $truncate }}
-            {{- else }}
-              {{ $summary | plainify }}
-            {{- end }}
-          </p>
-        </a>
-      </article>
+      {{- if $partialName }}
+        {{- partial (printf "big-tile/%s.html" $partialName) (dict
+          "page" .
+          "truncate" $truncate
+          "category" $category
+          )
+        }}
+      {{- else }}
+        <article class="big-tile__item big-tile__item--default">
+          <a href="{{ .RelPermalink }}">
+            <h2>{{ .Title }}</h2>
+            <p>
+              {{- $summary := .Summary | default .Content -}}
+              {{- if gt (len $summary) $truncate }}
+                {{ $summary | plainify | truncate $truncate }}
+              {{- else }}
+                {{ $summary | plainify }}
+              {{- end }}
+            </p>
+          </a>
+        </article>
+      {{- end }}
     {{- end }}
   {{- end }}
 </section>

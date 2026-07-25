@@ -1,4 +1,9 @@
 {{ define "main" }}
+  {{ $showReadingTime := default false site.Params.pageLayout.showReadingTime }}
+  {{ if isset .Params "show_reading_time" }}
+    {{ $showReadingTime = .Params.show_reading_time }}
+  {{ end }}
+
   <article class="page page--mobile-fullscreen">
     {{- partial "breadcrumbs" . -}}
 
@@ -20,7 +25,7 @@
               <span class="page__author">by {{ .Params.author }}</span>
             {{ end }}
 
-            {{ if and (site.Params.pageLayout.showMeta | default true) .ReadingTime }}
+            {{ if and (site.Params.pageLayout.showMeta | default true) $showReadingTime .ReadingTime }}
               <span class="page__reading-time"
                 >{{ .ReadingTime }} min read</span
               >
@@ -113,7 +118,7 @@
               <span class="page__author">by {{ .Params.author }}</span>
             {{ end }}
 
-            {{ if and (site.Params.pageLayout.showMeta | default true) .ReadingTime }}
+            {{ if and (site.Params.pageLayout.showMeta | default true) $showReadingTime .ReadingTime }}
               <span class="page__reading-time"
                 >{{ .ReadingTime }} min read</span
               >
