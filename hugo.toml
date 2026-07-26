@@ -138,6 +138,8 @@ pages = [
 [params.portalCard]
   card_count = 3
   min_card_count = 3
+  random_cards = true
+  cards = []
   truncate_limit = 100
   carousel_on_desktop = false
   show_intro_text = true

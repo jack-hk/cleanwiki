@@ -6,6 +6,7 @@
 
   {{- range first $count $pagePaths }}
     {{- with site.GetPage . }}
+      {{- if not (.Params.placeholder | default false) }}
       {{- $category := index .Params.categories 0 | default "default" -}}
       {{- $partialName := index $partials $category -}}
 
@@ -30,6 +31,7 @@
             </p>
           </a>
         </article>
+      {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}

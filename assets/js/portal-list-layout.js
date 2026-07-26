@@ -17,10 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterToggle = portal.querySelector('[data-filter-toggle]');
     const filter = portal.querySelector('[data-list-filter]');
     const input = portal.querySelector('[data-filter-input]');
+    const clearButton = portal.querySelector('[data-filter-clear]');
     const sections = Array.from(portal.querySelectorAll('.portal-list__section'));
     const mobileViewport = window.matchMedia('(max-width: 768px)');
 
-    if (!filterToggle || !filter || !input) return;
+    if (!filterToggle || !filter || !input || !clearButton) return;
 
     const renderMatch = (link, query) => {
       const title = link.dataset.filterTitle || link.textContent.trim();
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const filterEntries = () => {
       const query = input.value.trim();
+      clearButton.hidden = !input.value;
 
       sections.forEach((section) => {
         let visibleItems = 0;
@@ -97,6 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     input.addEventListener('input', filterEntries);
+    clearButton.addEventListener('click', () => {
+      input.value = '';
+      filterEntries();
+      input.focus();
+    });
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeFilter();
     });

@@ -206,6 +206,7 @@
 
 .portal-list__filter {
   max-width: 50vw;
+  position: relative;
   width: 14rem;
 }
 
@@ -216,8 +217,47 @@
   color: var(--portal-alphabet-link-color);
   font: inherit;
   height: 2.5rem;
-  padding: 0 0.75rem;
+  padding: 0 2.5rem 0 0.75rem;
   width: 100%;
+
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+.portal-list__filter-clear {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  height: 1.5rem;
+  justify-content: center;
+  opacity: 0.7;
+  padding: 0;
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
+  width: 1.5rem;
+
+  &:hover {
+    color: var(--color-text-default);
+    opacity: 1;
+  }
+
+  svg {
+    height: 1.2em;
+    width: 1.2em;
+  }
+}
+
+.portal-list__filter-clear[hidden] {
+  display: none;
 }
 
 [data-theme='dark'] .portal-list__filter-input {
@@ -274,6 +314,22 @@
 }
 
 @include for-screen(mobile) {
+  .portal__showcase {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: visible;
+    width: 100%;
+  }
+
+  .showcase-card {
+    box-sizing: border-box;
+    flex: 0 1 auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    width: 100%;
+  }
+
   .portal-list__toolbar {
     margin-top: 1.5rem;
   }

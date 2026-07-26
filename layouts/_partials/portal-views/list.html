@@ -51,7 +51,7 @@
       {{ end }}
 
       {{ $showcasePages := slice }}
-      {{ range .Pages }}
+      {{ range where .Pages "Params.placeholder" "ne" true }}
         {{ if strings.TrimSpace (.Content | plainify) }}
           {{ $showcasePages = $showcasePages | append . }}
         {{ end }}
@@ -117,7 +117,7 @@
   {{ if $showAlphabet }}
     <nav class="portal__alphabet-nav">
       <ul class="portal__alphabet-list">
-        {{ $pages := .Pages.ByTitle }}
+        {{ $pages := (where .Pages "Params.placeholder" "ne" true).ByTitle }}
         {{ $letters := slice }}
 
         {{ range $pages }}
@@ -200,11 +200,21 @@
             aria-label="Filter alphabetical list"
             placeholder="Filter entries…"
             autocomplete="off">
+          <button
+            class="portal-list__filter-clear"
+            type="button"
+            data-filter-clear
+            aria-label="Clear filter"
+            hidden>
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M5.28 5.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 5.22Z"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
     <section class="portal-list-grid" data-layout="{{ $listLayout }}">
-      {{ $pages := .Pages.ByTitle }}
+      {{ $pages := (where .Pages "Params.placeholder" "ne" true).ByTitle }}
       {{ $letters := slice }}
       {{ $hasOther := false }}
 

@@ -1,3 +1,11 @@
+{{- $hidePage := .Params.placeholder | default false -}}
+{{- if eq .Kind "term" -}}
+  {{- $visibleTermPages := where .Pages "Params.placeholder" "ne" true -}}
+  {{- if eq ($visibleTermPages | len) 0 -}}
+    {{- $hidePage = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $hidePage -}}
 <!doctype html>
 <html
   lang="{{ site.Language.LanguageCode }}"
@@ -28,3 +36,4 @@
     </div>
   </body>
 </html>
+{{- end -}}

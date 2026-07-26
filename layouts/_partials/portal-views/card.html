@@ -51,9 +51,37 @@
         {{ $truncateLimit = .Params.truncate_limit }}
       {{ end }}
 
-      {{ if ge (.Pages | len) $minCardCount }}
-        {{ $shuffledPages := shuffle .Pages }}
-        {{ range $index, $page := first $cardCount $shuffledPages }}
+      {{ $randomCards := default true .Site.Params.portalCard.random_cards }}
+      {{ if isset .Params "random_cards" }}
+        {{ $randomCards = .Params.random_cards }}
+      {{ end }}
+
+      {{ $cardSelections := .Site.Params.portalCard.cards | default (slice) }}
+      {{ if isset .Params "cards" }}
+        {{ $cardSelections = .Params.cards }}
+      {{ end }}
+
+      {{ $availablePages := where .Pages "Params.placeholder" "ne" true }}
+      {{ $displayPages := slice }}
+      {{ if $randomCards }}
+        {{ $displayPages = first $cardCount (shuffle $availablePages) }}
+      {{ else if gt ($cardSelections | len) 0 }}
+        {{ range $selection := $cardSelections }}
+          {{ $selectionKey := trim (printf "%v" $selection) "/" }}
+          {{ range $candidate := $availablePages }}
+            {{ $candidatePath := trim $candidate.RelPermalink "/" }}
+            {{ if or (eq $candidatePath $selectionKey) (eq $candidate.Slug $selectionKey) (eq ($candidate.Title | urlize) $selectionKey) }}
+              {{ $displayPages = $displayPages | append $candidate }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ $displayPages = first $cardCount $displayPages }}
+      {{ else }}
+        {{ $displayPages = first $cardCount $availablePages.ByTitle }}
+      {{ end }}
+
+      {{ if ge ($displayPages | len) $minCardCount }}
+        {{ range $index, $page := $displayPages }}
           {{ $position := "" }}
           {{ if eq $cardCount 3 }}
             {{ if eq $index 0 }}
@@ -125,7 +153,7 @@
   <section class="portal-card__list">
     <h2 class="portal-card__list-title">All Entries</h2>
     <div class="portal-card__list-grid">
-      {{ range .Pages.ByTitle }}
+      {{ range (where .Pages "Params.placeholder" "ne" true).ByTitle }}
         <a href="{{ .RelPermalink }}" class="portal-card__list-item">
           <h3 class="portal-card__list-item-title">{{ .Title }}</h3>
           {{ with .Summary }}
