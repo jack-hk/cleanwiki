@@ -1,4 +1,5 @@
 {{- if site.Params.breadcrumbs.enabled | default true -}}
+  {{- $page := . -}}
   {{- $homeURL := "/" -}}
   {{- $separator := site.Params.breadcrumbs.separator | default "/" -}}
   <nav class="breadcrumbs">
@@ -15,8 +16,15 @@
           {{- if and (ne .Title "Home") (ne .Title "") -}}
             {{- $key := .Title | lower -}}
             {{- if and $key (not (isset $seen $key)) -}}
+              {{- $ancestorURL := .Permalink -}}
+              {{- $ancestorSection := .Section | lower -}}
+              {{- range $page.GetTerms "categories" -}}
+                {{- if eq (.LinkTitle | urlize) $ancestorSection -}}
+                  {{- $ancestorURL = .Permalink -}}
+                {{- end -}}
+              {{- end -}}
               <li class="breadcrumbs__item">
-                <a href="{{ .Permalink }}" class="breadcrumbs__link"
+                <a href="{{ $ancestorURL }}" class="breadcrumbs__link"
                   >{{ .Title }}</a
                 >
               </li>
