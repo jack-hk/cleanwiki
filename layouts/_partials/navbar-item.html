@@ -7,7 +7,11 @@
   {{- if $e.Params.popover }}
     {{- partial "navbar-item-popover.html" (dict "page" $page "entry" $e) }}
   {{- else }}
-    {{- $attrs := dict "href" $e.URL }}
+    {{- $href := $e.URL }}
+    {{- if and $isFirst (eq (lower $e.Name) "home") }}
+      {{- $href = "/" | relURL }}
+    {{- end }}
+    {{- $attrs := dict "href" $href }}
     {{- if $page.IsMenuCurrent $e.Menu $e }}
       {{- $attrs = merge $attrs (dict "class" "navbar__item-button active" "aria-current" "page") }}
     {{- else if $page.HasMenuCurrent $e.Menu $e }}
