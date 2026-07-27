@@ -107,7 +107,7 @@ count = 3
 truncate = 150
 pages = [
   "/lore/the-project",
-  "/lore/how-to-play",
+  "/campaign/how-to-play",
   "/lore/the-wastes",
 ]
 
