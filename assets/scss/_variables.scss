@@ -493,3 +493,20 @@ $page: (
   footer-padding-top: 1rem,
   references-link-color: var(--color-text-light),
 );
+
+// ---------------------------
+// Quotations
+// ---------------------------
+$quote: (
+  background-color: var(--color-quote-background),
+  border-color: var(--color-quote-border),
+  text-color: var(--color-quote-text),
+  attribution-color: var(--color-quote-attribution),
+  border-width: 4px,
+  border-radius: 0 4px 4px 0,
+  margin: 1.5rem 0,
+  padding: 0.85rem 1.15rem,
+  paragraph-margin: 0.4rem 0,
+  attribution-margin-top: 0.65rem,
+  attribution-font-size: var(--font-size-sm),
+);

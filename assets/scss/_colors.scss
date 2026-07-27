@@ -28,6 +28,12 @@ $colors-light: (
     default: #737373,
     navbar: #000,
   ),
+  quote: (
+    background: #f2f7fa,
+    border: #034ad8,
+    text: #333,
+    attribution: #737373,
+  ),
 );
 
 $colors-dark: (
@@ -53,6 +59,12 @@ $colors-dark: (
   border: (
     default: #555,
     navbar: #fff,
+  ),
+  quote: (
+    background: #2b3033,
+    border: #a6e3ff,
+    text: #eee,
+    attribution: #aaa,
   ),
 );
 

@@ -12,3 +12,35 @@ footer {
   border-top: 1px solid #222;
   margin-top: 2.5rem;
 }
+
+.page__content,
+.wiki__content {
+  blockquote {
+    background-color: var(--quote-background-color);
+    border-left: var(--quote-border-width) solid var(--quote-border-color);
+    border-radius: var(--quote-border-radius);
+    color: var(--quote-text-color);
+    margin: var(--quote-margin);
+    padding: var(--quote-padding);
+
+    p {
+      margin: var(--quote-paragraph-margin);
+    }
+
+    p:first-child {
+      margin-top: 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    cite,
+    footer {
+      color: var(--quote-attribution-color);
+      display: block;
+      font-size: var(--quote-attribution-font-size);
+      margin-top: var(--quote-attribution-margin-top);
+    }
+  }
+}
