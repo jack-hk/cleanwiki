@@ -27,7 +27,7 @@
             <div class="portal__intro-text">{{ . }}</div>
           {{ else }}
             <p class="portal__intro-text">
-              Browse all articles related to <strong>{{ .Title }}</strong> in the {{ .Data.Singular | title }} taxonomy.
+              Browse all lore related to <strong>{{ .Title }}</strong> in the {{ .Data.Singular | title }} taxonomy.
             </p>
           {{ end }}
         {{ end }}
@@ -75,7 +75,7 @@
       {{ $showLeftTextbox = .Params.show_left_textbox }}
     {{ end }}
     {{ $leftTextboxTitle := default "About This Category" .Site.Params.portal.left_textbox_title }}
-    {{ $leftTextboxText := default "You're viewing all articles tagged under {title}." .Site.Params.portal.left_textbox_text }}
+    {{ $leftTextboxText := default "You're viewing all lore entries tagged under {title}." .Site.Params.portal.left_textbox_text }}
     {{ with .Params.left_textbox_title }}{{ $leftTextboxTitle = . }}{{ end }}
     {{ with .Params.left_textbox_text }}{{ $leftTextboxText = . }}{{ end }}
     {{ $leftTextboxHTML := replace ($leftTextboxText | htmlEscape) "{title}" (printf "<strong>%s</strong>" (.Title | htmlEscape)) }}
@@ -85,7 +85,7 @@
       {{ $showRightTextbox = .Params.show_right_textbox }}
     {{ end }}
     {{ $rightTextboxTitle := default "Get Involved" .Site.Params.portal.right_textbox_title }}
-    {{ $rightTextboxText := default "Contribute your own articles or suggest related topics to enrich this section." .Site.Params.portal.right_textbox_text }}
+    {{ $rightTextboxText := default "Contribute your own lore or suggest related topics to enrich this section." .Site.Params.portal.right_textbox_text }}
     {{ with .Params.right_textbox_title }}{{ $rightTextboxTitle = . }}{{ end }}
     {{ with .Params.right_textbox_text }}{{ $rightTextboxText = . }}{{ end }}
 

@@ -90,7 +90,7 @@ type = "categories"
 
 # Images to use for each small tile
 [params.smallTiles.images]
-article = "https://picsum.photos/id/1011/400/300"
+lore = "https://picsum.photos/id/1011/400/300"
 asd     = "https://picsum.photos/id/1012/400/300"
 asd2    = "https://picsum.photos/id/1013/400/300"
 asd3    = "https://picsum.photos/id/1015/400/300"
@@ -106,14 +106,14 @@ sup     = "https://picsum.photos/id/1020/400/300"
 count = 3
 truncate = 150
 pages = [
-  "/article/the-project",
-  "/article/how-to-play",
-  "/article/the-wastes",
+  "/lore/the-project",
+  "/lore/how-to-play",
+  "/lore/the-wastes",
 ]
 
 # Map categories to partial HTML files for rendering each big tile
 [params.bigTiles.partials]
-"article" = "big-tile-article.html"
+"lore" = "big-tile-lore.html"
 "quote"   = "big-tile-quote.html"
 "event"   = "big-tile-event.html"
 
@@ -123,13 +123,13 @@ pages = [
   show_layout_toggle = true
   default_list_layout = "fixed"
   show_intro_text = true
-  intro_text = "Browse all articles related to {title} in the {taxonomy} taxonomy."
+  intro_text = "Browse all lore related to {title} in the {taxonomy} taxonomy."
   show_left_textbox = true
   left_textbox_title = "About This Category"
-  left_textbox_text = "You're viewing all articles tagged under {title}."
+  left_textbox_text = "You're viewing all lore entries tagged under {title}."
   show_right_textbox = true
   right_textbox_title = "Get Involved"
-  right_textbox_text = "Contribute your own articles or suggest related topics to enrich this section."
+  right_textbox_text = "Contribute your own lore or suggest related topics to enrich this section."
   show_bottom_textbox = true
   bottom_textbox_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
   show_alphabet = true
