@@ -244,6 +244,10 @@
     width: 100%;
   }
 
+  &--fit img {
+    object-fit: contain;
+  }
+
   &__colored-icon {
     height: 100%;
     -webkit-mask-image: var(--pagefind-icon-image);

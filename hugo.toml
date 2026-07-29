@@ -39,6 +39,7 @@ subtitle = "This site is my site, there are many like it, but this one is mine."
   loadMoreCount = 5
   showSubResults = true
   showImages = true
+  fitThumbnails = false
   debounceTimeoutMs = 300
   excerptLength = 30
 

@@ -373,6 +373,7 @@ class CustomPagefind {
     }
 
     const iconColor = result.meta?.icon_color;
+    const fitThumbnail = result.meta?.thumbnail_fit === 'true';
     const thumbnail = iconColor
       ? `<span class="pagefind-result-thumb__colored-icon" role="img" aria-label="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}" style="--pagefind-icon-image: url('${this.escapeHtml(imageUrl)}'); background-color: ${this.escapeHtml(iconColor)}"></span>`
       : `<img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}">`;
@@ -381,7 +382,7 @@ class CustomPagefind {
       : '';
 
     return `
-      <div class="pagefind-result-thumb">
+      <div class="pagefind-result-thumb${fitThumbnail ? ' pagefind-result-thumb--fit' : ''}">
         ${thumbnail}
         ${badge}
       </div>
