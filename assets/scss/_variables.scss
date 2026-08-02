@@ -495,6 +495,45 @@ $page: (
 );
 
 // ---------------------------
+// Timeline
+// ---------------------------
+$timeline: (
+  line-color: var(--color-border-default),
+  line-size: 2px,
+  marker-bg: var(--color-background-default),
+  marker-border-color: var(--color-primary),
+  marker-border-size: 3px,
+  marker-size: 1rem,
+  branch-size: 1.25rem,
+  card-bg: var(--color-background-light),
+  card-border: 1px solid var(--color-border-default),
+  card-radius: 4px,
+  card-padding: 0.75rem,
+  card-gap: 0.5rem,
+  card-shadow: 0 2px 6px rgba(0, 0, 0, 0.08),
+  card-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.12),
+  card-transition: 0.2s ease,
+  title-color: var(--color-text-default),
+  title-size: var(--font-size-base),
+  text-color: var(--color-text-default),
+  text-size: var(--font-size-sm),
+  track-min-height: 340px,
+  item-gap: 1rem,
+  increment-color: var(--color-text-muted),
+  increment-font-size: var(--font-size-sm),
+  scrollbar-size: 10px,
+  scrollbar-track-bg: var(--color-background-light),
+  scrollbar-thumb-bg: var(--color-border-default),
+  scrollbar-thumb-hover-bg: var(--color-primary),
+  scrollbar-radius: 999px,
+  scroll-button-bg: var(--color-background-light),
+  scroll-button-color: var(--color-text-default),
+  scroll-button-border: 1px solid var(--color-border-default),
+  scroll-button-size: 2rem,
+  scroll-button-radius: 50%,
+);
+
+// ---------------------------
 // Quotations
 // ---------------------------
 $quote: (

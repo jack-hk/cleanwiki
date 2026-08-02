@@ -118,6 +118,61 @@ pages = [
 "quote"   = "big-tile-quote.html"
 "event"   = "big-tile-event.html"
 
+# ---------------------------
+# Timeline settings
+# ---------------------------
+[params.timeline]
+enabled = true
+title = "Timeline"
+minimumItems = 2
+placement = "alternate" # alternate, top, or bottom
+itemMinWidth = "180px"
+alternateCardWidth = "180px"
+itemGap = "1rem"
+trackMinHeight = "340px"
+bottomMargin = "0"
+
+[params.timeline.mobile]
+layout = "vertical" # vertical or horizontal
+side = "left" # left, right, or center (used by the vertical layout)
+bottomMargin = "0"
+itemMinWidth = "180px"
+itemGap = "1rem"
+trackMinHeight = "340px"
+
+[params.timeline.scrollbar]
+styled = false
+showButtons = false
+showRightHint = false
+
+[params.timeline.increments]
+enabled = false
+
+# Ordered increment markers use an `after` post number and a Markdown label:
+# [[params.timeline.increments.items]]
+# after = 1
+# label = "An increment"
+# placement = "top" # top or bottom
+
+[params.timeline.thumbnails]
+enabled = true
+usePageImage = false
+enabledOnMobile = true
+size = "112px"
+minSize = "72px"
+maxSize = "160px"
+mobileSize = "96px"
+mobileMinSize = "64px"
+mobileMaxSize = "128px"
+height = "auto"
+objectFit = "cover"
+objectPosition = "center"
+borderRadius = "4px"
+
+# Add ordered [[params.timeline.entries]] tables in the site configuration.
+# Each entry supports pageRef, anchor, title, description (Markdown), thumbnail,
+# thumbnailAlt, thumbnailEnabled, and thumbnailSize.
+
 [params.portal]
   showcase_tiles = 3
   min_showcase_tiles = 3

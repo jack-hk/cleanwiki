@@ -1,0 +1,174 @@
+{{- $settings := site.Params.timeline -}}
+{{- $enabled := true -}}
+{{- if and $settings (isset $settings "enabled") -}}
+  {{- $enabled = $settings.enabled -}}
+{{- end -}}
+
+{{- if $enabled -}}
+  {{- $items := slice -}}
+  {{- $configuredEntries := slice -}}
+  {{- with $settings -}}
+    {{- $configuredEntries = .entries | default slice -}}
+  {{- end -}}
+  {{- range $configuredEntries -}}
+    {{- $entry := . -}}
+    {{- $pageRef := $entry.pageRef | default $entry.page -}}
+    {{- with site.GetPage $pageRef -}}
+      {{- if not (.Params.placeholder | default false) -}}
+        {{- $href := .RelPermalink -}}
+        {{- with $entry.anchor -}}
+          {{- $href = printf "%s#%s" $href (strings.TrimPrefix "#" .) -}}
+        {{- end -}}
+        {{- $items = $items | append (dict "entry" $entry "page" . "href" $href) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $minimumItems := $settings.minimumItems | default 2 -}}
+  {{- if ge (len $items) $minimumItems -}}
+    {{- $mobile := $settings.mobile | default dict -}}
+    {{- $thumbnails := $settings.thumbnails | default dict -}}
+    {{- $scrollbar := $settings.scrollbar | default dict -}}
+    {{- $increments := $settings.increments | default dict -}}
+    {{- $placement := $settings.placement | default "alternate" -}}
+    {{- if not (in (slice "alternate" "top" "bottom") $placement) -}}
+      {{- $placement = "alternate" -}}
+    {{- end -}}
+    {{- $mobileLayout := $mobile.layout | default "vertical" -}}
+    {{- if not (in (slice "vertical" "horizontal") $mobileLayout) -}}
+      {{- $mobileLayout = "vertical" -}}
+    {{- end -}}
+    {{- $mobileSide := $mobile.side | default "left" -}}
+    {{- if not (in (slice "left" "right" "center") $mobileSide) -}}
+      {{- $mobileSide = "left" -}}
+    {{- end -}}
+    {{- $thumbnailsEnabled := true -}}
+    {{- if and $thumbnails (isset $thumbnails "enabled") -}}
+      {{- $thumbnailsEnabled = $thumbnails.enabled -}}
+    {{- end -}}
+    {{- $thumbnailsOnMobile := true -}}
+    {{- if and $thumbnails (isset $thumbnails "enabledOnMobile") -}}
+      {{- $thumbnailsOnMobile = $thumbnails.enabledOnMobile -}}
+    {{- end -}}
+    {{- $styledScrollbar := $scrollbar.styled | default false -}}
+    {{- $showScrollButtons := $scrollbar.showButtons | default false -}}
+    {{- $showRightHint := $scrollbar.showRightHint | default false -}}
+    {{- $incrementsEnabled := $increments.enabled | default false -}}
+    {{- $incrementItems := $increments.items | default slice -}}
+    {{- $displayItems := slice -}}
+    {{- if $incrementsEnabled -}}
+      {{- range $incrementItems -}}
+        {{- if eq (int (.after | default 0)) 0 -}}
+          {{- $displayItems = $displayItems | append (dict "kind" "increment" "increment" .) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- range $index, $item := $items -}}
+      {{- $eventNumber := add $index 1 -}}
+      {{- $displayItems = $displayItems | append (dict "kind" "event" "item" $item "eventNumber" $eventNumber) -}}
+      {{- if $incrementsEnabled -}}
+        {{- range $incrementItems -}}
+          {{- if eq (int (.after | default 0)) $eventNumber -}}
+            {{- $displayItems = $displayItems | append (dict "kind" "increment" "increment" .) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{ partial "section-header.html" ($settings.title | default "Timeline") }}
+    <section
+      class="timeline timeline--{{ $placement }} timeline--mobile-{{ $mobileLayout }} timeline--mobile-{{ $mobileSide }}{{ if not $thumbnailsOnMobile }} timeline--mobile-thumbnails-hidden{{ end }}{{ if $styledScrollbar }} timeline--styled-scrollbar{{ end }}{{ if $showRightHint }} timeline--right-hint-enabled{{ end }}"
+      aria-label="{{ $settings.title | default "Timeline" }}"
+      data-timeline-scroll
+      style="
+        --timeline-count: {{ len $displayItems }};
+        --timeline-item-min-width: {{ $settings.itemMinWidth | default "180px" }};
+        --timeline-item-min-width-mobile: {{ $mobile.itemMinWidth | default "180px" }};
+        --timeline-alternate-card-width: {{ $settings.alternateCardWidth | default "180px" }};
+        --timeline-item-gap: {{ $settings.itemGap | default "1rem" }};
+        --timeline-item-gap-mobile: {{ $mobile.itemGap | default "1rem" }};
+        --timeline-track-min-height: {{ $settings.trackMinHeight | default "340px" }};
+        --timeline-track-min-height-mobile: {{ $mobile.trackMinHeight | default "340px" }};
+        --timeline-bottom-margin: {{ $settings.bottomMargin | default "0" }};
+        --timeline-bottom-margin-mobile: {{ $mobile.bottomMargin | default "0" }};
+        --timeline-thumbnail-size: {{ $thumbnails.size | default "112px" }};
+        --timeline-thumbnail-min-size: {{ $thumbnails.minSize | default "72px" }};
+        --timeline-thumbnail-max-size: {{ $thumbnails.maxSize | default "160px" }};
+        --timeline-thumbnail-mobile-size: {{ $thumbnails.mobileSize | default "96px" }};
+        --timeline-thumbnail-mobile-min-size: {{ $thumbnails.mobileMinSize | default "64px" }};
+        --timeline-thumbnail-mobile-max-size: {{ $thumbnails.mobileMaxSize | default "128px" }};
+        --timeline-thumbnail-height: {{ $thumbnails.height | default "auto" }};
+        --timeline-thumbnail-object-fit: {{ $thumbnails.objectFit | default "cover" }};
+        --timeline-thumbnail-object-position: {{ $thumbnails.objectPosition | default "center" }};
+        --timeline-thumbnail-radius: {{ $thumbnails.borderRadius | default "4px" }};
+      ">
+      <div class="timeline__viewport" tabindex="0" data-timeline-viewport>
+        <div class="timeline__track">
+          {{- range $displayItems -}}
+            {{- if eq .kind "increment" -}}
+              {{- $increment := .increment -}}
+              {{- $incrementPlacement := $increment.placement | default "top" -}}
+              {{- if not (in (slice "top" "bottom") $incrementPlacement) -}}
+                {{- $incrementPlacement = "top" -}}
+              {{- end -}}
+              <div class="timeline__increment timeline__increment--{{ $incrementPlacement }}">
+                <span class="timeline__increment-line" aria-hidden="true"></span>
+                <div class="timeline__increment-label">{{ $increment.label | markdownify }}</div>
+              </div>
+            {{- else -}}
+            {{- $item := .item -}}
+            {{- $entry := $item.entry -}}
+            {{- $page := $item.page -}}
+            {{- $title := $entry.title | default $page.Title -}}
+            {{- $thumbnail := $entry.thumbnail | default "" -}}
+            {{- if and (not $thumbnail) ($thumbnails.usePageImage | default false) -}}
+              {{- $thumbnail = $page.Params.image | default $page.Params.thumbnail -}}
+            {{- end -}}
+            {{- $showThumbnail := $thumbnailsEnabled -}}
+            {{- if isset $entry "thumbnailEnabled" -}}
+              {{- $showThumbnail = $entry.thumbnailEnabled -}}
+            {{- end -}}
+            {{- $eventPlacement := $placement -}}
+            {{- if eq $placement "alternate" -}}
+              {{- $eventPlacement = cond (eq (mod .eventNumber 2) 0) "bottom" "top" -}}
+            {{- end -}}
+            <div
+              class="timeline__item timeline__item--{{ $eventPlacement }} timeline__item--{{ cond (eq (mod .eventNumber 2) 0) "even" "odd" }}{{ if eq .eventNumber 1 }} timeline__item--first{{ end }}{{ if eq .eventNumber (len $items) }} timeline__item--last{{ end }}"
+              {{- with $entry.thumbnailSize }} style="--timeline-entry-thumbnail-size: {{ . }};"{{ end }}>
+              <span class="timeline__marker" aria-hidden="true"></span>
+              <article class="timeline__card">
+                <a class="timeline__card-link" href="{{ $item.href }}" aria-label="Read {{ $title }}"></a>
+                {{- if and $showThumbnail $thumbnail }}
+                  <a class="timeline__thumbnail-link" href="{{ $item.href }}" tabindex="-1" aria-hidden="true">
+                    <img
+                      class="timeline__thumbnail"
+                      src="{{ $thumbnail | safeURL }}"
+                      alt="{{ $entry.thumbnailAlt | default "" }}"
+                      loading="lazy" />
+                  </a>
+                {{- end }}
+                <h3 class="timeline__title">
+                  <a href="{{ $item.href }}">{{ $title }}</a>
+                </h3>
+                {{- with $entry.description }}
+                  <div class="timeline__description">{{ . | markdownify }}</div>
+                {{- end }}
+              </article>
+            </div>
+            {{- end -}}
+          {{- end }}
+        </div>
+      </div>
+      {{- if $showScrollButtons }}
+        <div class="timeline__scroll-controls" data-timeline-controls hidden>
+          <button class="timeline__scroll-button timeline__scroll-button--left" type="button" aria-label="Scroll timeline left" data-timeline-left>
+            <span aria-hidden="true"></span>
+          </button>
+          <button class="timeline__scroll-button timeline__scroll-button--right" type="button" aria-label="Scroll timeline right" data-timeline-right>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      {{- end }}
+    </section>
+  {{- end -}}
+{{- end -}}
