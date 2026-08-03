@@ -2,18 +2,18 @@
   'use strict';
 
   const initialiseMap = (canvas) => {
-    if (!window.L) return;
+    if (!window.L || canvas.dataset.mapInitialised === 'true') return null;
 
     const section = canvas.closest('.interactive-map');
     const configElement = section?.querySelector('[data-interactive-map-config]');
-    if (!configElement) return;
+    if (!configElement) return null;
 
     let config;
     try {
       config = JSON.parse(configElement.textContent);
     } catch (error) {
       console.error('Unable to read interactive map configuration.', error);
-      return;
+      return null;
     }
 
     const width = Number(config.imageWidth) || 1536;
@@ -28,6 +28,7 @@
       dragging: config.dragging !== false,
       attributionControl: Boolean(config.attribution),
     });
+    canvas.dataset.mapInitialised = 'true';
 
     window.L.imageOverlay(config.image, bounds, {
       alt: config.imageAlt || 'Interactive map',
@@ -92,10 +93,54 @@
       const observer = new ResizeObserver(() => map.invalidateSize({ pan: false }));
       observer.observe(canvas);
     }
+
+    return map;
   };
 
   const initialiseMaps = () => {
-    document.querySelectorAll('[data-interactive-map]').forEach(initialiseMap);
+    document.querySelectorAll('.interactive-map').forEach((section) => {
+      const canvas = section.querySelector('[data-interactive-map]');
+      const activateButton = section.querySelector('[data-interactive-map-activate]');
+      const hideButton = section.querySelector('[data-interactive-map-hide]');
+      const gateMaxWidth = Number(section.dataset.mapGateMaxWidth) || 768;
+      const mobileQuery = window.matchMedia(`(max-width: ${gateMaxWidth}px)`);
+      const gated = section.classList.contains('interactive-map--activation-gated');
+      let map = null;
+
+      if (!canvas) return;
+
+      const ensureMap = () => {
+        if (!map) map = initialiseMap(canvas);
+        window.requestAnimationFrame(() => map?.invalidateSize({ pan: false }));
+      };
+
+      const activate = () => {
+        section.classList.add('interactive-map--mobile-active');
+        activateButton?.setAttribute('aria-expanded', 'true');
+        ensureMap();
+      };
+
+      const hide = () => {
+        section.classList.remove('interactive-map--mobile-active');
+        activateButton?.setAttribute('aria-expanded', 'false');
+        activateButton?.focus();
+      };
+
+      const syncViewport = () => {
+        if (!gated || !mobileQuery.matches) {
+          ensureMap();
+        } else {
+          section.classList.remove('interactive-map--mobile-active');
+          activateButton?.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      activateButton?.setAttribute('aria-expanded', 'false');
+      activateButton?.addEventListener('click', activate);
+      hideButton?.addEventListener('click', hide);
+      mobileQuery.addEventListener?.('change', syncViewport);
+      syncViewport();
+    });
   };
 
   if (document.readyState === 'loading') {

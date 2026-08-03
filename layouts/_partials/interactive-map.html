@@ -10,6 +10,8 @@
   {{- if isset $mobile "show" -}}
     {{- $showOnMobile = $mobile.show -}}
   {{- end -}}
+  {{- $clickToActivate := $mobile.clickToActivate | default false -}}
+  {{- $gateOnTablet := and $clickToActivate ($mobile.gateOnTablet | default false) -}}
   {{- $markers := slice -}}
   {{- range ($settings.markers | default slice) -}}
     {{- $markerUrl := .url | default "" -}}
@@ -44,8 +46,9 @@
 
   {{ partial "section-header.html" ($settings.title | default "Explore the map") }}
   <section
-    class="interactive-map{{ if not $showOnMobile }} interactive-map--hidden-mobile{{ end }}"
+    class="interactive-map{{ if not $showOnMobile }} interactive-map--hidden-mobile{{ end }}{{ if $clickToActivate }} interactive-map--activation-gated{{ end }}{{ if $gateOnTablet }} interactive-map--gate-through-tablet{{ end }}"
     aria-label="{{ $settings.title | default "Explore the map" }}"
+    data-map-gate-max-width="{{ if $gateOnTablet }}1199{{ else }}768{{ end }}"
     style="
       --interactive-map-height: {{ $settings.height | default "520px" }};
       --interactive-map-height-mobile: {{ $mobile.height | default "360px" }};
@@ -53,11 +56,30 @@
     {{- with $settings.description }}
       <div class="interactive-map__intro">{{ . | markdownify }}</div>
     {{- end }}
-    <div
-      class="interactive-map__canvas"
-      role="region"
-      aria-label="{{ $settings.ariaLabel | default ($settings.title | default "Interactive map") }}"
-      data-interactive-map></div>
+    <div class="interactive-map__stage">
+      {{- if $clickToActivate }}
+        <div class="interactive-map__mobile-preview" data-interactive-map-preview>
+          <img
+            class="interactive-map__mobile-preview-image"
+            src="{{ $settings.image | safeURL }}"
+            alt=""
+            aria-hidden="true" />
+          <button class="interactive-map__activate" type="button" data-interactive-map-activate>
+            {{ $mobile.activateLabel | default "Click to see map" }}
+          </button>
+        </div>
+      {{- end }}
+      <div
+        class="interactive-map__canvas"
+        role="region"
+        aria-label="{{ $settings.ariaLabel | default ($settings.title | default "Interactive map") }}"
+        data-interactive-map></div>
+      {{- if $clickToActivate }}
+        <button class="interactive-map__hide" type="button" data-interactive-map-hide>
+          {{ $mobile.hideLabel | default "Hide map" }}
+        </button>
+      {{- end }}
+    </div>
     <script type="application/json" data-interactive-map-config>{{ $config | jsonify | safeJS }}</script>
     <noscript>
       <img

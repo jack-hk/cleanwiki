@@ -197,6 +197,10 @@ ariaLabel = "Interactive map"
 [params.interactiveMap.mobile]
 show = true
 height = "360px"
+clickToActivate = false
+gateOnTablet = false
+activateLabel = "Click to see map"
+hideLabel = "Hide map"
 
 # Add ordered [[params.interactiveMap.markers]] tables in the site config.
 # Marker x/y values are percentages measured from the image's top-left corner.
