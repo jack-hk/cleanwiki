@@ -173,6 +173,35 @@ borderRadius = "4px"
 # Each entry supports pageRef, anchor, title, description (Markdown), thumbnail,
 # thumbnailAlt, thumbnailEnabled, and thumbnailSize.
 
+# ---------------------------
+# Interactive map settings
+# ---------------------------
+[params.interactiveMap]
+enabled = false
+title = "Explore the map"
+description = ""
+image = ""
+imageAlt = "Interactive map"
+imageWidth = 1536
+imageHeight = 1024
+height = "520px"
+minZoom = -2
+maxZoom = 2
+initialZoom = "fit"
+zoomControl = true
+scrollWheelZoom = false
+dragging = true
+attribution = ""
+ariaLabel = "Interactive map"
+
+[params.interactiveMap.mobile]
+show = true
+height = "360px"
+
+# Add ordered [[params.interactiveMap.markers]] tables in the site config.
+# Marker x/y values are percentages measured from the image's top-left corner.
+# Each marker supports title, Markdown description, x, y, url, pageRef, and linkLabel.
+
 [params.portal]
   showcase_tiles = 3
   min_showcase_tiles = 3

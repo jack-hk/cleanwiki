@@ -1,0 +1,69 @@
+{{- $settings := site.Params.interactiveMap -}}
+{{- $enabled := false -}}
+{{- if and $settings (isset $settings "enabled") -}}
+  {{- $enabled = $settings.enabled -}}
+{{- end -}}
+
+{{- if and $enabled $settings.image -}}
+  {{- $mobile := $settings.mobile | default dict -}}
+  {{- $showOnMobile := true -}}
+  {{- if isset $mobile "show" -}}
+    {{- $showOnMobile = $mobile.show -}}
+  {{- end -}}
+  {{- $markers := slice -}}
+  {{- range ($settings.markers | default slice) -}}
+    {{- $markerUrl := .url | default "" -}}
+    {{- with .pageRef -}}
+      {{- with site.GetPage . -}}
+        {{- $markerUrl = .RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $markers = $markers | append (dict
+      "title" (.title | default "Map marker")
+      "description" ((.description | default "") | markdownify)
+      "x" (.x | default 50)
+      "y" (.y | default 50)
+      "url" $markerUrl
+      "linkLabel" (.linkLabel | default "Read more")
+    ) -}}
+  {{- end -}}
+  {{- $config := dict
+    "image" $settings.image
+    "imageAlt" ($settings.imageAlt | default "Interactive map")
+    "imageWidth" ($settings.imageWidth | default 1536)
+    "imageHeight" ($settings.imageHeight | default 1024)
+    "minZoom" ($settings.minZoom | default -2)
+    "maxZoom" ($settings.maxZoom | default 2)
+    "initialZoom" ($settings.initialZoom | default "fit")
+    "zoomControl" ($settings.zoomControl | default true)
+    "scrollWheelZoom" ($settings.scrollWheelZoom | default false)
+    "dragging" ($settings.dragging | default true)
+    "attribution" ($settings.attribution | default "")
+    "markers" $markers
+  -}}
+
+  {{ partial "section-header.html" ($settings.title | default "Explore the map") }}
+  <section
+    class="interactive-map{{ if not $showOnMobile }} interactive-map--hidden-mobile{{ end }}"
+    aria-label="{{ $settings.title | default "Explore the map" }}"
+    style="
+      --interactive-map-height: {{ $settings.height | default "520px" }};
+      --interactive-map-height-mobile: {{ $mobile.height | default "360px" }};
+    ">
+    {{- with $settings.description }}
+      <div class="interactive-map__intro">{{ . | markdownify }}</div>
+    {{- end }}
+    <div
+      class="interactive-map__canvas"
+      role="region"
+      aria-label="{{ $settings.ariaLabel | default ($settings.title | default "Interactive map") }}"
+      data-interactive-map></div>
+    <script type="application/json" data-interactive-map-config>{{ $config | jsonify | safeJS }}</script>
+    <noscript>
+      <img
+        class="interactive-map__fallback"
+        src="{{ $settings.image | safeURL }}"
+        alt="{{ $settings.imageAlt | default "Map" }}" />
+    </noscript>
+  </section>
+{{- end -}}

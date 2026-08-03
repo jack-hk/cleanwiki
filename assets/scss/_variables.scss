@@ -495,6 +495,27 @@ $page: (
 );
 
 // ---------------------------
+// Interactive Map
+// ---------------------------
+$interactive-map: (
+  background: var(--color-background-light),
+  border: 1px solid var(--color-border-default),
+  border-radius: 6px,
+  shadow: 0 3px 10px rgba(0, 0, 0, 0.12),
+  intro-color: var(--color-text-default),
+  intro-max-width: 760px,
+  marker-color: var(--color-primary),
+  marker-center-color: var(--color-background-default),
+  marker-shadow: 0 2px 8px rgba(0, 0, 0, 0.35),
+  popup-background: var(--color-background-light),
+  popup-text-color: var(--color-text-default),
+  popup-link-color: var(--color-primary),
+  control-background: var(--color-background-light),
+  control-color: var(--color-text-default),
+  control-border-color: var(--color-border-default),
+);
+
+// ---------------------------
 // Timeline
 // ---------------------------
 $timeline: (
