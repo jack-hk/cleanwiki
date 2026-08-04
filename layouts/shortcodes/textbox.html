@@ -1,0 +1,39 @@
+{{- $title := .Get "title" | default "" -}}
+{{- $align := .Get "align" | default "center" -}}
+{{- if not (in (slice "left" "right" "center") $align) -}}
+  {{- $align = "center" -}}
+{{- end -}}
+{{- $style := .Get "style" | default "plain" -}}
+{{- if eq $style "dashed" -}}
+  {{- $style = "dashes" -}}
+{{- end -}}
+{{- if not (in (slice "plain" "dotted" "dashes") $style) -}}
+  {{- $style = "plain" -}}
+{{- end -}}
+{{- $icon := .Get "icon" | default "" -}}
+{{- $iconAlt := .Get "iconAlt" | default "" -}}
+{{- $iconSize := printf "%v" (.Get "iconSize" | default "1.5rem") -}}
+{{- if and $iconSize (not (findRE "[^0-9]" $iconSize)) -}}
+  {{- $iconSize = printf "%spx" $iconSize -}}
+{{- end -}}
+
+<section class="article-textbox article-textbox--{{ $align }} article-textbox--{{ $style }}">
+  {{- if or $title $icon }}
+    <header class="article-textbox__header">
+      {{- with $icon }}
+        <img
+          class="article-textbox__icon"
+          src="{{ . | safeURL }}"
+          alt="{{ $iconAlt }}"
+          style="--article-textbox-icon-size: {{ $iconSize }};"
+          loading="lazy" />
+      {{- end }}
+      {{- with $title }}
+        <h2 class="article-textbox__title">{{ . | markdownify }}</h2>
+      {{- end }}
+    </header>
+  {{- end }}
+  <div class="article-textbox__body">
+    {{- .Inner | .Page.RenderString (dict "display" "block") -}}
+  </div>
+</section>

@@ -176,7 +176,10 @@
       </div>
     {{ end }}
 
-    {{ if or (and (site.Params.pageLayout.showSeries | default true) .Params.series) (and (site.Params.pageLayout.showUpdated | default true) .Params.updated) (and (site.Params.pageLayout.showReferences | default true) .Params.references) }}
+    {{ partial "see-also.html" . }}
+
+    {{ $referencesInSeeAlso := site.Params.pageLayout.referencesInSeeAlso | default false }}
+    {{ if or (and (site.Params.pageLayout.showSeries | default true) .Params.series) (and (site.Params.pageLayout.showUpdated | default true) .Params.updated) (and (not $referencesInSeeAlso) (site.Params.pageLayout.showReferences | default true) .Params.references) }}
       <footer class="page__footer">
         {{ if and (site.Params.pageLayout.showSeries | default true) .Params.series }}
           <div class="page__series">
@@ -198,7 +201,7 @@
           </div>
         {{ end }}
 
-        {{ if and (site.Params.pageLayout.showReferences | default true) .Params.references }}
+        {{ if and (not $referencesInSeeAlso) (site.Params.pageLayout.showReferences | default true) .Params.references }}
           <div class="page__references">
             <h2 class="page__label">References</h2>
             <ul class="page__list page__list--references">

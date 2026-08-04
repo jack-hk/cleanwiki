@@ -94,6 +94,8 @@
         --timeline-thumbnail-size: {{ $thumbnails.size | default "112px" }};
         --timeline-thumbnail-min-size: {{ $thumbnails.minSize | default "72px" }};
         --timeline-thumbnail-max-size: {{ $thumbnails.maxSize | default "160px" }};
+        --timeline-thumbnail-side-min-size: {{ $thumbnails.sideMinSize | default "48px" }};
+        --timeline-thumbnail-side-max-size: {{ $thumbnails.sideMaxSize | default "96px" }};
         --timeline-thumbnail-mobile-size: {{ $thumbnails.mobileSize | default "96px" }};
         --timeline-thumbnail-mobile-min-size: {{ $thumbnails.mobileMinSize | default "64px" }};
         --timeline-thumbnail-mobile-max-size: {{ $thumbnails.mobileMaxSize | default "128px" }};
@@ -128,15 +130,23 @@
             {{- if isset $entry "thumbnailEnabled" -}}
               {{- $showThumbnail = $entry.thumbnailEnabled -}}
             {{- end -}}
+            {{- $thumbnailPosition := $entry.thumbnailPosition | default ($settings.thumbnailPosition | default "above") -}}
+            {{- if not (in (slice "above" "left" "right") $thumbnailPosition) -}}
+              {{- $thumbnailPosition = "above" -}}
+            {{- end -}}
             {{- $eventPlacement := $placement -}}
             {{- if eq $placement "alternate" -}}
               {{- $eventPlacement = cond (eq (mod .eventNumber 2) 0) "bottom" "top" -}}
             {{- end -}}
             <div
               class="timeline__item timeline__item--{{ $eventPlacement }} timeline__item--{{ cond (eq (mod .eventNumber 2) 0) "even" "odd" }}{{ if eq .eventNumber 1 }} timeline__item--first{{ end }}{{ if eq .eventNumber (len $items) }} timeline__item--last{{ end }}"
-              {{- with $entry.thumbnailSize }} style="--timeline-entry-thumbnail-size: {{ . }};"{{ end }}>
+              style="
+                --timeline-entry-thumbnail-size: {{ $entry.thumbnailSize | default ($thumbnails.size | default "112px") }};
+                --timeline-entry-thumbnail-side-min-size: {{ $entry.thumbnailSideMinSize | default ($thumbnails.sideMinSize | default "48px") }};
+                --timeline-entry-thumbnail-side-max-size: {{ $entry.thumbnailSideMaxSize | default ($thumbnails.sideMaxSize | default "96px") }};
+              ">
               <span class="timeline__marker" aria-hidden="true"></span>
-              <article class="timeline__card">
+              <article class="timeline__card timeline__card--image-{{ $thumbnailPosition }}">
                 <a class="timeline__card-link" href="{{ $item.href }}" aria-label="Read {{ $title }}"></a>
                 {{- if and $showThumbnail $thumbnail }}
                   <a class="timeline__thumbnail-link" href="{{ $item.href }}" tabindex="-1" aria-hidden="true">
@@ -147,12 +157,14 @@
                       loading="lazy" />
                   </a>
                 {{- end }}
-                <h3 class="timeline__title">
-                  <a href="{{ $item.href }}">{{ $title }}</a>
-                </h3>
-                {{- with $entry.description }}
-                  <div class="timeline__description">{{ . | markdownify }}</div>
-                {{- end }}
+                <div class="timeline__text">
+                  <h3 class="timeline__title">
+                    <a href="{{ $item.href }}">{{ $title }}</a>
+                  </h3>
+                  {{- with $entry.description }}
+                    <div class="timeline__description">{{ . | markdownify }}</div>
+                  {{- end }}
+                </div>
               </article>
             </div>
             {{- end -}}

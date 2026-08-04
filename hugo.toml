@@ -128,6 +128,7 @@ minimumItems = 2
 placement = "alternate" # alternate, top, or bottom
 itemMinWidth = "180px"
 alternateCardWidth = "180px"
+thumbnailPosition = "above" # above, left, or right; entries can override this
 itemGap = "1rem"
 trackMinHeight = "340px"
 bottomMargin = "0"
@@ -161,6 +162,8 @@ enabledOnMobile = true
 size = "112px"
 minSize = "72px"
 maxSize = "160px"
+sideMinSize = "48px"
+sideMaxSize = "96px"
 mobileSize = "96px"
 mobileMinSize = "64px"
 mobileMaxSize = "128px"
@@ -171,7 +174,8 @@ borderRadius = "4px"
 
 # Add ordered [[params.timeline.entries]] tables in the site configuration.
 # Each entry supports pageRef, anchor, title, description (Markdown), thumbnail,
-# thumbnailAlt, thumbnailEnabled, and thumbnailSize.
+# thumbnailAlt, thumbnailEnabled, thumbnailSize, thumbnailPosition,
+# thumbnailSideMinSize, and thumbnailSideMaxSize.
 
 # ---------------------------
 # Interactive map settings

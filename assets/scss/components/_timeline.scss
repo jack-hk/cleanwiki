@@ -88,11 +88,9 @@
 }
 
 .timeline__increment-label {
+  @include article-rich-text;
   align-self: end;
-  color: var(--timeline-increment-color);
-  font-size: var(--timeline-increment-font-size);
   grid-row: 1;
-  line-height: 1.35;
   overflow-wrap: anywhere;
   text-align: center;
 
@@ -174,6 +172,46 @@
   max-width: 100%;
 }
 
+.timeline__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.timeline__card--image-left,
+.timeline__card--image-right {
+  align-items: flex-start;
+  flex-direction: row;
+
+  .timeline__thumbnail-link {
+    flex: 0 1 auto;
+    max-width: var(
+      --timeline-entry-thumbnail-side-max-size,
+      var(--timeline-thumbnail-side-max-size)
+    );
+    min-width: var(
+      --timeline-entry-thumbnail-side-min-size,
+      var(--timeline-thumbnail-side-min-size)
+    );
+    width: clamp(
+      var(--timeline-entry-thumbnail-side-min-size, var(--timeline-thumbnail-side-min-size)),
+      var(--timeline-entry-thumbnail-size, var(--timeline-thumbnail-size)),
+      var(--timeline-entry-thumbnail-side-max-size, var(--timeline-thumbnail-side-max-size))
+    );
+  }
+
+  .timeline__thumbnail {
+    width: 100%;
+  }
+
+  .timeline__title {
+    text-align: left;
+  }
+}
+
+.timeline__card--image-right .timeline__thumbnail-link {
+  order: 2;
+}
+
 .timeline__thumbnail {
   border-radius: var(--timeline-thumbnail-radius);
   display: block;
@@ -189,7 +227,10 @@
 }
 
 .timeline__title {
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
   font-size: var(--timeline-title-size);
+  font-weight: var(--font-weight-bold);
   margin: 0;
   overflow-wrap: anywhere;
   text-align: center;
@@ -201,18 +242,8 @@
 }
 
 .timeline__description {
-  color: var(--timeline-text-color);
-  font-size: var(--timeline-text-size);
-  line-height: 1.5;
+  @include article-rich-text;
   overflow-wrap: anywhere;
-
-  p {
-    margin: 0 0 0.5rem;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 
 .timeline__item--bottom .timeline__card {
