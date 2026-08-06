@@ -12,6 +12,7 @@
 {{- end -}}
 {{- $icon := .Get "icon" | default "" -}}
 {{- $iconAlt := .Get "iconAlt" | default "" -}}
+{{- $iconIsSvg := and $icon (findRE `\.svg$` $icon) -}}
 {{- $iconSize := printf "%v" (.Get "iconSize" | default "1.5rem") -}}
 {{- if and $iconSize (not (findRE "[^0-9]" $iconSize)) -}}
   {{- $iconSize = printf "%spx" $iconSize -}}
@@ -21,12 +22,19 @@
   {{- if or $title $icon }}
     <header class="article-textbox__header">
       {{- with $icon }}
-        <img
-          class="article-textbox__icon"
-          src="{{ . | safeURL }}"
-          alt="{{ $iconAlt }}"
-          style="--article-textbox-icon-size: {{ $iconSize }};"
-          loading="lazy" />
+        {{- if $iconIsSvg }}
+          <span
+            class="article-textbox__icon article-textbox__icon--svg"
+            {{ if $iconAlt }}role="img" aria-label="{{ $iconAlt }}"{{ else }}aria-hidden="true"{{ end }}
+            style="--article-textbox-icon-size: {{ $iconSize }}; --article-textbox-icon-image: url('{{ . | safeURL }}');"></span>
+        {{- else }}
+          <img
+            class="article-textbox__icon"
+            src="{{ . | safeURL }}"
+            alt="{{ $iconAlt }}"
+            style="--article-textbox-icon-size: {{ $iconSize }};"
+            loading="lazy" />
+        {{- end }}
       {{- end }}
       {{- with $title }}
         <h2 class="article-textbox__title">{{ . | markdownify }}</h2>

@@ -177,6 +177,7 @@
 .page__content-footer {
   border-top: var(--page-footer-border-width) solid
     var(--page-footer-border-color);
+  clear: both;
   margin-top: var(--page-footer-margin-top);
   padding-top: var(--page-footer-padding-top);
 
@@ -190,6 +191,7 @@
 .page__footer {
   border-top: var(--page-footer-border-width) solid
     var(--page-footer-border-color);
+  clear: both;
   display: flex;
   flex-wrap: wrap;
   font-size: var(--page-footer-font-size);

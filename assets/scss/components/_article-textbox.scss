@@ -49,6 +49,18 @@
   width: var(--article-textbox-icon-size, 1.5rem);
 }
 
+.article-textbox__icon--svg {
+  background-color: var(--color-ink);
+  -webkit-mask-image: var(--article-textbox-icon-image);
+  mask-image: var(--article-textbox-icon-image);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
 .article-textbox__title {
   color: var(--color-text-default);
   font-family: var(--font-heading);
