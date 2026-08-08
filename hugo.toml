@@ -197,6 +197,8 @@ scrollWheelZoom = false
 dragging = true
 attribution = ""
 ariaLabel = "Interactive map"
+markerEnlargeSize = 1.2
+markerTransitionTime = "200ms"
 
 [params.interactiveMap.mobile]
 show = true
@@ -208,7 +210,10 @@ hideLabel = "Hide map"
 
 # Add ordered [[params.interactiveMap.markers]] tables in the site config.
 # Marker x/y values are percentages measured from the image's top-left corner.
-# Each marker supports title, Markdown description, x, y, url, pageRef, and linkLabel.
+# Each marker supports title, Markdown description, x, y, url, pageRef, linkLabel,
+# icon (SVG URL), size (pixels), minZoom, outlineWidth, and outlineColor. The
+# outline colour defaults to var(--color-map-marker-outline). An independent popup
+# image can be set with thumbnail, thumbnailAlt, thumbnailWidth, and thumbnailHeight.
 
 [params.portal]
   showcase_tiles = 3

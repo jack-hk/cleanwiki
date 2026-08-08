@@ -15,6 +15,14 @@
   {{- $markers := slice -}}
   {{- range ($settings.markers | default slice) -}}
     {{- $markerUrl := .url | default "" -}}
+    {{- $markerMinZoom := $settings.minZoom | default -2 -}}
+    {{- if isset . "minZoom" -}}
+      {{- $markerMinZoom = .minZoom -}}
+    {{- end -}}
+    {{- $markerOutlineWidth := 2 -}}
+    {{- if isset . "outlineWidth" -}}
+      {{- $markerOutlineWidth = .outlineWidth -}}
+    {{- end -}}
     {{- with .pageRef -}}
       {{- with site.GetPage . -}}
         {{- $markerUrl = .RelPermalink -}}
@@ -25,8 +33,17 @@
       "description" ((.description | default "") | markdownify)
       "x" (.x | default 50)
       "y" (.y | default 50)
+      "icon" (.icon | default "/SVG/position-marker.svg")
+      "size" (.size | default 32)
+      "minZoom" $markerMinZoom
+      "outlineWidth" $markerOutlineWidth
+      "outlineColor" (.outlineColor | default "var(--color-map-marker-outline)")
       "url" $markerUrl
       "linkLabel" (.linkLabel | default "Read more")
+      "thumbnail" (.thumbnail | default "")
+      "thumbnailAlt" (.thumbnailAlt | default "")
+      "thumbnailWidth" (.thumbnailWidth | default 260)
+      "thumbnailHeight" (.thumbnailHeight | default 150)
     ) -}}
   {{- end -}}
   {{- $config := dict
@@ -41,6 +58,8 @@
     "scrollWheelZoom" ($settings.scrollWheelZoom | default false)
     "dragging" ($settings.dragging | default true)
     "attribution" ($settings.attribution | default "")
+    "markerEnlargeSize" ($settings.markerEnlargeSize | default 1.2)
+    "markerTransitionTime" ($settings.markerTransitionTime | default "200ms")
     "markers" $markers
   -}}
 

@@ -82,7 +82,7 @@
 .interactive-map__activate:focus-visible,
 .interactive-map__hide:hover,
 .interactive-map__hide:focus-visible {
-  background: var(--color-interactive-hover);
+  background: var(--color-map-control-hover);
   transform: translateY(-1px);
 }
 
@@ -123,21 +123,92 @@
   border: 0;
 }
 
-.interactive-map__marker-dot {
-  background: var(--interactive-map-marker-center-color);
-  border: 5px solid var(--interactive-map-marker-color);
+.interactive-map__marker-icon {
+  background: var(--interactive-map-marker-color);
+  border: var(--interactive-map-marker-outline-width, 2px) solid
+    var(--interactive-map-marker-outline-color, var(--color-map-marker-outline));
   border-radius: 50%;
-  box-shadow: var(--interactive-map-marker-shadow);
   box-sizing: border-box;
   display: block;
-  height: 24px;
-  transition: transform 0.2s ease;
-  width: 24px;
+  filter: drop-shadow(var(--interactive-map-marker-shadow));
+  height: 100%;
+  position: relative;
+  transition:
+    transform var(--interactive-map-marker-transition-time, 200ms) ease;
+  width: 100%;
 }
 
-.interactive-map__marker-shell:hover .interactive-map__marker-dot,
-.interactive-map__marker-shell:focus .interactive-map__marker-dot {
-  transform: scale(1.15);
+.interactive-map__marker-icon-fallback {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  width: 100%;
+}
+
+.interactive-map__marker-outline,
+.interactive-map__marker-fill {
+  display: none;
+  inset: 0;
+  mask: var(--interactive-map-marker-icon) center / contain no-repeat;
+  pointer-events: none;
+  position: absolute;
+  -webkit-mask: var(--interactive-map-marker-icon) center / contain no-repeat;
+}
+
+.interactive-map__marker-outline {
+  background: var(--interactive-map-marker-outline-color, var(--color-map-marker-outline));
+}
+
+.interactive-map__marker-outline--n { transform: translateY(calc(-1 * var(--interactive-map-marker-outline-width))); }
+.interactive-map__marker-outline--ne { transform: translate(var(--interactive-map-marker-outline-diagonal), calc(-1 * var(--interactive-map-marker-outline-diagonal))); }
+.interactive-map__marker-outline--e { transform: translateX(var(--interactive-map-marker-outline-width)); }
+.interactive-map__marker-outline--se { transform: translate(var(--interactive-map-marker-outline-diagonal), var(--interactive-map-marker-outline-diagonal)); }
+.interactive-map__marker-outline--s { transform: translateY(var(--interactive-map-marker-outline-width)); }
+.interactive-map__marker-outline--sw { transform: translate(calc(-1 * var(--interactive-map-marker-outline-diagonal)), var(--interactive-map-marker-outline-diagonal)); }
+.interactive-map__marker-outline--w { transform: translateX(calc(-1 * var(--interactive-map-marker-outline-width))); }
+.interactive-map__marker-outline--nw { transform: translate(calc(-1 * var(--interactive-map-marker-outline-diagonal)), calc(-1 * var(--interactive-map-marker-outline-diagonal))); }
+
+.interactive-map__marker-fill {
+  background: var(--interactive-map-marker-color);
+  transition: background-color var(--interactive-map-marker-transition-time, 200ms) ease;
+}
+
+.interactive-map__marker-shell:focus-visible .interactive-map__marker-icon,
+.interactive-map__marker-shell--selected .interactive-map__marker-icon {
+  transform: scale(var(--interactive-map-marker-enlarge-size, 1.2));
+}
+
+.interactive-map__marker-shell:focus-visible .interactive-map__marker-fill,
+.interactive-map__marker-shell--selected .interactive-map__marker-fill {
+  background: var(--color-map-marker-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-map__marker-shell:hover .interactive-map__marker-icon {
+    transform: scale(var(--interactive-map-marker-enlarge-size, 1.2));
+  }
+
+  .interactive-map__marker-shell:hover .interactive-map__marker-fill {
+    background: var(--color-map-marker-hover);
+  }
+}
+
+@supports ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
+  .interactive-map__marker-icon {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .interactive-map__marker-icon-fallback {
+    display: none;
+  }
+
+  .interactive-map__marker-outline,
+  .interactive-map__marker-fill {
+    display: block;
+  }
 }
 
 .interactive-map .leaflet-container {
@@ -171,7 +242,7 @@
 
 .interactive-map .leaflet-bar a:hover,
 .interactive-map .leaflet-bar a:focus {
-  background: var(--color-interactive-hover);
+  background: var(--color-map-control-hover);
   color: var(--interactive-map-control-color);
 }
 
@@ -204,6 +275,17 @@
   overflow-wrap: anywhere;
 }
 
+.interactive-map__popup-thumbnail {
+  background: var(--interactive-map-popup-background);
+  border-radius: calc(var(--interactive-map-border-radius) / 2);
+  display: block;
+  height: var(--interactive-map-thumbnail-height, 150px);
+  margin: 0.15rem 0 0.75rem;
+  max-width: 100%;
+  object-fit: contain;
+  width: var(--interactive-map-thumbnail-width, 260px);
+}
+
 .interactive-map .leaflet-popup-content a {
   color: var(--interactive-map-popup-link-color);
 }
@@ -215,7 +297,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .interactive-map__marker-dot {
+  .interactive-map__marker-icon {
     transition: none;
   }
 
