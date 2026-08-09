@@ -5,7 +5,9 @@
     if (!window.L || canvas.dataset.mapInitialised === 'true') return null;
 
     const section = canvas.closest('.interactive-map');
-    const configElement = section?.querySelector('[data-interactive-map-config]');
+    const configElement = section?.querySelector(
+      '[data-interactive-map-config]',
+    );
     if (!configElement) return null;
 
     let config;
@@ -18,6 +20,10 @@
 
     const width = Number(config.imageWidth) || 1536;
     const height = Number(config.imageHeight) || 1024;
+    const mobilePopupQuery = window.matchMedia('(max-width: 768px)');
+    const tabletPopupQuery = window.matchMedia(
+      '(min-width: 769px) and (max-width: 1199px)',
+    );
     const bounds = window.L.latLngBounds([0, 0], [height, width]);
     const map = window.L.map(canvas, {
       crs: window.L.CRS.Simple,
@@ -41,17 +47,25 @@
 
     (config.markers || []).forEach((marker) => {
       const x = (Math.max(0, Math.min(100, Number(marker.x))) / 100) * width;
-      const yFromTop = (Math.max(0, Math.min(100, Number(marker.y))) / 100) * height;
+      const yFromTop =
+        (Math.max(0, Math.min(100, Number(marker.y))) / 100) * height;
       const y = height - yFromTop;
       const markerSize = Math.max(16, Math.min(96, Number(marker.size) || 32));
       const markerMinZoom = Number.isFinite(Number(marker.minZoom))
         ? Number(marker.minZoom)
         : map.getMinZoom();
       const iconPath = marker.icon || '/SVG/position-marker.svg';
-      const outlineWidth = Math.max(0, Math.min(12, Number(marker.outlineWidth) || 0));
+      const outlineWidth = Math.max(
+        0,
+        Math.min(12, Number(marker.outlineWidth) || 0),
+      );
       const outlineDiagonal = outlineWidth * Math.SQRT1_2;
-      const outlineColor = marker.outlineColor || 'var(--color-map-marker-outline)';
-      const enlargeSize = Math.max(1, Math.min(2, Number(config.markerEnlargeSize) || 1.2));
+      const outlineColor =
+        marker.outlineColor || 'var(--color-map-marker-outline)';
+      const enlargeSize = Math.max(
+        1,
+        Math.min(2, Number(config.markerEnlargeSize) || 1.2),
+      );
       const transitionTime = String(config.markerTransitionTime || '200ms');
       const icon = window.L.divIcon({
         className: 'interactive-map__marker-shell',
@@ -73,17 +87,48 @@
       };
 
       const popup = document.createElement('div');
-      popup.className = 'interactive-map__popup';
+      const thumbnailPositions = ['top', 'bottom', 'left', 'right'];
+      const thumbnailPosition = thumbnailPositions.includes(
+        marker.thumbnailPosition,
+      )
+        ? marker.thumbnailPosition
+        : 'top';
+      popup.className = `interactive-map__popup interactive-map__popup--thumbnail-${thumbnailPosition}`;
+      if (marker.showThumbnailOnMobile !== true)
+        popup.classList.add('interactive-map__popup--hide-thumbnail-mobile');
+      if (marker.showDescriptionOnMobile !== true)
+        popup.classList.add('interactive-map__popup--hide-description-mobile');
+      if (marker.showThumbnailOnTablet !== true)
+        popup.classList.add('interactive-map__popup--hide-thumbnail-tablet');
+      if (marker.showDescriptionOnTablet !== true)
+        popup.classList.add('interactive-map__popup--hide-description-tablet');
+
+      const text = document.createElement('div');
+      text.className = 'interactive-map__popup-text';
 
       const title = document.createElement('h3');
       title.className = 'interactive-map__popup-title';
-      title.textContent = marker.title || 'Map marker';
-      popup.appendChild(title);
+      if (marker.url) {
+        const titleLink = document.createElement('a');
+        titleLink.href = marker.url;
+        titleLink.textContent = marker.title || 'Map marker';
+        title.appendChild(titleLink);
+      } else {
+        title.textContent = marker.title || 'Map marker';
+      }
+      text.appendChild(title);
 
+      let thumbnail = null;
       if (marker.thumbnail) {
-        const thumbnailWidth = Math.max(80, Math.min(600, Number(marker.thumbnailWidth) || 260));
-        const thumbnailHeight = Math.max(60, Math.min(450, Number(marker.thumbnailHeight) || 150));
-        const thumbnail = document.createElement('img');
+        const thumbnailWidth = Math.max(
+          80,
+          Math.min(600, Number(marker.thumbnailWidth) || 260),
+        );
+        const thumbnailHeight = Math.max(
+          60,
+          Math.min(450, Number(marker.thumbnailHeight) || 150),
+        );
+        thumbnail = document.createElement('img');
         thumbnail.className = 'interactive-map__popup-thumbnail';
         thumbnail.src = marker.thumbnail;
         thumbnail.alt = marker.thumbnailAlt || '';
@@ -99,33 +144,86 @@
           '--interactive-map-thumbnail-height',
           `${thumbnailHeight}px`,
         );
-        popup.appendChild(thumbnail);
       }
+
+      if (thumbnail && ['top', 'left'].includes(thumbnailPosition))
+        popup.appendChild(thumbnail);
+      popup.appendChild(text);
+      if (thumbnail && ['bottom', 'right'].includes(thumbnailPosition))
+        popup.appendChild(thumbnail);
 
       if (marker.description) {
         const description = document.createElement('div');
         description.className = 'interactive-map__popup-description';
         description.innerHTML = marker.description;
-        popup.appendChild(description);
+        text.appendChild(description);
       }
 
-      if (marker.url) {
-        const link = document.createElement('a');
-        link.className = 'interactive-map__popup-link';
-        link.href = marker.url;
-        link.textContent = marker.linkLabel || 'Read more';
-        popup.appendChild(link);
-      }
+      const sideThumbnail =
+        marker.thumbnail && ['left', 'right'].includes(thumbnailPosition);
+      const thumbnailWidth = Number(marker.thumbnailWidth) || 268;
+      const desktopPopupMaxWidth = sideThumbnail
+        ? Math.max(380, Math.min(760, thumbnailWidth + 332))
+        : Math.max(300, Math.min(640, thumbnailWidth + 32));
+      const responsivePopupMaxWidth = () => {
+        if (mobilePopupQuery.matches)
+          return Math.max(
+            120,
+            Math.min(1000, Number(config.popupMaxWidthMobile) || 200),
+          );
+        if (tabletPopupQuery.matches)
+          return Math.max(
+            120,
+            Math.min(1000, Number(config.popupMaxWidthTablet) || 200),
+          );
+        return desktopPopupMaxWidth;
+      };
+      const leafletPopup = mapMarker
+        .bindPopup(popup, {
+          autoPan: false,
+          maxWidth: responsivePopupMaxWidth(),
+        })
+        .getPopup();
 
-      mapMarker.bindPopup(popup, {
-        maxWidth: Math.max(300, Math.min(640, (Number(marker.thumbnailWidth) || 268) + 32)),
-      });
+      const syncPopupMaxWidth = () => {
+        leafletPopup.options.maxWidth = responsivePopupMaxWidth();
+        if (map.hasLayer(leafletPopup)) leafletPopup.update();
+      };
+      mobilePopupQuery.addEventListener?.('change', syncPopupMaxWidth);
+      tabletPopupQuery.addEventListener?.('change', syncPopupMaxWidth);
+
+      const positionPopup = () => {
+        const popupElement = leafletPopup.getElement();
+        if (!popupElement || !map.hasLayer(leafletPopup)) return;
+
+        popupElement.classList.remove('interactive-map__leaflet-popup--below');
+        popupElement.style.removeProperty('--interactive-map-popup-shift');
+
+        const markerPoint = map.latLngToContainerPoint(mapMarker.getLatLng());
+        const popupHeight = popupElement.offsetHeight;
+        const shouldOpenBelow = markerPoint.y < popupHeight + markerSize + 12;
+
+        if (shouldOpenBelow) {
+          popupElement.classList.add('interactive-map__leaflet-popup--below');
+          popupElement.style.setProperty(
+            '--interactive-map-popup-shift',
+            `${popupHeight + markerSize + 8}px`,
+          );
+        }
+      };
+
       mapMarker.on('popupopen', () => {
-        mapMarker.getElement()?.classList.add('interactive-map__marker-shell--selected');
+        mapMarker
+          .getElement()
+          ?.classList.add('interactive-map__marker-shell--selected');
+        positionPopup();
       });
       mapMarker.on('popupclose', () => {
-        mapMarker.getElement()?.classList.remove('interactive-map__marker-shell--selected');
+        mapMarker
+          .getElement()
+          ?.classList.remove('interactive-map__marker-shell--selected');
       });
+      map.on('moveend zoomend', positionPopup);
       map.on('zoomend', syncMarkerVisibility);
       syncMarkerVisibility();
     });
@@ -138,7 +236,9 @@
     map.setMaxBounds(bounds.pad(0.15));
 
     if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver(() => map.invalidateSize({ pan: false }));
+      const observer = new ResizeObserver(() =>
+        map.invalidateSize({ pan: false }),
+      );
       observer.observe(canvas);
     }
 
@@ -148,11 +248,15 @@
   const initialiseMaps = () => {
     document.querySelectorAll('.interactive-map').forEach((section) => {
       const canvas = section.querySelector('[data-interactive-map]');
-      const activateButton = section.querySelector('[data-interactive-map-activate]');
+      const activateButton = section.querySelector(
+        '[data-interactive-map-activate]',
+      );
       const hideButton = section.querySelector('[data-interactive-map-hide]');
       const gateMaxWidth = Number(section.dataset.mapGateMaxWidth) || 768;
       const mobileQuery = window.matchMedia(`(max-width: ${gateMaxWidth}px)`);
-      const gated = section.classList.contains('interactive-map--activation-gated');
+      const gated = section.classList.contains(
+        'interactive-map--activation-gated',
+      );
       let map = null;
 
       if (!canvas) return;

@@ -14,37 +14,64 @@
   {{- $gateOnTablet := and $clickToActivate ($mobile.gateOnTablet | default false) -}}
   {{- $markers := slice -}}
   {{- range ($settings.markers | default slice) -}}
-    {{- $markerUrl := .url | default "" -}}
-    {{- $markerMinZoom := $settings.minZoom | default -2 -}}
-    {{- if isset . "minZoom" -}}
-      {{- $markerMinZoom = .minZoom -}}
+    {{- $markerEnabled := true -}}
+    {{- if isset . "enabled" -}}
+      {{- $markerEnabled = .enabled -}}
     {{- end -}}
-    {{- $markerOutlineWidth := 2 -}}
-    {{- if isset . "outlineWidth" -}}
-      {{- $markerOutlineWidth = .outlineWidth -}}
-    {{- end -}}
-    {{- with .pageRef -}}
-      {{- with site.GetPage . -}}
-        {{- $markerUrl = .RelPermalink -}}
+    {{- if $markerEnabled -}}
+      {{- $showThumbnailOnMobile := false -}}
+      {{- if isset . "showThumbnailOnMobile" -}}
+        {{- $showThumbnailOnMobile = .showThumbnailOnMobile -}}
       {{- end -}}
+      {{- $showDescriptionOnMobile := false -}}
+      {{- if isset . "showDescriptionOnMobile" -}}
+        {{- $showDescriptionOnMobile = .showDescriptionOnMobile -}}
+      {{- end -}}
+      {{- $showThumbnailOnTablet := false -}}
+      {{- if isset . "showThumbnailOnTablet" -}}
+        {{- $showThumbnailOnTablet = .showThumbnailOnTablet -}}
+      {{- end -}}
+      {{- $showDescriptionOnTablet := true -}}
+      {{- if isset . "showDescriptionOnTablet" -}}
+        {{- $showDescriptionOnTablet = .showDescriptionOnTablet -}}
+      {{- end -}}
+      {{- $markerUrl := .url | default "" -}}
+      {{- $markerMinZoom := $settings.minZoom | default -2 -}}
+      {{- if isset . "minZoom" -}}
+        {{- $markerMinZoom = .minZoom -}}
+      {{- end -}}
+      {{- $markerOutlineWidth := 2 -}}
+      {{- if isset . "outlineWidth" -}}
+        {{- $markerOutlineWidth = .outlineWidth -}}
+      {{- end -}}
+      {{- with .pageRef -}}
+        {{- with site.GetPage . -}}
+          {{- $markerUrl = .RelPermalink -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $markers = $markers | append (dict
+        "title" (.title | default "Map marker")
+        "description" ((.description | default "") | markdownify)
+        "x" (.x | default 50)
+        "y" (.y | default 50)
+        "icon" (.icon | default "/SVG/position-marker.svg")
+        "size" (.size | default 32)
+        "minZoom" $markerMinZoom
+        "outlineWidth" $markerOutlineWidth
+        "outlineColor" (.outlineColor | default "var(--color-map-marker-outline)")
+        "url" $markerUrl
+        "thumbnail" (.thumbnail | default "")
+        "thumbnailAlt" (.thumbnailAlt | default "")
+        "thumbnailWidth" (.thumbnailWidth | default 260)
+        "thumbnailHeight" (.thumbnailHeight | default 150)
+        "thumbnailPosition" (.thumbnailPosition | default "top")
+        "showThumbnailOnMobile" $showThumbnailOnMobile
+        "showDescriptionOnMobile" $showDescriptionOnMobile
+        "showThumbnailOnTablet" $showThumbnailOnTablet
+        "showDescriptionOnTablet" $showDescriptionOnTablet
+        )
+      -}}
     {{- end -}}
-    {{- $markers = $markers | append (dict
-      "title" (.title | default "Map marker")
-      "description" ((.description | default "") | markdownify)
-      "x" (.x | default 50)
-      "y" (.y | default 50)
-      "icon" (.icon | default "/SVG/position-marker.svg")
-      "size" (.size | default 32)
-      "minZoom" $markerMinZoom
-      "outlineWidth" $markerOutlineWidth
-      "outlineColor" (.outlineColor | default "var(--color-map-marker-outline)")
-      "url" $markerUrl
-      "linkLabel" (.linkLabel | default "Read more")
-      "thumbnail" (.thumbnail | default "")
-      "thumbnailAlt" (.thumbnailAlt | default "")
-      "thumbnailWidth" (.thumbnailWidth | default 260)
-      "thumbnailHeight" (.thumbnailHeight | default 150)
-    ) -}}
   {{- end -}}
   {{- $config := dict
     "image" $settings.image
@@ -60,14 +87,26 @@
     "attribution" ($settings.attribution | default "")
     "markerEnlargeSize" ($settings.markerEnlargeSize | default 1.2)
     "markerTransitionTime" ($settings.markerTransitionTime | default "200ms")
+    "popupMaxWidthMobile" ($settings.popupMaxWidthMobile | default 200)
+    "popupMaxWidthTablet" ($settings.popupMaxWidthTablet | default 200)
     "markers" $markers
   -}}
 
   {{ partial "section-header.html" ($settings.title | default "Explore the map") }}
   <section
-    class="interactive-map{{ if not $showOnMobile }} interactive-map--hidden-mobile{{ end }}{{ if $clickToActivate }} interactive-map--activation-gated{{ end }}{{ if $gateOnTablet }} interactive-map--gate-through-tablet{{ end }}"
+    class="interactive-map{{ if not $showOnMobile }}
+      interactive-map--hidden-mobile
+    {{ end }}{{ if $clickToActivate }}
+      interactive-map--activation-gated
+    {{ end }}{{ if $gateOnTablet }}
+      interactive-map--gate-through-tablet
+    {{ end }}"
     aria-label="{{ $settings.title | default "Explore the map" }}"
-    data-map-gate-max-width="{{ if $gateOnTablet }}1199{{ else }}768{{ end }}"
+    data-map-gate-max-width="{{ if $gateOnTablet }}
+      1199
+    {{ else }}
+      768
+    {{ end }}"
     style="
       --interactive-map-height: {{ $settings.height | default "520px" }};
       --interactive-map-height-mobile: {{ $mobile.height | default "360px" }};
@@ -77,13 +116,18 @@
     {{- end }}
     <div class="interactive-map__stage">
       {{- if $clickToActivate }}
-        <div class="interactive-map__mobile-preview" data-interactive-map-preview>
+        <div
+          class="interactive-map__mobile-preview"
+          data-interactive-map-preview>
           <img
             class="interactive-map__mobile-preview-image"
             src="{{ $settings.image | safeURL }}"
             alt=""
             aria-hidden="true" />
-          <button class="interactive-map__activate" type="button" data-interactive-map-activate>
+          <button
+            class="interactive-map__activate"
+            type="button"
+            data-interactive-map-activate>
             {{ $mobile.activateLabel | default "Click to see map" }}
           </button>
         </div>
@@ -94,7 +138,10 @@
         aria-label="{{ $settings.ariaLabel | default ($settings.title | default "Interactive map") }}"
         data-interactive-map></div>
       {{- if $clickToActivate }}
-        <button class="interactive-map__hide" type="button" data-interactive-map-hide>
+        <button
+          class="interactive-map__hide"
+          type="button"
+          data-interactive-map-hide>
           {{ $mobile.hideLabel | default "Hide map" }}
         </button>
       {{- end }}
