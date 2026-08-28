@@ -17,7 +17,8 @@
               <div class="portal-card__intro-text">{{ . }}</div>
             {{ else }}
               <p class="portal-card__intro-text">
-                Choose your path. Each class offers unique abilities and playstyles in the brutal world of Golden Wastes.
+                Choose your path. Each class offers unique abilities and
+                playstyles in the brutal world of Golden Wastes.
               </p>
             {{ end }}
           {{ end }}
@@ -115,6 +116,16 @@
                       class="card__image"
                       loading="lazy" />
                   </div>
+                {{ else }}
+                  {{ with partial "thumbnail-fallback-path.html" $currentPage }}
+                    <div class="card__image-wrapper">
+                      <span
+                        class="card__image card__image--fallback"
+                        role="img"
+                        aria-label="{{ $currentPage.Title }}"
+                        style="--thumbnail-fallback-image: url('{{ . | safeURL }}')"></span>
+                    </div>
+                  {{ end }}
                 {{ end }}
 
 

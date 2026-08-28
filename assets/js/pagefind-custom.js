@@ -13,10 +13,12 @@ class CustomPagefind {
       thumbnailSources: {
         primary: 'image',
         fallback1: 'thumbnail',
-        fallback2: 'featured'
+        fallback2: 'featured',
       },
-      placeholderImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23e5e7eb" width="400" height="400"/%3E%3C/svg%3E',
-      ...options
+      thumbnailFallbacks: {},
+      placeholderImage:
+        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23e5e7eb" width="400" height="400"/%3E%3C/svg%3E',
+      ...options,
     };
 
     this.container = document.querySelector(this.config.element);
@@ -41,7 +43,9 @@ class CustomPagefind {
     this.render();
     this.attachEventListeners();
     // Initialize PageFind asynchronously
-    this.initPageFind().catch(err => console.error('Failed to initialize PageFind:', err));
+    this.initPageFind().catch((err) =>
+      console.error('Failed to initialize PageFind:', err),
+    );
   }
 
   async initPageFind() {
@@ -165,12 +169,21 @@ class CustomPagefind {
   }
 
   sortResults(results, query) {
-    const queryTerms = query.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+    const queryTerms = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((t) => t.length > 0);
 
     return results.sort((a, b) => {
       // Get normalized titles
-      const titleA = (a.meta?.title || a.title || '').split('|')[0].toLowerCase().trim();
-      const titleB = (b.meta?.title || b.title || '').split('|')[0].toLowerCase().trim();
+      const titleA = (a.meta?.title || a.title || '')
+        .split('|')[0]
+        .toLowerCase()
+        .trim();
+      const titleB = (b.meta?.title || b.title || '')
+        .split('|')[0]
+        .toLowerCase()
+        .trim();
 
       // Score calculation function
       const calculateScore = (title, terms) => {
@@ -187,12 +200,14 @@ class CustomPagefind {
         }
 
         // All query terms in title = high priority
-        if (terms.every(term => title.includes(term))) {
+        if (terms.every((term) => title.includes(term))) {
           score += 250;
         }
 
         // Count how many query terms appear in title
-        const matchingTerms = terms.filter(term => title.includes(term)).length;
+        const matchingTerms = terms.filter((term) =>
+          title.includes(term),
+        ).length;
         score += matchingTerms * 50;
 
         return score;
@@ -207,10 +222,22 @@ class CustomPagefind {
   }
 
   async performSearch(query) {
-    console.log('performSearch called with query:', query, 'pagefindReady:', this.pagefindReady, 'pagefind exists:', !!window.pagefind);
+    console.log(
+      'performSearch called with query:',
+      query,
+      'pagefindReady:',
+      this.pagefindReady,
+      'pagefind exists:',
+      !!window.pagefind,
+    );
 
     if (!this.pagefindReady || !window.pagefind) {
-      console.error('PageFind not ready. Ready:', this.pagefindReady, 'Exists:', !!window.pagefind);
+      console.error(
+        'PageFind not ready. Ready:',
+        this.pagefindReady,
+        'Exists:',
+        !!window.pagefind,
+      );
       return;
     }
 
@@ -223,7 +250,11 @@ class CustomPagefind {
       console.log('Search result object:', searchResults);
 
       // PageFind returns an object with results array
-      if (searchResults && searchResults.results && Array.isArray(searchResults.results)) {
+      if (
+        searchResults &&
+        searchResults.results &&
+        Array.isArray(searchResults.results)
+      ) {
         console.log('Raw results count:', searchResults.results.length);
 
         // Each result object has a .data() async method that needs to be called
@@ -235,13 +266,18 @@ class CustomPagefind {
               console.log('Loaded result data:', data);
               return {
                 ...result,
-                ...data
+                ...data,
               };
             } catch (err) {
-              console.error('Error loading result data:', err, 'for result:', result);
+              console.error(
+                'Error loading result data:',
+                err,
+                'for result:',
+                result,
+              );
               return result;
             }
-          })
+          }),
         );
 
         // Sort results: prioritize exact/near-exact title matches
@@ -264,7 +300,9 @@ class CustomPagefind {
   displayResults(results) {
     const resultsList = this.container.querySelector('.pagefind-results');
     const infoDiv = this.container.querySelector('.pagefind-results-info');
-    const searchWrapper = this.container.querySelector('.pagefind-search-wrapper');
+    const searchWrapper = this.container.querySelector(
+      '.pagefind-search-wrapper',
+    );
     const resultsCount = this.container.querySelector('.pagefind-search-count');
 
     if (!this.currentQuery.trim()) {
@@ -324,7 +362,9 @@ class CustomPagefind {
     const li = document.createElement('li');
     li.className = 'pagefind-result';
 
-    const imageHtml = this.config.showImages ? this.createThumbnail(result) : '';
+    const imageHtml = this.config.showImages
+      ? this.createThumbnail(result)
+      : '';
 
     // Get the main title and remove site name suffix (e.g., "| Golden Wastes")
     let mainTitle = result.meta?.title || result.title;
@@ -360,26 +400,54 @@ class CustomPagefind {
   createThumbnail(result) {
     let imageUrl = this.config.placeholderImage;
 
-    if (this.config.thumbnailSources.primary && result.meta?.[this.config.thumbnailSources.primary]) {
+    if (
+      this.config.thumbnailSources.primary &&
+      result.meta?.[this.config.thumbnailSources.primary]
+    ) {
       imageUrl = result.meta[this.config.thumbnailSources.primary];
     }
 
-    if (imageUrl === this.config.placeholderImage && this.config.thumbnailSources.fallback1 && result.meta?.[this.config.thumbnailSources.fallback1]) {
+    if (
+      imageUrl === this.config.placeholderImage &&
+      this.config.thumbnailSources.fallback1 &&
+      result.meta?.[this.config.thumbnailSources.fallback1]
+    ) {
       imageUrl = result.meta[this.config.thumbnailSources.fallback1];
     }
 
-    if (imageUrl === this.config.placeholderImage && this.config.thumbnailSources.fallback2 && result.meta?.[this.config.thumbnailSources.fallback2]) {
+    if (
+      imageUrl === this.config.placeholderImage &&
+      this.config.thumbnailSources.fallback2 &&
+      result.meta?.[this.config.thumbnailSources.fallback2]
+    ) {
       imageUrl = result.meta[this.config.thumbnailSources.fallback2];
     }
 
-    const iconColor = result.meta?.icon_color;
+    let iconColor = result.meta?.icon_color;
+    if (imageUrl === this.config.placeholderImage) {
+      const category = (result.meta?.category || 'other').toLowerCase();
+      const fallbackPaths =
+        this.config.thumbnailFallbacks?.[category] ||
+        this.config.thumbnailFallbacks?.other ||
+        [];
+      if (fallbackPaths.length) {
+        const seed = [...(result.url || '')].reduce(
+          (total, character) => total + character.charCodeAt(0),
+          0,
+        );
+        imageUrl = fallbackPaths[seed % fallbackPaths.length];
+        iconColor = 'var(--color-ink)';
+      }
+    }
+
     const fitThumbnail = result.meta?.thumbnail_fit === 'true';
     const thumbnail = iconColor
       ? `<span class="pagefind-result-thumb__colored-icon" role="img" aria-label="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}" style="--pagefind-icon-image: url('${this.escapeHtml(imageUrl)}'); background-color: ${this.escapeHtml(iconColor)}"></span>`
       : `<img src="${imageUrl}" alt="${this.escapeHtml(result.meta?.image_alt || result.meta?.title || '')}">`;
-    const badge = result.meta?.badge_on_thumbnail === 'true' && result.meta?.badge_path
-      ? `<span class="pagefind-result-thumb__badge" aria-hidden="true" style="--pagefind-badge-image: url('${this.escapeHtml(result.meta.badge_path)}'); --pagefind-badge-size: ${this.escapeHtml(result.meta.badge_size_percent || '64')}%"><span class="pagefind-result-thumb__badge-background" style="background-color: ${this.escapeHtml(result.meta.badge_background_color || '#e00020')}"></span><span class="pagefind-result-thumb__badge-mark" style="background-color: ${this.escapeHtml(result.meta.badge_foreground_color || 'currentColor')}"></span></span>`
-      : '';
+    const badge =
+      result.meta?.badge_on_thumbnail === 'true' && result.meta?.badge_path
+        ? `<span class="pagefind-result-thumb__badge" aria-hidden="true" style="--pagefind-badge-image: url('${this.escapeHtml(result.meta.badge_path)}'); --pagefind-badge-size: ${this.escapeHtml(result.meta.badge_size_percent || '64')}%"><span class="pagefind-result-thumb__badge-background" style="background-color: ${this.escapeHtml(result.meta.badge_background_color || '#e00020')}"></span><span class="pagefind-result-thumb__badge-mark" style="background-color: ${this.escapeHtml(result.meta.badge_foreground_color || 'currentColor')}"></span></span>`
+        : '';
 
     return `
       <div class="pagefind-result-thumb${fitThumbnail ? ' pagefind-result-thumb--fit' : ''}">
@@ -449,7 +517,7 @@ class CustomPagefind {
     loadMoreBtn.addEventListener('click', () => {
       const newCount = Math.min(
         this.displayedCount + this.config.loadMoreCount,
-        allResults.length
+        allResults.length,
       );
 
       const newResults = allResults.slice(this.displayedCount, newCount);

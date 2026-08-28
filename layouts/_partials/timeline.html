@@ -77,7 +77,11 @@
 
     {{ partial "section-header.html" ($settings.title | default "Timeline") }}
     <section
-      class="timeline timeline--{{ $placement }} timeline--mobile-{{ $mobileLayout }} timeline--mobile-{{ $mobileSide }}{{ if not $thumbnailsOnMobile }} timeline--mobile-thumbnails-hidden{{ end }}{{ if $styledScrollbar }} timeline--styled-scrollbar{{ end }}{{ if $showRightHint }} timeline--right-hint-enabled{{ end }}"
+      class="timeline timeline--{{ $placement }} timeline--mobile-{{ $mobileLayout }} timeline--mobile-{{ $mobileSide }}{{ if not $thumbnailsOnMobile }}
+        timeline--mobile-thumbnails-hidden
+      {{ end }}{{ if $styledScrollbar }}
+        timeline--styled-scrollbar
+      {{ end }}{{ if $showRightHint }}timeline--right-hint-enabled{{ end }}"
       aria-label="{{ $settings.title | default "Timeline" }}"
       data-timeline-scroll
       style="
@@ -113,70 +117,107 @@
               {{- if not (in (slice "top" "bottom") $incrementPlacement) -}}
                 {{- $incrementPlacement = "top" -}}
               {{- end -}}
-              <div class="timeline__increment timeline__increment--{{ $incrementPlacement }}">
-                <span class="timeline__increment-line" aria-hidden="true"></span>
-                <div class="timeline__increment-label">{{ $increment.label | markdownify }}</div>
+              <div
+                class="timeline__increment timeline__increment--{{ $incrementPlacement }}">
+                <span
+                  class="timeline__increment-line"
+                  aria-hidden="true"></span>
+                <div class="timeline__increment-label">
+                  {{ $increment.label | markdownify }}
+                </div>
               </div>
             {{- else -}}
-            {{- $item := .item -}}
-            {{- $entry := $item.entry -}}
-            {{- $page := $item.page -}}
-            {{- $title := $entry.title | default $page.Title -}}
-            {{- $thumbnail := $entry.thumbnail | default "" -}}
-            {{- if and (not $thumbnail) ($thumbnails.usePageImage | default false) -}}
-              {{- $thumbnail = $page.Params.image | default $page.Params.thumbnail -}}
-            {{- end -}}
-            {{- $showThumbnail := $thumbnailsEnabled -}}
-            {{- if isset $entry "thumbnailEnabled" -}}
-              {{- $showThumbnail = $entry.thumbnailEnabled -}}
-            {{- end -}}
-            {{- $thumbnailPosition := $entry.thumbnailPosition | default ($settings.thumbnailPosition | default "above") -}}
-            {{- if not (in (slice "above" "left" "right") $thumbnailPosition) -}}
-              {{- $thumbnailPosition = "above" -}}
-            {{- end -}}
-            {{- $eventPlacement := $placement -}}
-            {{- if eq $placement "alternate" -}}
-              {{- $eventPlacement = cond (eq (mod .eventNumber 2) 0) "bottom" "top" -}}
-            {{- end -}}
-            <div
-              class="timeline__item timeline__item--{{ $eventPlacement }} timeline__item--{{ cond (eq (mod .eventNumber 2) 0) "even" "odd" }}{{ if eq .eventNumber 1 }} timeline__item--first{{ end }}{{ if eq .eventNumber (len $items) }} timeline__item--last{{ end }}"
-              style="
+              {{- $item := .item -}}
+              {{- $entry := $item.entry -}}
+              {{- $page := $item.page -}}
+              {{- $title := $entry.title | default $page.Title -}}
+              {{- $thumbnail := $entry.thumbnail | default "" -}}
+              {{- if and (not $thumbnail) ($thumbnails.usePageImage | default false) -}}
+                {{- $thumbnail = $page.Params.image | default $page.Params.thumbnail -}}
+              {{- end -}}
+              {{- $fallbackThumbnail := "" -}}
+              {{- if not $thumbnail -}}
+                {{- $fallbackThumbnail = partial "thumbnail-fallback-path.html" $page -}}
+              {{- end -}}
+              {{- $showThumbnail := $thumbnailsEnabled -}}
+              {{- if isset $entry "thumbnailEnabled" -}}
+                {{- $showThumbnail = $entry.thumbnailEnabled -}}
+              {{- end -}}
+              {{- $thumbnailPosition := $entry.thumbnailPosition | default ($settings.thumbnailPosition | default "above") -}}
+              {{- if not (in (slice "above" "left" "right") $thumbnailPosition) -}}
+                {{- $thumbnailPosition = "above" -}}
+              {{- end -}}
+              {{- $eventPlacement := $placement -}}
+              {{- if eq $placement "alternate" -}}
+                {{- $eventPlacement = cond (eq (mod .eventNumber 2) 0) "bottom" "top" -}}
+              {{- end -}}
+              <div
+                class="timeline__item timeline__item--{{ $eventPlacement }} timeline__item--{{ cond (eq (mod .eventNumber 2) 0) "even" "odd" }}{{ if eq .eventNumber 1 }}
+                  timeline__item--first
+                {{ end }}{{ if eq .eventNumber (len $items) }}
+                  timeline__item--last
+                {{ end }}"
+                style="
                 --timeline-entry-thumbnail-size: {{ $entry.thumbnailSize | default ($thumbnails.size | default "112px") }};
                 --timeline-entry-thumbnail-side-min-size: {{ $entry.thumbnailSideMinSize | default ($thumbnails.sideMinSize | default "48px") }};
                 --timeline-entry-thumbnail-side-max-size: {{ $entry.thumbnailSideMaxSize | default ($thumbnails.sideMaxSize | default "96px") }};
               ">
-              <span class="timeline__marker" aria-hidden="true"></span>
-              <article class="timeline__card timeline__card--image-{{ $thumbnailPosition }}">
-                <a class="timeline__card-link" href="{{ $item.href }}" aria-label="Read {{ $title }}"></a>
-                {{- if and $showThumbnail $thumbnail }}
-                  <a class="timeline__thumbnail-link" href="{{ $item.href }}" tabindex="-1" aria-hidden="true">
-                    <img
-                      class="timeline__thumbnail"
-                      src="{{ $thumbnail | safeURL }}"
-                      alt="{{ $entry.thumbnailAlt | default "" }}"
-                      loading="lazy" />
-                  </a>
-                {{- end }}
-                <div class="timeline__text">
-                  <h3 class="timeline__title">
-                    <a href="{{ $item.href }}">{{ $title }}</a>
-                  </h3>
-                  {{- with $entry.description }}
-                    <div class="timeline__description">{{ . | markdownify }}</div>
+                <span class="timeline__marker" aria-hidden="true"></span>
+                <article
+                  class="timeline__card timeline__card--image-{{ $thumbnailPosition }}">
+                  <a
+                    class="timeline__card-link"
+                    href="{{ $item.href }}"
+                    aria-label="Read {{ $title }}"></a>
+                  {{- if and $showThumbnail (or $thumbnail $fallbackThumbnail) }}
+                    <a
+                      class="timeline__thumbnail-link"
+                      href="{{ $item.href }}"
+                      tabindex="-1"
+                      aria-hidden="true">
+                      {{- if $thumbnail }}
+                        <img
+                          class="timeline__thumbnail"
+                          src="{{ $thumbnail | safeURL }}"
+                          alt="{{ $entry.thumbnailAlt | default "" }}"
+                          loading="lazy" />
+                      {{- else }}
+                        <span
+                          class="timeline__thumbnail timeline__thumbnail--fallback"
+                          style="--thumbnail-fallback-image: url('{{ $fallbackThumbnail | safeURL }}')"></span>
+                      {{- end }}
+                    </a>
                   {{- end }}
-                </div>
-              </article>
-            </div>
+                  <div class="timeline__text">
+                    <h3 class="timeline__title">
+                      <a href="{{ $item.href }}">{{ $title }}</a>
+                    </h3>
+                    {{- with $entry.description }}
+                      <div class="timeline__description">
+                        {{ . | markdownify }}
+                      </div>
+                    {{- end }}
+                  </div>
+                </article>
+              </div>
             {{- end -}}
           {{- end }}
         </div>
       </div>
       {{- if $showScrollButtons }}
         <div class="timeline__scroll-controls" data-timeline-controls hidden>
-          <button class="timeline__scroll-button timeline__scroll-button--left" type="button" aria-label="Scroll timeline left" data-timeline-left>
+          <button
+            class="timeline__scroll-button timeline__scroll-button--left"
+            type="button"
+            aria-label="Scroll timeline left"
+            data-timeline-left>
             <span aria-hidden="true"></span>
           </button>
-          <button class="timeline__scroll-button timeline__scroll-button--right" type="button" aria-label="Scroll timeline right" data-timeline-right>
+          <button
+            class="timeline__scroll-button timeline__scroll-button--right"
+            type="button"
+            aria-label="Scroll timeline right"
+            data-timeline-right>
             <span aria-hidden="true"></span>
           </button>
         </div>

@@ -13,7 +13,8 @@
       fallback1: "{{ site.Params.pagefind.thumbnailSources.fallback1 | default "thumbnail" }}",
       fallback2: "{{ site.Params.pagefind.thumbnailSources.fallback2 | default "featured" }}"
     },
-    placeholderImage: "{{ site.Params.pagefind.placeholderImage }}"
+    placeholderImage: "{{ site.Params.pagefind.placeholderImage }}",
+    thumbnailFallbacks: {{ site.Params.thumbnailFallbacks | jsonify | safeJS }}
   };
 
   console.log('Search bar script loaded, config:', window.pagefindConfig);
